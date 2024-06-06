@@ -40,7 +40,7 @@ export default function BookingAppointment() {
                 </p>
 
                 <nav aria-label="breadcrumb" className="d-inline-block mt-3">
-                  <ul className="breadcrumb bg-transparent mb-0 py-1">
+                  <ul className="breadcrumb bg-light rounded mb-0 py-1">
                     <li className="breadcrumb-item">
                       <Link href="/">الرئيسية</Link>
                     </li>
