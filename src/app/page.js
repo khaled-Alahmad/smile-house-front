@@ -84,7 +84,7 @@ export default function Home() {
             <div className="col-12">
               <div className="heading-title" dir="rtl">
                 <Image
-                  src="/images/logo-icon.png"
+                  src="/images/logo.png"
                   width={54}
                   height={50}
                   alt=""

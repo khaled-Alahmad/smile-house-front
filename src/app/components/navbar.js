@@ -149,6 +149,9 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 className="logo-dark-mode"
                 alt=""
               />
+              <h6 className="d-inline" style={{ color: "var(--bs-blue)" }}>
+                سمايل هاوس
+              </h6>
             </Link>
           )}
         </div>
