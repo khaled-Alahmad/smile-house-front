@@ -73,6 +73,7 @@ export default function Home() {
       />
 
       <section
+        id="hero"
         className="bg-half-260 d-table w-100"
         style={{ backgroundImage: `url('${data.hero["main_image"]}')` }}
         dir="rtl"
@@ -97,9 +98,7 @@ export default function Home() {
                 <p className="para-desc text-white-50 mb-0">
                   {/* طبيب رائع إذا كنت بحاجة إلى حصول أحد أفراد أسرتك على مساعدة
                   فورية فعالة أو علاج طارئ أو استشارة بسيطة. */}
-                  {data.hero
-                    ? data.hero["title"]
-                    : "title  Not Available"}
+                  {data.hero ? data.hero["title"] : "title  Not Available"}
                 </p>
 
                 <div className="mt-4 pt-2">
@@ -312,7 +311,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CtaOne />
+      <CtaOne data={data} />
       <div id="patients"></div>
       <section className="section">
         <div className="container">
@@ -434,7 +433,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <Footer />
+      <Footer data={data} />
       <ScrollTop />
     </>
   );

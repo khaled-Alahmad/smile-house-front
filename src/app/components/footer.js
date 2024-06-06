@@ -10,9 +10,14 @@ import {
   FiMail,
   FiPhone,
   FiMapPin,
+  BsFillPhoneLandscapeFill,
+  FiPhoneCall,
 } from "../assets/icons/vander";
 
-export default function Footer() {
+export default function Footer({ data }) {
+  if (!data) {
+    return <div>lodaing...</div>;
+  }
   return (
     <>
       <footer className="" dir="rtl">
@@ -28,15 +33,17 @@ export default function Footer() {
                 />
               </Link>
               <p className="mt-4 ms-xl-5">
-                Great doctor if you need your family member to get effective
+                {/* Great doctor if you need your family member to get effective
                 immediate assistance, emergency treatment or a simple
-                consultation.
+                consultation. */}
+                {data.footer["terms_conditions"] ??
+                  "Great doctor if you need your family member to get effective            immediate assistance, emergency treatment or a simple                consultation."}
               </p>
             </div>
 
             <div className="col-xl-7 col-lg-8 col-md-12">
               <div className="row">
-                <div className="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                {/* <div className="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                   <h5 className="footer-head">Company</h5>
                   <ul className="list-unstyled footer-list mt-4">
                     <li>
@@ -70,101 +77,103 @@ export default function Footer() {
                       </Link>
                     </li>
                   </ul>
-                </div>
+                </div> */}
 
-                <div className="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                  <h5 className="footer-head">Departments</h5>
+                <div className="col-md-6 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                  <h5 className="footer-head">الأقسام</h5>
                   <ul className="list-unstyled footer-list mt-4">
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Eye Care
+                      <Link href="#hero" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> الرئيسية
                       </Link>
                     </li>
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i>{" "}
-                        Psychotherapy
+                      <Link href="#about" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> عنا
                       </Link>
                     </li>
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Dental
-                        Care
+                      <Link href="#departments" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> الخدمات
                       </Link>
                     </li>
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Orthopedic
+                      <Link href="#doctors" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> الأطباء
                       </Link>
                     </li>
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Cardiology
+                      <Link href="#patients" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> المرضى
                       </Link>
                     </li>
                     <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Gynecology
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Neurology
+                      <Link href="#blogs" className="text-foot">
+                        <i className="mdi mdi-chevron-left ms-1"></i> الأخبار
                       </Link>
                     </li>
                   </ul>
                 </div>
 
-                <div className="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                  <h5 className="footer-head">Contact us</h5>
+                <div className="col-md-6 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                  <h5 className="footer-head">معلومات التواصل</h5>
                   <ul className="list-unstyled footer-list mt-4">
                     <li className="d-flex align-items-center">
                       <FiMail className="fea icon-sm text-foot align-middle" />
                       <Link
-                        href="mailto:contact@example.com"
+                        href={`mailto:${data.contact["email"]}`}
                         className="text-foot me-2"
                       >
-                        contact@example.com
+                        {data.contact["email"]}
                       </Link>
                     </li>
 
                     <li className="d-flex align-items-center">
                       <FiPhone className="fea icon-sm text-foot align-middle" />
                       <Link
-                        href="tel:+152534-468-854"
+                        href={`tel:${data.contact["phone"]}`}
                         className="text-foot me-2"
                       >
-                        +152 534-468-854
+                        {data.contact["phone"]}
                       </Link>
                     </li>
 
                     <li className="d-flex align-items-center">
                       <FiMapPin className="fea icon-sm text-foot align-middle" />
                       <Link href="#" className="video-play-icon text-foot me-2">
-                        View on Google map
+                        {data.contact["location"] ?? "غير متوفر"}
                       </Link>
                     </li>
                   </ul>
 
                   <ul className="list-unstyled social-icon footer-social mb-0 mt-4">
                     <li className="list-inline-item">
-                      <Link href="#" className="rounded-pill">
+                      <Link
+                        href={data.contact["facebook"] ?? "#"}
+                        className="rounded-pill"
+                        target="_blank"
+                      >
                         <FiFacebook className="fea icon-sm fea-social" />
                       </Link>
                     </li>
                     <li className="list-inline-item">
-                      <Link href="#" className="rounded-pill">
+                      <Link
+                        href={data.contact["instagram"] ?? "#"}
+                        className="rounded-pill"
+                        target="_blank"
+                      >
                         <FiInstagram className="fea icon-sm fea-social" />
                       </Link>
                     </li>
                     <li className="list-inline-item">
-                      <Link href="#" className="rounded-pill">
-                        <FiTwitter className="fea icon-sm fea-social" />
-                      </Link>
-                    </li>
-                    <li className="list-inline-item">
-                      <Link href="#" className="rounded-pill">
-                        <FiLinkedin className="fea icon-sm fea-social" />
+                      <Link
+                        href={`https://wa.me/${
+                          data.contact["whatsapp"].replace("+", "00") ?? "#"
+                        }`}
+                        target="_blank"
+                        className="rounded-pill"
+                      >
+                        <FiPhoneCall className="fea icon-sm fea-social" />
                       </Link>
                     </li>
                   </ul>
@@ -177,46 +186,8 @@ export default function Footer() {
         <div className="container mt-5">
           <div className="pt-4 footer-bar">
             <div className="row align-items-center">
-              <div className="col-sm-6">
-                <div className="text-sm-start text-center">
-                  <p className="mb-0">
-                    {new Date().getFullYear()}© Doctris. Design & Develop with{" "}
-                    <i className="mdi mdi-heart text-danger"></i> by{" "}
-                    <Link
-                      href="https://shreethemes.in/"
-                      target="_blank"
-                      className="text-reset"
-                    >
-                      Shreethemes
-                    </Link>
-                    .
-                  </p>
-                </div>
-              </div>
-
-              <div className="col-sm-6 mt-4 mt-sm-0">
-                <ul className="list-unstyled footer-list text-sm-end text-center mb-0">
-                  <li className="list-inline-item">
-                    <Link href="/terms" className="text-foot ms-2">
-                      Terms
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
-                    <Link href="/privacy" className="text-foot ms-2">
-                      Privacy
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
-                    <Link href="/aboutus" className="text-foot ms-2">
-                      About
-                    </Link>
-                  </li>
-                  <li className="list-inline-item">
-                    <Link href="/contact" className="text-foot ms-2">
-                      Contact
-                    </Link>
-                  </li>
-                </ul>
+              <div className="text-sm-center text-center">
+                <p className="mb-0">{data.footer["copyright"]}</p>
               </div>
             </div>
           </div>

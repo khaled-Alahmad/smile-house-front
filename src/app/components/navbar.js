@@ -463,14 +463,8 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
           dir="rtl"
         >
           <ul className={manuClass}>
-            <li
-              className={`${
-                ["", "/", "/index-two", "/index-three"].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-menu-item`}
-            >
-              <Link href="/">الرئيسية</Link>
+            <li className={` has-submenu parent-menu-item`}>
+              <Link href="#hero">الرئيسية</Link>
               {/* <span className="menu-arrow"></span> */}
               {/* <ul className="submenu">
                                 <li className={manu === "/" || "" ? "active" : ""}><Link href="/" className="sub-menu-item">Index One</Link></li>
@@ -479,13 +473,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                             </ul> */}
             </li>
 
-            <li
-                  className={`${
-                    ["#about"].includes(manu)
-                      ? "active"
-                      : ""
-                  } has-submenu parent-menu-item`}
-            >
+            <li className={`has-submenu parent-menu-item`}>
               <Link href="#about">عنا</Link>
               {/* <span className="menu-arrow"></span> */}
               {/* <ul className="submenu">
@@ -615,19 +603,8 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
               </ul> */}
             </li>
 
-            <li
-              className={`${
-                [
-                  "/patient-dashboard",
-                  "/patient-profile",
-                  "/booking-appointment",
-                  "/patient-invoice",
-                ].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-menu-item`}
-            >
-              <Link href="#departments">الأقسام</Link>
+            <li className={` has-submenu parent-menu-item`}>
+              <Link href="#departments">الخدمات</Link>
               {/* <span className="menu-arrow"></span>
               <ul className="submenu">
                 <li className={manu === "/patient-dashboard" ? "active" : ""}>
@@ -665,22 +642,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                             </ul>
                         </li> */}
 
-            <li
-              className={`${
-                [
-                  // "/aboutus",
-                  // "/departments",
-                  // "/faqs",
-                  // "/blogs",
-                  // "/blog-detail",
-                  // "/terms",
-                  // "/privacy",
-                  // "/error",
-                ].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-parent-menu-item`}
-            >
+            <li className={` has-submenu parent-parent-menu-item`}>
               <Link href="#doctors">الأطباء</Link>
               {/* <span className="menu-arrow"></span>
               <ul className="submenu">
