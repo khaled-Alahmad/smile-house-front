@@ -22,15 +22,17 @@ const settings = {
   speed: 400,
   gutter: 16,
 };
-export default function Patients({data}) {
+export default function Patients({ data }) {
   return (
     <div className="client-review-slider">
       <TinySlider settings={settings}>
         {data.map((item, index) => (
           <div className="tiny-slide text-center" key={index}>
-            <p className="text-muted fw-normal fst-italic">{item.customer_comment}</p>
+            <p className="text-muted fw-normal fst-italic">
+              {item.customer_comment}
+            </p>
             <Image
-              src={'/images/client/01.jpg'}
+              src={item.customer_image}
               width={65}
               height={65}
               className="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3"
@@ -55,7 +57,7 @@ export default function Patients({data}) {
             </ul>
             <h6 dir="rtl" className="text-primary">
               {/* <small className="text-muted">{item.title}</small> */}
-              {item.customer_name} 
+              {item.customer_name}
             </h6>
           </div>
         ))}

@@ -372,7 +372,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
             </div>
           </Offcanvas> */}
 
-          <li className="list-inline-item mb-0 ms-1">
+          {/* <li className="list-inline-item mb-0 ms-1">
             <Link
               href="#"
               className="btn btn-icon btn-pills btn-primary"
@@ -419,9 +419,9 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 </div>
               </div>
             </Offcanvas.Body>
-          </Offcanvas>
+          </Offcanvas> */}
 
-          <li className="list-inline-item mb-0 ms-1">
+          {/* <li className="list-inline-item mb-0 ms-1">
             <div className="dropdown dropdown-primary">
               <button
                 type="button"
@@ -485,7 +485,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 </Link>
               </div>
             </div>
-          </li>
+          </li> */}
         </ul>
 
         <div

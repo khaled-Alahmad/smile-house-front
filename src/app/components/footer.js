@@ -172,7 +172,7 @@ export default function Footer({ data }) {
                     <li className="list-inline-item">
                       <Link
                         href={`https://wa.me/${
-                          data.contact["whatsapp"].replace("+", "00") ?? "#"
+                          data.contact["whatsapp"] ?? "#"
                         }`}
                         target="_blank"
                         className="rounded-pill"
