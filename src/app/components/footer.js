@@ -25,12 +25,16 @@ export default function Footer({ data }) {
           <div className="row">
             <div className="col-xl-5 col-lg-4 mb-0 mb-md-4 pb-0 pb-md-2">
               <Link href="#" className="logo-footer">
-                <Image
+                {/* <Image
                   src="/images/logo-light.png"
                   width={115}
                   height={22}
                   alt=""
-                />
+                /> */}
+                <Image src="/images/logo.png" width={60} height={60} alt="" />
+                <h5 className="d-inline me-lg-2">
+                  {data.hero["brand-name"] ?? "سمايل هاوس"}
+                </h5>
               </Link>
               <p className="mt-4 ms-xl-5">
                 {/* Great doctor if you need your family member to get effective
