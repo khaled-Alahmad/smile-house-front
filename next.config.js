@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["smile-house.promotion22.com"],
+    domains: ["smile-house.promotion22.com", "doctris-landing.vercel.app"],
   },
 };
 module.exports = {

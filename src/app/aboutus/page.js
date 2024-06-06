@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,8 +18,40 @@ import {
 } from "../assets/icons/vander";
 
 import { medicalServices, doctorData } from "../data/data";
+import { FetchCategories, fetchData } from "../data/dataApi";
 
 export default function AboutUs() {
+  const [data, setData] = useState(null);
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    async function fetchDataAsync() {
+      try {
+        const fetchedData = await fetchData();
+        console.log("Fetched data:", fetchedData);
+        setData(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    async function fetchCategoriesAsync() {
+      try {
+        const fetchedCategories = await FetchCategories();
+        console.log("Fetched categories:", fetchedCategories);
+        setCategories(fetchedCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error.message);
+      }
+    }
+    fetchDataAsync();
+    fetchCategoriesAsync();
+  }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  console.log("about :", data);
   return (
     <>
       <Navbar
@@ -79,13 +112,20 @@ export default function AboutUs() {
       <section className="section" dir="rtl">
         <div className="container">
           <div className="row align-items-center">
-            <AboutImage colClass="col-lg-5 col-md-6" />
+            <AboutImage
+              colClass="col-lg-5 col-md-6"
+              imageSrc={data.attachment["about-image"]}
+              VideoSrc={data.attachment["second-video"]}
+            />
 
             <div className="col-lg-7 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
               <div className="ms-lg-4">
                 <div className="section-title me-lg-5">
                   <span className="badge rounded-pill bg-soft-primary">
-                    عن سمايل هاوس
+                    عن{" "}
+                    {data.hero
+                      ? data.hero["brand-name"]
+                      : "Brand Name Not Available"}
                   </span>
                   <h4 className="title mt-3 mb-4">
                     خدمات ممتازة وصحة أفضل
@@ -93,23 +133,29 @@ export default function AboutUs() {
                     بواسطة خبراءنا
                   </h4>
                   <p className="para-desc text-muted">
-                    طبيب رائع إذا كنت بحاجة إلى توفير المساعدة الفورية والفعّالة
+                    {/* طبيب رائع إذا كنت بحاجة إلى توفير المساعدة الفورية والفعّالة
                     لأحد أفراد عائلتك، سواء كان ذلك في حالات الطوارئ أو العلاج
-                    الفوري أو الاستشارة البسيطة.
+                    الفوري أو الاستشارة البسيطة. */}
+                    {data.about
+                      ? data.about["introduction"]
+                      : "Item Not Available"}
                   </p>
                   <p className="para-desc text-muted">
-                    تتميز خدمات سمايل هاوس بالاعتماد على أحدث التقنيات الطبية
+                    {/* تتميز خدمات سمايل هاوس بالاعتماد على أحدث التقنيات الطبية
                     والمعدات الطبية الحديثة، مما يسهم في تحسين جودة الخدمات
                     المقدمة وتحقيق أفضل النتائج العلاجية للمرضى. كما يوفر المركز
                     بيئة طبية آمنة ومريحة للمرضى، مع التركيز على توفير تجربة
                     علاجية إيجابية ومريحة لكل فرد يطلب الرعاية الطبية في سمايل
-                    هاوس.
+                    هاوس. */}
+                    {data.about
+                      ? data.about["vision_mission"]
+                      : "Item Not Available"}
                   </p>
-                  <div className="mt-4">
+                  {/* <div className="mt-4">
                     <Link href="#" className="btn btn-soft-primary">
                       المزيد من التفاصيل
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -135,23 +181,30 @@ export default function AboutUs() {
           </div>
 
           <div className="row">
-            {medicalServices.slice(0, 8).map((item, index) => {
-              let Icon = item.icon;
+            {categories.slice(0, 8).map((item, index) => {
               return (
                 <div className="col-xl-3 col-md-4 col-12 mt-4 pt-2" key={index}>
                   <div className="card features feature-primary border-0">
                     <div className="icon text-center rounded-md">
-                      <Icon className="ri-eye-fill h3 mb-0" />
+                      <Image
+                        src={item.image}
+                        width={0}
+                        height={0}
+                        // sizes="100vw"
+                        style={{ width: "100%", height: "100%" }}
+                        className="h3 mb-0"
+                        alt=""
+                      />
                     </div>
                     <div className="card-body p-0 mt-3">
                       <Link href="#" className="title text-dark h5">
                         {item.title}
                       </Link>
-                      <p className="text-muted mt-3">{item.desc}</p>
-                      <Link href="#" className="link">
+                      <p className="text-muted mt-3">{item.description}</p>
+                      {/* <Link href="#" className="link">
                         اقرأ المزيد{" "}
                         <FiArrowLeft className="mb-0 align-middle" />
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </div>
@@ -178,7 +231,7 @@ export default function AboutUs() {
           </div>
 
           <div className="row align-items-center">
-            {doctorData.slice(0, 4).map((item, index) => {
+            {data.doctors.slice(0, 4).map((item, index) => {
               return (
                 <div
                   className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
@@ -190,8 +243,8 @@ export default function AboutUs() {
                         src={item.image}
                         width={0}
                         height={0}
-                        sizes="100vw"
-                        style={{ width: "100%", height: "auto" }}
+                        sizes="100vh"
+                        style={{ width: "100%", height: "300px" }}
                         className="img-fluid"
                         alt=""
                       />

@@ -1,14 +1,46 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
-
 import { BiLeftArrowAlt, FiArrowRight } from "../assets/icons/vander";
-
-import { medicalServices } from "../data/data";
 import Footer from "../components/footer";
 import ScrollTop from "../components/scrollTop";
+import axios from "axios";
+import { apiUrl } from "../data/dataApi";
+import Image from "next/image";
 
 export default function Departments() {
+  const [services, setServices] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem("categoryId");
+    if (id) {
+      setCategoryId(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (categoryId) {
+      async function getServices() {
+        try {
+          const response = await axios.get(
+            `${apiUrl}services?category_id=${categoryId}`
+          );
+          console.log(response.data.data);
+          setServices(response.data.data);
+        } catch (error) {
+          console.error("Error fetching data:", error.message);
+        }
+      }
+
+      getServices();
+    }
+  }, [categoryId]);
+  // if (!services.length <= 0) {
+  //   // Render loading state or return null if you don't want to render anything
+  //   return <div>not found</div>;
+  // }
   return (
     <>
       <Navbar
@@ -66,33 +98,49 @@ export default function Departments() {
       <section className="section" dir="rtl">
         <div className="container">
           <div className="row">
-            {medicalServices.map((item, index) => {
-              let Icon = item.icon;
-              return (
-                <div
-                  className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
-                  key={index}
-                >
-                  <div className="card features feature-primary border-0">
-                    <div className="icon text-center rounded-md">
-                      <Icon className="h3 mb-0" />
+            {services.length > 0
+              ? services.map((item, index) => {
+                  return (
+                    <div
+                      className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
+                      key={index}
+                    >
+                      <div className="card features feature-primary border-0">
+                        <div className="icon text-center rounded-md">
+                          {/* <Icon className="h3 mb-0" /> */}
+                          <Image
+                            src={item.image}
+                            width={0}
+                            height={0}
+                            // sizes="100vw"
+                            style={{ width: "100%", height: "auto" }}
+                            className="h3 mb-0"
+                            alt=""
+                          />
+                        </div>
+                        <div className="card-body p-0 mt-3">
+                          <Link
+                            href={{
+                              pathname: "/departments",
+                              query: { id: item.id },
+                            }}
+                            className="title text-dark h5"
+                          >
+                            {item.name}
+                          </Link>
+                          <p className="text-muted mt-3">{item.description}</p>
+                          <Link href="#" className="link">
+                            <Link href="/departments" className="link">
+                              اقرأ المزيد{" "}
+                              <BiLeftArrowAlt className="align-middle" />
+                            </Link>{" "}
+                          </Link>
+                        </div>
+                      </div>
                     </div>
-                    <div className="card-body p-0 mt-3">
-                      <Link href="#" className="title text-dark h5">
-                        {item.title}
-                      </Link>
-                      <p className="text-muted mt-3">{item.desc}</p>
-                      <Link href="#" className="link">
-                        <Link href="/departments" className="link">
-                          اقرأ المزيد{" "}
-                          <BiLeftArrowAlt className="align-middle" />
-                        </Link>{" "}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                })
+              : "لا يوجد"}
           </div>
         </div>
       </section>
