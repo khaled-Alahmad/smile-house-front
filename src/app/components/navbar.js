@@ -82,16 +82,23 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
           {navDark === true ? (
             <Link className="logo" href="/">
               <Image
-                src="/images/logo-dark.png"
-                width={115}
-                height={22}
+                src="/images/logo.png"
+                width={60}
+                height={60}
                 className="logo-light-mode"
                 alt=""
               />
-              <Image
+              {/* <Image
                 src="/images/logo-light.png"
                 width={115}
                 height={22}
+                className="logo-dark-mode"
+                alt=""
+              /> */}
+              <Image
+                src="/images/logo.png"
+                width={60}
+                height={60}
                 className="logo-dark-mode"
                 alt=""
               />
@@ -99,28 +106,52 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
           ) : (
             <Link className="logo" href="/">
               <span className="logo-light-mode">
-                <Image
+                {/* <Image
                   src="/images/logo-dark.png"
                   className="l-dark"
                   width={115}
                   height={22}
                   alt=""
-                />
-                <Image
+                /> */}
+                {/* <Image
                   src="/images/logo-light.png"
                   className="l-light"
                   width={115}
                   height={22}
                   alt=""
+                /> */}
+                <Image
+                  src="/images/logo.png"
+                  className="l-dark"
+                  width={60}
+                  height={60}
+                  alt=""
+                />
+                <Image
+                  src="/images/logo.png"
+                  className="l-light"
+                  width={60}
+                  height={60}
+                  alt=""
                 />
               </span>
-              <Image
+              {/* <Image
                 src="/images/logo-light.png"
                 width={115}
                 height={22}
                 className="logo-dark-mode"
                 alt=""
+              /> */}
+              <Image
+                src="/images/logo.png"
+                width={60}
+                height={60}
+                className="logo-dark-mode"
+                alt=""
               />
+              <h6 className="d-inline" style={{ color: "var(--bs-blue)" }}>
+                سمايل هاوس
+              </h6>
             </Link>
           )}
         </div>
@@ -463,13 +494,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
           dir="rtl"
         >
           <ul className={manuClass}>
-            <li
-              className={`${
-                ["", "/", "/index-two", "/index-three"].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-menu-item`}
-            >
+            <li className={` has-submenu parent-menu-item`}>
               <Link href="/">الرئيسية</Link>
               {/* <span className="menu-arrow"></span> */}
               {/* <ul className="submenu">
@@ -479,13 +504,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                             </ul> */}
             </li>
 
-            <li
-                  className={`${
-                    ["#about"].includes(manu)
-                      ? "active"
-                      : ""
-                  } has-submenu parent-menu-item`}
-            >
+            <li className={`has-submenu parent-menu-item`}>
               <Link href="#about">عنا</Link>
               {/* <span className="menu-arrow"></span> */}
               {/* <ul className="submenu">
@@ -615,19 +634,8 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
               </ul> */}
             </li>
 
-            <li
-              className={`${
-                [
-                  "/patient-dashboard",
-                  "/patient-profile",
-                  "/booking-appointment",
-                  "/patient-invoice",
-                ].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-menu-item`}
-            >
-              <Link href="#departments">الأقسام</Link>
+            <li className={` has-submenu parent-menu-item`}>
+              <Link href="#departments">الخدمات</Link>
               {/* <span className="menu-arrow"></span>
               <ul className="submenu">
                 <li className={manu === "/patient-dashboard" ? "active" : ""}>
@@ -665,22 +673,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                             </ul>
                         </li> */}
 
-            <li
-              className={`${
-                [
-                  // "/aboutus",
-                  // "/departments",
-                  // "/faqs",
-                  // "/blogs",
-                  // "/blog-detail",
-                  // "/terms",
-                  // "/privacy",
-                  // "/error",
-                ].includes(manu)
-                  ? "active"
-                  : ""
-              } has-submenu parent-parent-menu-item`}
-            >
+            <li className={` has-submenu parent-parent-menu-item`}>
               <Link href="#doctors">الأطباء</Link>
               {/* <span className="menu-arrow"></span>
               <ul className="submenu">
@@ -747,7 +740,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
             </li>
             <li className={manu === "/contact" ? "active" : ""}>
               <Link href="#blogs" className="sub-menu-item">
-                الأحبار
+                الأخبار
               </Link>
             </li>
           </ul>

@@ -25,11 +25,14 @@ import {
 import { medicalServices, doctorData, blogData, partners } from "./data/data";
 import { FetchCategories, apiUrl, fetchData } from "./data/dataApi";
 import { useEffect, useState } from "react";
+import Departments from "./departments/page";
+import { useRouter } from "next/navigation";
 // import imageDoctor from "../../public/images/doctors/01.jpg";
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [categories, setCategories] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -58,7 +61,10 @@ export default function Home() {
     // Render loading state or return null if you don't want to render anything
     return <div>Loading...</div>;
   }
-  console.log(categories["data"]);
+  console.log(data);
+  const handleClick = (id) => {
+    localStorage.setItem("categoryId", id);
+  };
   return (
     <>
       <Navbar
@@ -67,8 +73,9 @@ export default function Home() {
       />
 
       <section
+        id="hero"
         className="bg-half-260 d-table w-100"
-        style={{ backgroundImage: `url('${data.data.hero["main_image"]}')` }}
+        style={{ backgroundImage: `url('${data.hero["main_image"]}')` }}
         dir="rtl"
       >
         <div className="bg-overlay bg-overlay-dark"></div>
@@ -77,23 +84,21 @@ export default function Home() {
             <div className="col-12">
               <div className="heading-title" dir="rtl">
                 <Image
-                  src="/images/logo-icon.png"
+                  src="/images/logo.png"
                   width={54}
                   height={50}
                   alt=""
                 />
                 <h4 className="display-4 fw-bold text-white title-dark mt-3 mb-4">
                   {/* قابل <br /> أفضل طبيب */}
-                  {data.data.hero
-                    ? data.data.hero["brand-name"]
+                  {data.hero
+                    ? data.hero["brand-name"]
                     : "Brand Name Not Available"}
                 </h4>
                 <p className="para-desc text-white-50 mb-0">
                   {/* طبيب رائع إذا كنت بحاجة إلى حصول أحد أفراد أسرتك على مساعدة
                   فورية فعالة أو علاج طارئ أو استشارة بسيطة. */}
-                  {data.data.hero
-                    ? data.data.hero["title"]
-                    : "title  Not Available"}
+                  {data.hero ? data.hero["title"] : "title  Not Available"}
                 </p>
 
                 <div className="mt-4 pt-2">
@@ -115,24 +120,28 @@ export default function Home() {
       </section>
 
       <section className="section" dir="rtl">
-        <FeatureOne />
+        <FeatureOne data={data.info} />
         <div id="about"></div>
         <div className="container mt-100 ">
           <div className="row align-items-center">
-            <AboutImage colClass="col-lg-5 col-md-6" />
+            <AboutImage
+              colClass="col-lg-5 col-md-6"
+              imageSrc={data.attachment["about-image"]}
+              VideoSrc={data.attachment["second-video"]}
+            />
 
             <div className="col-lg-7 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
               <div className="ms-lg-4">
                 <div className="section-title">
                   <h4 className="title mb-4">حول شركتنا</h4>
                   <p className="text-muted para-desc">
-                    {data.data.about
-                      ? data.data.about["introduction"]
+                    {data.about
+                      ? data.about["introduction"]
                       : "introduction  Not Available"}
                   </p>
                   <p className="text-muted para-desc mb-0">
-                    {data.data.about
-                      ? data.data.about["vision_mission"]
+                    {data.about
+                      ? data.about["vision_mission"]
                       : "vision mission  Not Available"}
                   </p>
                 </div>
@@ -165,7 +174,7 @@ export default function Home() {
           </div>
 
           <div className="row">
-            {categories["data"].map((item, index) => {
+            {categories.map((item, index) => {
               return (
                 <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
                   <div className="card features feature-primary border-0">
@@ -176,20 +185,28 @@ export default function Home() {
                         width={0}
                         height={0}
                         // sizes="100vw"
-                        style={{ width: "100%", height: "auto" }}
+                        style={{ width: "100%", height: "100%" }}
                         className="h3 mb-0"
                         alt=""
                       />
                       {/* <img src={item.image} alt=" " /> */}
                     </div>
                     <div className="card-body p-0 mt-3">
-                      <Link href="/departments" className="title text-dark h5">
-                        {item.name}
+                      <Link href="/departments" legacyBehavior>
+                        <a
+                          onClick={() => handleClick(item.id)}
+                          className="title text-dark h5"
+                        >
+                          {item.name}
+                        </a>
                       </Link>
                       <p className="text-muted mt-3">{item.description}</p>
-                      <Link href="/departments" className="link">
+                      {/* <Link
+                        href={<Departments id={item.id} />}
+                        className="link"
+                      >
                         اقرأ المزيد <BiLeftArrowAlt className="align-middle" />
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </div>
@@ -217,7 +234,7 @@ export default function Home() {
           </div>
 
           <div className="row align-items-center">
-            {data.data.doctors.slice(0, 4).map((item, index) => {
+            {data.doctors.slice(0, 4).map((item, index) => {
               return (
                 <div
                   className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
@@ -294,7 +311,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CtaOne />
+      <CtaOne data={data} />
       <div id="patients"></div>
       <section className="section">
         <div className="container">
@@ -311,7 +328,7 @@ export default function Home() {
 
           <div className="row justify-content-center">
             <div className="col-lg-8 mt-4 pt-2 text-center">
-              <Patients data={data.data.customersOpinions} />
+              <Patients data={data.customersOpinions} />
             </div>
           </div>
         </div>
@@ -416,7 +433,7 @@ export default function Home() {
         </div>
       </section> */}
 
-      <Footer />
+      <Footer data={data} />
       <ScrollTop />
     </>
   );

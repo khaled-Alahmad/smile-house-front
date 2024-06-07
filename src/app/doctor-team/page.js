@@ -16,10 +16,11 @@ import {
 // import imageDoctor from "../../../public/images/doctors/02.jpg";
 
 import { doctorData } from "../data/data";
-import { doctors } from "../data/dataApi";
+import { doctors, fetchData } from "../data/dataApi";
 
 export default function DoctorTeamOne() {
   const [data, setData] = useState(null);
+  const [dataTotal, setDataTotal] = useState(null);
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -30,6 +31,15 @@ export default function DoctorTeamOne() {
         console.error("Error fetching data:", error.message);
       }
     }
+    async function fetchDataTotalAsync() {
+      try {
+        const fetchedData = await fetchData();
+        setDataTotal(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    fetchDataTotalAsync();
     fetchDataAsync();
   }, []);
 
@@ -150,7 +160,7 @@ export default function DoctorTeamOne() {
           </div>
         </div>
       </section>
-      <Footer />
+      <Footer data={dataTotal} />
       <ScrollTop />
     </>
   );
