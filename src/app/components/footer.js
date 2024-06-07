@@ -15,6 +15,7 @@ import {
 } from "../assets/icons/vander";
 
 export default function Footer({ data }) {
+  
   if (!data) {
     return <div>lodaing...</div>;
   }

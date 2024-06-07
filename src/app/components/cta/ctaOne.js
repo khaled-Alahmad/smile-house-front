@@ -23,9 +23,7 @@ export default function CtaOne({ data }) {
             >
               <div className="position-relative">
                 <Image
-                  src={`${
-                    data.attachment["details-image"] ?? "/images/bg/01.jpg"
-                  }`}
+                  src={`${data.hero["main_image"] ?? "/images/bg/01.jpg"}`}
                   width={0}
                   height={0}
                   sizes="100vw"

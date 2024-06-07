@@ -191,13 +191,14 @@ export default function Home() {
                   <div className="card features feature-primary border-0">
                     <div className="icon text-center rounded-md">
                       {/* <Icon className="h3 mb-0" /> */}
+
                       <Image
                         src={item.image}
                         width={0}
                         height={0}
-                        // sizes="100vw"
+                        sizes="100vw"
                         style={{ width: "100%", height: "100%" }}
-                        className="h3 mb-0"
+                        className="h3 mb-0 rounded"
                         alt=""
                       />
                       {/* <img src={item.image} alt=" " /> */}
@@ -361,7 +362,32 @@ export default function Home() {
           </div>
 
           <div className="row" dir="rtl">
-            {blogData.slice(0, 3).map((item, index) => {
+            {/* {blogData.slice(0, 3).map((item, index) => {*/}
+            {data.bolgs.slice(0, 3).map((item, index) => {
+              const timestamp = item.created_at;
+
+              // Create a Date object
+              const dateObj = new Date(timestamp);
+
+              // Extract date parts
+              const year = dateObj.getUTCFullYear();
+              const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
+              const day = String(dateObj.getUTCDate()).padStart(2, "0");
+
+              // Extract time parts
+              const hours = String(dateObj.getUTCHours()).padStart(2, "0");
+              const minutes = String(dateObj.getUTCMinutes()).padStart(2, "0");
+              const seconds = String(dateObj.getUTCSeconds()).padStart(2, "0");
+
+              // Format the date and time
+              const formattedDate = `${year}-${month}-${day}`;
+              const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+              // Assign the formatted date and time to item
+              const itemR = {
+                date: formattedDate,
+                time: formattedTime,
+              };
               return (
                 <div className="col-lg-4 col-md-6 col-12 mt-4 pt-2" key={index}>
                   <div className="card blog blog-primary border-0 shadow rounded overflow-hidden">
@@ -370,7 +396,7 @@ export default function Home() {
                       width={0}
                       height={0}
                       sizes="100vw"
-                      style={{ width: "100%", height: "auto" }}
+                      style={{ width: "100%", height: "12rem" }}
                       className="img-fluid"
                       alt=""
                     />
@@ -378,11 +404,11 @@ export default function Home() {
                       <ul className="list-unstyled mb-2 ">
                         <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
                           <FiCalendar className="text-dark h6 ms-1 mb-0" />
-                          {item.date}
+                          {itemR.date}
                         </li>
                         <li className="list-inline-item text-muted small d-inline-flex align-items-center">
                           <FiClock className="text-dark h6 ms-1 mb-0 " />
-                          {item.time}
+                          {itemR.time}
                         </li>
                       </ul>
                       <Link
