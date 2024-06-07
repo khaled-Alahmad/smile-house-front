@@ -17,6 +17,7 @@ import {
 
 import { doctorData } from "../data/data";
 import { doctors, fetchData } from "../data/dataApi";
+import Loader from "../components/loader";
 
 export default function DoctorTeamOne() {
   const [data, setData] = useState(null);
@@ -43,9 +44,9 @@ export default function DoctorTeamOne() {
     fetchDataAsync();
   }, []);
 
-  if (!data) {
+  if (!data || !dataTotal) {
     // Render loading state or return null if you don't want to render anything
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   return (
     <>

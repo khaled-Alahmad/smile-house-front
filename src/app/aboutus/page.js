@@ -19,6 +19,7 @@ import {
 
 import { medicalServices, doctorData } from "../data/data";
 import { FetchCategories, fetchData } from "../data/dataApi";
+import Loader from "../components/loader";
 
 export default function AboutUs() {
   const [data, setData] = useState(null);
@@ -47,8 +48,13 @@ export default function AboutUs() {
     fetchCategoriesAsync();
   }, []);
 
-  if (!data) {
-    return <div>Loading...</div>;
+  if (!data || !categories) {
+    return (
+      <>
+        {" "}
+        <Loader />
+      </>
+    );
   }
 
   console.log("about :", data);

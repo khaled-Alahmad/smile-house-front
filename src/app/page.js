@@ -27,6 +27,7 @@ import { FetchCategories, apiUrl, fetchData } from "./data/dataApi";
 import { useEffect, useState } from "react";
 import Departments from "./departments/page";
 import { useRouter } from "next/navigation";
+import Loader from "./components/loader";
 // import imageDoctor from "../../public/images/doctors/01.jpg";
 
 export default function Home() {
@@ -59,7 +60,22 @@ export default function Home() {
 
   if (!data) {
     // Render loading state or return null if you don't want to render anything
-    return <div>Loading...</div>;
+    return (
+      // <div
+      //   className="bg-overlay"
+      //   style={{
+      //     display: "flex",
+      //     alignItems: "center",
+      //     justifyContent: "center",
+      //     height: "100vh",
+      //   }}
+      // >
+      //   <div class="spinner-grow text-warning" s role="status">
+      //     <span class="sr-only"></span>
+      //   </div>
+      // </div>
+      <Loader />
+    );
   }
   console.log(data);
   const handleClick = (id) => {
@@ -83,12 +99,7 @@ export default function Home() {
           <div className="row mt-5 mt-lg-0">
             <div className="col-12">
               <div className="heading-title" dir="rtl">
-                <Image
-                  src="/images/logo.png"
-                  width={54}
-                  height={50}
-                  alt=""
-                />
+                <Image src="/images/logo.png" width={54} height={50} alt="" />
                 <h4 className="display-4 fw-bold text-white title-dark mt-3 mb-4">
                   {/* قابل <br /> أفضل طبيب */}
                   {data.hero

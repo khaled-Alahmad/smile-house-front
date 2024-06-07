@@ -21,7 +21,7 @@ $shadow-md:                 0 5px 13px rgba(#adb5bd, .2);
 $overlay-black:             #161c2d;
 
 // Overlay
-$overlay:                   rgba(#1c2836, 0.7);
+$overlay:                   rgba($primary, 0.7);
 $gradient-overlay:          rgba($primary, 0.5);
 $bg-overlay-white:          rgba(0, 0, 0 , 0.4);
 $bg-gradient-primary:       linear-gradient(to left, darken($purple, 10%) 0%, darken($primary, 10%) 100%);

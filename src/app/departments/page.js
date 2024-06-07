@@ -8,6 +8,7 @@ import ScrollTop from "../components/scrollTop";
 import axios from "axios";
 import { apiUrl } from "../data/dataApi";
 import Image from "next/image";
+import Loader from "../components/loader";
 
 export default function Departments() {
   const [services, setServices] = useState([]);
@@ -27,7 +28,7 @@ export default function Departments() {
           const response = await axios.get(
             `${apiUrl}services?category_id=${categoryId}`
           );
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setServices(response.data.data);
         } catch (error) {
           console.error("Error fetching data:", error.message);
@@ -37,10 +38,10 @@ export default function Departments() {
       getServices();
     }
   }, [categoryId]);
-  // if (!services.length <= 0) {
-  //   // Render loading state or return null if you don't want to render anything
-  //   return <div>not found</div>;
-  // }
+  if (!services) {
+    // Render loading state or return null if you don't want to render anything
+    return <Loader />;
+  }
   return (
     <>
       <Navbar
