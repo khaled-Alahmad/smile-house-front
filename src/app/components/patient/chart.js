@@ -1,10 +1,9 @@
 'use client'
-import React from "react";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(()=>import('react-apexcharts'),{ssr:false})
 
-import {RiContrastDropLine, RiTestTubeLine, RiHeart3Fill, RiDashboard3Line} from '../../assets/icons/vander'
+import { RiContrastDropLine, RiDashboard3Line, RiHeart3Fill, RiTestTubeLine } from '../../assets/icons/vander';
 
 export default function Charts(){
 
