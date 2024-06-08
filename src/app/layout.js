@@ -11,9 +11,10 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Doctris - Next Js Doctor Appointment Booking System",
-  description: "Doctris - Next Js Doctor Appointment Booking System",
+  title: "سمايل هاوس",
+  description: "كل ما يخص عالم التجميل",
 };
+
 
 export default function RootLayout({ children }) {
   return (
