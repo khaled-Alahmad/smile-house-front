@@ -91,6 +91,7 @@ export default function BlogSlider({ excludeId }) {
                     <div
                       className="card blog blog-primary border-0 shadow rounded overflow-hidden m-1"
                       dir="rtl"
+                      style={{ height: "22rem" }}
                     >
                       <Image
                         src={item.image}

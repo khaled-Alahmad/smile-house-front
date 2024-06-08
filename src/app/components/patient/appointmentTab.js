@@ -1,9 +1,111 @@
-"use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+import Loader from "../loader";
+import { FetchCategories, doctors, apiUrl } from "@/app/data/dataApi";
 
 export default function AppointmentTab() {
-  let [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [doctorsData, setDoctorsData] = useState(null);
+  const [categoryData, setCategoryData] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [availableTimes, setAvailableTimes] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    category: "",
+    doctor: "",
+    comments: "",
+  });
+
+  useEffect(() => {
+    async function fetchDataAsync() {
+      try {
+        const fetchedData = await doctors();
+        setDoctorsData(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    async function fetchCategoriesAsync() {
+      try {
+        const fetchedData = await FetchCategories();
+        setCategoryData(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    fetchCategoriesAsync();
+    fetchDataAsync();
+  }, []);
+
+  useEffect(() => {
+    if (selectedDoctor) {
+      axios
+        .get(`${apiUrl}doctors/${selectedDoctor.id}`)
+        .then((response) => {
+          console.log(response.data.data.times);
+          setAvailableTimes(response.data.data.times);
+        })
+        .catch((error) => {
+          console.error("Error fetching available times:", error);
+        });
+    }
+  }, [selectedDoctor]);
+  const handleDoctorChange = (event) => {
+    const selectedId = event.target.value;
+    const selectedDoctor = doctorsData.find(
+      (doctor) => doctor.id === parseInt(selectedId)
+    );
+    setSelectedDoctor(selectedDoctor);
+
+    setFormData({
+      ...formData,
+      doctor: selectedDoctor.name,
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const validatePhoneNumber = (number) => {
+    // Basic validation for phone number
+    return /^\+\d{10,15}$/.test(number);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // if (!validatePhoneNumber(formData.phone)) {
+    //   console.error("Invalid phone number format");
+    //   alert(
+    //     "Please enter a valid phone number in international format (e.g., +905394705977)."
+    //   );
+    //   return;
+    // }
+    const phone = "+963964677938";
+    const message = `اسم المريض: ${formData.name}\nبريدك الاكتروني: ${formData.email}\nرقم هاتفك: ${formData.phone}\nالأقسام: ${formData.category}\nالأطباء: ${formData.doctor}\nملاحظات: ${formData.comments}`;
+    const encodedMessage = encodeURIComponent(message);
+    const toPhoneNumber = phone.trim().replace("+", "");
+
+    const whatsappURL = `https://api.whatsapp.com/send?phone=${toPhoneNumber}&text=${encodedMessage}`;
+
+    console.log("Redirecting to:", whatsappURL);
+
+    // Redirect to WhatsApp
+    window.location.href = whatsappURL;
+  };
+
+  if (!doctorsData || !categoryData) {
+    return <Loader />;
+  }
+
   return (
     <section className="section">
       <div className="container">
@@ -11,14 +113,6 @@ export default function AppointmentTab() {
           <div className="col-lg-8">
             <div className="card border-0 shadow rounded overflow-hidden">
               <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
-                {/* <li className="nav-item">
-                                    <Link scroll={false} className={`${activeIndex === 1 ? 'active' : ''} nav-link rounded-0`} onClick={()=>setActiveIndex(1)}  href="#">
-                                        <div className="text-center pt-1 pb-1">
-                                            <h5 className="fw-medium mb-0">Clinic Appointment</h5>
-                                        </div>
-                                    </Link>
-                                </li> */}
-
                 <li className="nav-item">
                   <Link
                     scroll={false}
@@ -36,82 +130,9 @@ export default function AppointmentTab() {
               </ul>
 
               <div className="tab-content p-4">
-                {/* {activeIndex === 1 ? 
-                                    <div className="tab-pane fade show active">
-                                        <form>
-                                            <div className="row">
-                                                <div className="col-lg-12">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Patient Name <span className="text-danger">*</span></label>
-                                                        <input name="name" id="name" type="text" className="form-control" placeholder="Patient Name :"/>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div className="col-md-6">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Departments</label>
-                                                        <select className="form-select form-control">
-                                                            <option value="EY">Eye Care</option>
-                                                            <option value="GY">Gynecologist</option>
-                                                            <option value="PS">Psychotherapist</option>
-                                                            <option value="OR">Orthopedic</option>
-                                                            <option value="DE">Dentist</option>
-                                                            <option value="GA">Gastrologist</option>
-                                                            <option value="UR">Urologist</option>
-                                                            <option value="NE">Neurologist</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div className="col-md-6">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Doctor</label>
-                                                        <select className="form-select form-control">
-                                                            <option value="CA">Dr. Calvin Carlo</option>
-                                                            <option value="CR">Dr. Cristino Murphy</option>
-                                                            <option value="AL">Dr. Alia Reddy</option>
-                                                            <option value="TO">Dr. Toni Kovar</option>
-                                                            <option value="JE">Dr. Jessica McFarlane</option>
-                                                            <option value="EL">Dr. Elsie Sherman</option>
-                                                            <option value="BE">Dr. Bertha Magers</option>
-                                                            <option value="LO">Dr. Louis Batey</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                
-                                                <div className="col-md-6">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Your Email <span className="text-danger">*</span></label>
-                                                        <input name="email" id="email" type="email" className="form-control" placeholder="Your email :"/>
-                                                    </div> 
-                                                </div>
-                
-                                                <div className="col-md-6">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Your Phone <span className="text-danger">*</span></label>
-                                                        <input name="phone" id="phone" type="tel" className="form-control" placeholder="Your Phone :"/>
-                                                    </div> 
-                                                </div>
-                
-                                                <div className="col-lg-12">
-                                                    <div className="mb-3">
-                                                        <label className="form-label">Comments <span className="text-danger">*</span></label>
-                                                        <textarea name="comments" id="comments" rows="4" className="form-control" placeholder="Your Message :"></textarea>
-                                                    </div>
-                                                </div>
-                
-                                                <div className="col-lg-12">
-                                                    <div className="d-grid">
-                                                        <button type="submit" className="btn btn-primary">Book An Appointment</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div> :''
-                                } */}
                 {activeIndex === 2 ? (
                   <div className="tab-pane fade show active" dir="rtl">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="row">
                         <div className="col-lg-12">
                           <div className="mb-3">
@@ -120,46 +141,75 @@ export default function AppointmentTab() {
                             </label>
                             <input
                               name="name"
-                              id="name2"
+                              id="name"
                               type="text"
                               className="form-control"
                               placeholder="اسم المريض :"
+                              value={formData.name}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
 
                         <div className="col-md-6">
-                          <div className="mb-3">
+                          <div className="mb3">
                             <label className="form-label">الأقسام</label>
-                            <select className="form-select form-control">
-                              <option value="EY">Eye Care</option>
-                              <option value="GY">Gynecologist</option>
-                              <option value="PS">Psychotherapist</option>
-                              <option value="OR">Orthopedic</option>
-                              <option value="DE">Dentist</option>
-                              <option value="GA">Gastrologist</option>
-                              <option value="UR">Urologist</option>
-                              <option value="NE">Neurologist</option>
+                            <select
+                              name="category"
+                              className="form-select form-control"
+                              value={formData.category}
+                              onChange={handleChange}
+                            >
+                              <option value="0">اختر</option>
+                              {categoryData.map((item, index) => (
+                                <option key={index} value={item.name}>
+                                  {item.name}
+                                </option>
+                              ))}
                             </select>
                           </div>
                         </div>
-
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">الأطباء</label>
-                            <select className="form-select form-control">
-                              <option value="CA">Dr. Calvin Carlo</option>
-                              <option value="CR">Dr. Cristino Murphy</option>
-                              <option value="AL">Dr. Alia Reddy</option>
-                              <option value="TO">Dr. Toni Kovar</option>
-                              <option value="JE">Dr. Jessica McFarlane</option>
-                              <option value="EL">Dr. Elsie Sherman</option>
-                              <option value="BE">Dr. Bertha Magers</option>
-                              <option value="LO">Dr. Louis Batey</option>
+                            <select
+                              className="form-select form-control"
+                              onChange={handleDoctorChange}
+                            >
+                              <option value="0">اختر</option>
+                              {doctorsData.map((item, index) => (
+                                <option key={index} value={item.id}>
+                                  {item.name}
+                                </option>
+                              ))}
                             </select>
                           </div>
                         </div>
+                        {selectedDoctor && (
+                          <div className="section-title text-end">
+                            <label className="form-label">
+                              الأوقات المحجوزة للطبيب{" "}
+                              <b>{selectedDoctor.name}</b>
+                            </label>
+                            <br />
 
+                            {availableTimes && availableTimes.length > 0 ? (
+                              availableTimes.map((time, index) => (
+                                <span
+                                  key={index}
+                                  className="badge rounded-pill bg-soft-danger mb-3"
+                                >
+                                  {time.day} من {time.start_time} إلى{" "}
+                                  {time.end_time}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="badge rounded-pill bg-soft-danger mb-3">
+                                لا يوجد
+                              </span>
+                            )}
+                          </div>
+                        )}
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
@@ -171,7 +221,8 @@ export default function AppointmentTab() {
                               id="email2"
                               type="email"
                               className="form-control"
-                              placeholder="بريدك الالكتروني :"
+                              value={formData.email}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -179,41 +230,16 @@ export default function AppointmentTab() {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              رقم هاتفك<span className="text-danger">*</span>
+                              رقم هاتفك
+                              <span className="text-danger">*</span>
                             </label>
                             <input
                               name="phone"
                               id="phone2"
                               type="tel"
                               className="form-control"
-                              placeholder="رقم هاتفك :"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label"> التاريخ : </label>
-                            <input
-                              name="date"
-                              type="date"
-                              className="form-control start"
-                              placeholder="اختر التاريخ :"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label" htmlFor="input-time">
-                              الوقت :{" "}
-                            </label>
-                            <input
-                              name="time"
-                              type="time"
-                              className="form-control timepicker"
-                              id="input-time"
-                              placeholder="اختر الوقت :"
+                              value={formData.phone}
+                              onChange={handleChange}
                             />
                           </div>
                         </div>
@@ -221,31 +247,29 @@ export default function AppointmentTab() {
                         <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">
-                              ملاحظات <span className="text-danger">*</span>
+                              ملاحظاتك
+                              <span className="text-danger">*</span>
                             </label>
                             <textarea
                               name="comments"
                               id="comments2"
                               rows="4"
                               className="form-control"
-                              placeholder="اكتب رسالتك :"
+                              placeholder="ملاحظاتك :"
+                              value={formData.comments}
+                              onChange={handleChange}
                             ></textarea>
                           </div>
                         </div>
-
-                        <div className="col-lg-12">
-                          <div className="d-grid">
-                            <button type="submit" className="btn btn-primary">
-                              ارسل الحجز الآن
-                            </button>
-                          </div>
-                        </div>
+                      </div>
+                      <div className="col-lg-12 text-end mt-2 mb-0">
+                        <button type="submit" className="btn btn-primary">
+                          إرسال الرسالة
+                        </button>
                       </div>
                     </form>
                   </div>
-                ) : (
-                  ""
-                )}
+                ) : null}
               </div>
             </div>
           </div>

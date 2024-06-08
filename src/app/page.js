@@ -32,7 +32,7 @@ import Loader from "./components/loader";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  const [categories, setCategories] = useState(null);
+  // const [categories, setCategories] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -45,17 +45,17 @@ export default function Home() {
       }
     }
 
-    async function fetchCategoriesAsync() {
-      try {
-        const fetchedCategories = await FetchCategories();
-        setCategories(fetchedCategories);
-      } catch (error) {
-        console.error("Error fetching categories:", error.message);
-      }
-    }
+    // async function fetchCategoriesAsync() {
+    //   try {
+    //     const fetchedCategories = await FetchCategories();
+    //     setCategories(fetchedCategories);
+    //   } catch (error) {
+    //     console.error("Error fetching categories:", error.message);
+    //   }
+    // }
 
     fetchDataAsync();
-    fetchCategoriesAsync();
+    // fetchCategoriesAsync();
   }, []);
 
   if (!data) {
@@ -185,7 +185,7 @@ export default function Home() {
           </div>
 
           <div className="row">
-            {categories.map((item, index) => {
+            {data.categories.map((item, index) => {
               return (
                 <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
                   <div className="card features feature-primary border-0">
@@ -213,17 +213,23 @@ export default function Home() {
                         </a>
                       </Link>
                       <p className="text-muted mt-3">{item.description}</p>
-                      {/* <Link
-                        href={<Departments id={item.id} />}
-                        className="link"
-                      >
-                        اقرأ المزيد <BiLeftArrowAlt className="align-middle" />
-                      </Link> */}
+                      <Link href="/departments" className="link" legacyBehavior>
+                        <a onClick={() => handleClick(item.id)} className="">
+                          {/* {item.name} */}
+                          عرض الخدمات
+                          <BiLeftArrowAlt className="align-middle" />
+                        </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
               );
             })}
+            <div className="col-12 mt-4 pt-2 text-center">
+              <Link href="/departments-all" className="btn btn-primary">
+                عرض المزيد
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -390,7 +396,10 @@ export default function Home() {
               };
               return (
                 <div className="col-lg-4 col-md-6 col-12 mt-4 pt-2" key={index}>
-                  <div className="card blog blog-primary border-0 shadow rounded overflow-hidden">
+                  <div
+                    className="card blog blog-primary border-0 shadow rounded overflow-hidden"
+                    style={{ height: "22rem" }}
+                  >
                     <Image
                       src={item.image}
                       width={0}

@@ -196,9 +196,9 @@ export default function AboutUs() {
                         src={item.image}
                         width={0}
                         height={0}
-                        // sizes="100vw"
+                        sizes="100vw"
                         style={{ width: "100%", height: "100%" }}
-                        className="h3 mb-0"
+                        className="h3 mb-0 rounded" 
                         alt=""
                       />
                     </div>

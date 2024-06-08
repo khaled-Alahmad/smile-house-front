@@ -1,12 +1,32 @@
-import React from "react";
+"use client"; 
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import Navbar from "../components/navbar";
 import AppointmentTab from "../components/patient/appointmentTab";
 import Footer from "../components/footer";
 import ScrollTop from "../components/scrollTop";
+import Loader from "../components/loader";
+import { fetchData } from "../data/dataApi";
 
 export default function BookingAppointment() {
+  const [dataTotal, setDataTotal] = useState(null);
+
+  useEffect(() => {
+    async function fetchDataTotalAsync() {
+      try {
+        const fetchedData = await fetchData();
+        setDataTotal(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    }
+    fetchDataTotalAsync();
+  }, []);
+  if (!dataTotal) {
+    // Render loading state or return null if you don't want to render anything
+    return <Loader />;
+  }
   return (
     <>
       <Navbar
@@ -44,7 +64,10 @@ export default function BookingAppointment() {
                     <li className="breadcrumb-item">
                       <Link href="/">الرئيسية</Link>
                     </li>
-                    <li className="breadcrumb-item active text-bold" aria-current="page">
+                    <li
+                      className="breadcrumb-item active text-bold"
+                      aria-current="page"
+                    >
                       حجز موعد
                     </li>
                   </ul>
@@ -70,7 +93,7 @@ export default function BookingAppointment() {
         </div>
       </div>
       <AppointmentTab />
-      <Footer />
+      <Footer data={dataTotal} />
       <ScrollTop />
     </>
   );

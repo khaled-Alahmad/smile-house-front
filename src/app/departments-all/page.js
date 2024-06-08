@@ -6,38 +6,31 @@ import { BiLeftArrowAlt, FiArrowRight } from "../assets/icons/vander";
 import Footer from "../components/footer";
 import ScrollTop from "../components/scrollTop";
 import axios from "axios";
-import { apiUrl, fetchData } from "../data/dataApi";
+import {
+  FetchCategories,
+  apiUrl,
+  fetchCategories,
+  fetchData,
+} from "../data/dataApi";
 import Image from "next/image";
 import Loader from "../components/loader";
 
-export default function Departments() {
+export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
   const [dataTotal, setDataTotal] = useState(null);
 
   useEffect(() => {
-    const id = localStorage.getItem("categoryId");
-    if (id) {
-      setCategoryId(id);
-    }
-  }, []);
+    async function getServices() {
+      try {
+        const fetchedData = await fetchCategories();
 
-  useEffect(() => {
-    if (categoryId) {
-      async function getServices() {
-        try {
-          const response = await axios.get(
-            `${apiUrl}services?category_id=${categoryId}`
-          );
-          // console.log(response.data.data);
-          setServices(response.data.data);
-        } catch (error) {
-          console.error("Error fetching data:", error.message);
-        }
+        // console.log(response.data.data);
+        setServices(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
       }
-
-      getServices();
     }
+
     async function fetchDataTotalAsync() {
       try {
         const fetchedData = await fetchData();
@@ -46,12 +39,16 @@ export default function Departments() {
         console.error("Error fetching data:", error.message);
       }
     }
+    getServices();
     fetchDataTotalAsync();
-  }, [categoryId]);
+  }, []);
   if (!services || !dataTotal) {
     // Render loading state or return null if you don't want to render anything
     return <Loader />;
   }
+  const handleClick = (id) => {
+    localStorage.setItem("categoryId", id);
+  };
   return (
     <>
       <Navbar
@@ -125,23 +122,30 @@ export default function Departments() {
                           height={0}
                           sizes="100vw"
                           style={{ width: "100%", height: "auto" }}
-                          className="h3 mb-0"
+                          className="h3 mb-0 rounded"
                           alt=""
                         />
                       </div>
                       <div className="card-body p-0 mt-3">
-                        <Link href={`/services-details/${item.id}`}>
-                          {item.name}
+                        <Link href="/departments" legacyBehavior>
+                          <a
+                            onClick={() => handleClick(item.id)}
+                            className="title text-dark h5"
+                          >
+                            {item.name}
+                          </a>
                         </Link>
                         <p className="text-muted mt-3">{item.description}</p>
-                        <Link href="#" className="link">
-                          <Link
-                            href={`/services-details/${item.id}`}
-                            className="link"
-                          >
-                            عرض التفاصبل
+                        <Link
+                          href="/departments"
+                          className="link"
+                          legacyBehavior
+                        >
+                          <a onClick={() => handleClick(item.id)} className="">
+                            {/* {item.name} */}
+                            عرض الخدمات
                             <BiLeftArrowAlt className="align-middle" />
-                          </Link>{" "}
+                          </a>
                         </Link>
                       </div>
                     </div>
