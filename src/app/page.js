@@ -278,7 +278,7 @@ export default function Home() {
               return (
                 <div className="col-lg-4 col-md-6 col-12 mt-4 pt-2" key={index}>
                   <div
-                    className="card blog blog-secondary border-0 shadow rounded-5 overflow-hidden d-inline-flex align-items-center"
+                    className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                     // style={{ height: "22rem" }}
                   >
                     <Image
@@ -286,7 +286,7 @@ export default function Home() {
                       width={0}
                       height={0}
                       sizes="100vw"
-                      style={{ width: "10rem", height: "10rem" }}
+                      style={{ width: "100%", height: "12rem" }}
                       className="img-fluid m-1"
                       alt=""
                     />
