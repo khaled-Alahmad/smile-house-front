@@ -45,11 +45,13 @@ export default function Home() {
   }
 
   // console.log(key);
-  const existKey = localStorage.getItem("client_key");
-  if (!existKey) {
-    const key = generateUUID();
-    localStorage.setItem("client_key", key);
-  }
+  useEffect(() => {
+    const existKey = localStorage.getItem("client_key");
+    if (!existKey) {
+      const key = generateUUID();
+      localStorage.setItem("client_key", key);
+    }
+  }, []);
   useEffect(() => {
     async function fetchDataAsync() {
       try {

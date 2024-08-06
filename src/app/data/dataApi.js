@@ -1,8 +1,10 @@
 "use client";
 import axios from "axios";
 export const apiUrl = "https://smile-house.promotion22.com/api/";
-const key = localStorage.getItem("client_key");
 export async function fetchData() {
+  
+const key = localStorage.getItem("client_key");
+
   try {
     const response = await axios.get(`${apiUrl}home?clientKey=${key}`);
 
