@@ -4,11 +4,7 @@ export const apiUrl = "https://smile-house.promotion22.com/api/";
 const key = localStorage.getItem("client_key");
 export async function fetchData() {
   try {
-    const response = await axios.get(`${apiUrl}home`, {
-      params: {
-        clientKey: key,
-      },
-    });
+    const response = await axios.get(`${apiUrl}home?clientKey=${key}`);
 
     // console.log(response.data.data);
     return response.data.data;
