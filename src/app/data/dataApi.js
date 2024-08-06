@@ -1,9 +1,15 @@
 "use client";
 import axios from "axios";
 export const apiUrl = "https://smile-house.promotion22.com/api/";
+const key = localStorage.getItem("client_key");
 export async function fetchData() {
   try {
-    const response = await axios.get(`${apiUrl}home`);
+    const response = await axios.get(`${apiUrl}home`, {
+      params: {
+        clientKey: key,
+      },
+    });
+
     // console.log(response.data.data);
     return response.data.data;
   } catch (error) {

@@ -33,7 +33,19 @@ export default function Home() {
   const [data, setData] = useState(null);
   // const [categories, setCategories] = useState(null);
   const router = useRouter();
+  function generateUUID() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      }
+    );
+  }
 
+  const key = generateUUID();
+  localStorage.setItem("client_key");
   useEffect(() => {
     async function fetchDataAsync() {
       try {

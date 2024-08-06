@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import axios from "axios";
-import Loader from "../loader";
+import Calendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import "react-calendar/dist/Calendar.css";
 import { FetchCategories, doctors, apiUrl } from "@/app/data/dataApi";
+import Loader from "../loader";
 
 export default function AppointmentTab() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [doctorsData, setDoctorsData] = useState(null);
   const [categoryData, setCategoryData] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [visitingDates, setVisitingDates] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const [formData, setFormData] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
     category: "",
     doctor: "",
     comments: "",
+    gender: "male",
+    birth_date: "",
+    address: "",
   });
 
   useEffect(() => {
@@ -28,6 +39,7 @@ export default function AppointmentTab() {
         console.error("Error fetching data:", error.message);
       }
     }
+
     async function fetchCategoriesAsync() {
       try {
         const fetchedData = await FetchCategories();
@@ -36,23 +48,62 @@ export default function AppointmentTab() {
         console.error("Error fetching data:", error.message);
       }
     }
+
     fetchCategoriesAsync();
     fetchDataAsync();
   }, []);
 
   useEffect(() => {
     if (selectedDoctor) {
+      async function fetchAvailableTimes() {
+        try {
+          const response = await axios.get(`${apiUrl}doctor-times`);
+          const data = response.data.data;
+
+          // Extract available dates and times from the response
+          const dates = new Set();
+          const times = [];
+
+          data.forEach((slot) => {
+            const date = new Date(selectedDate);
+            const currentDay = date.getDay();
+
+            if (currentDay === slot.day) {
+              dates.add(date.toISOString().split("T")[0]); // Add date in YYYY-MM-DD format
+              times.push({
+                start: slot.start_time,
+                end: slot.end_time,
+                day: slot.week_day.name,
+              });
+            }
+          });
+
+          setVisitingDates([...dates]);
+          setAvailableTimes(times);
+        } catch (error) {
+          console.error("Error fetching available times:", error);
+        }
+      }
+
       axios
-        .get(`${apiUrl}doctors/${selectedDoctor.id}`)
+        .get(`${apiUrl}visiting-dates?doctor_id=${selectedDoctor.id}`)
         .then((response) => {
-          console.log(response.data.data.times);
-          setAvailableTimes(response.data.data.times);
+          console.log("Visiting dates response:", response.data);
+
+          // Adjust mapping to use the correct field name
+          const dates = response.data.data.map((item) => item.visit_date); // Use `visit_date` here
+
+          setVisitingDates(dates);
+          console.log("Visiting dates:", dates); // Ensure this logs the expected values
         })
         .catch((error) => {
-          console.error("Error fetching available times:", error);
+          console.error("Error fetching visiting dates:", error);
         });
+
+      fetchAvailableTimes();
     }
-  }, [selectedDoctor]);
+  }, [selectedDate, selectedDoctor]);
+
   const handleDoctorChange = (event) => {
     const selectedId = event.target.value;
     const selectedDoctor = doctorsData.find(
@@ -74,33 +125,45 @@ export default function AppointmentTab() {
     }));
   };
 
-  const validatePhoneNumber = (number) => {
-    // Basic validation for phone number
-    return /^\+\d{10,15}$/.test(number);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // if (!validatePhoneNumber(formData.phone)) {
-    //   console.error("Invalid phone number format");
-    //   alert(
-    //     "Please enter a valid phone number in international format (e.g., +905394705977)."
-    //   );
-    //   return;
-    // }
-    const phone = "+963964677938";
-    const message = `اسم المريض: ${formData.name}\nبريدك الاكتروني: ${formData.email}\nرقم هاتفك: ${formData.phone}\nالأقسام: ${formData.category}\nالأطباء: ${formData.doctor}\nملاحظات: ${formData.comments}`;
-    const encodedMessage = encodeURIComponent(message);
-    const toPhoneNumber = phone.trim().replace("+", "");
+    const day_number = selectedDate ? selectedDate.getDay() + 1 : null;
 
-    const whatsappURL = `https://api.whatsapp.com/send?phone=${toPhoneNumber}&text=${encodedMessage}`;
-
-    console.log("Redirecting to:", whatsappURL);
-
-    // Redirect to WhatsApp
-    window.location.href = whatsappURL;
+    axios
+      .post(`${apiUrl}bookAppointment`, {
+        ...formData,
+        doctor_id: selectedDoctor.id,
+        visit_date: selectedDate, // Format date as YYYY-MM-DD
+        day_number: day_number,
+        start_time: "09:00",
+        end_time: "10:00",
+      })
+      .then((response) => {
+        console.log("Appointment booked successfully:", response.data);
+        alert("Appointment booked successfully!");
+      })
+      .catch((error) => {
+        console.error("Error booking appointment:", error);
+      });
   };
+
+  const handleDateChange = (info) => {
+    setSelectedDate(info.startStr);
+  };
+
+  const events = visitingDates.map((date) => ({
+    title: "Available",
+    start: date,
+    end: date,
+    extendedProps: {
+      times: availableTimes.filter(
+        (time) =>
+          time.day ===
+          new Date(date).toLocaleDateString("en-US", { weekday: "long" })
+      ),
+    },
+  }));
 
   if (!doctorsData || !categoryData) {
     return <Loader />;
@@ -114,18 +177,28 @@ export default function AppointmentTab() {
             <div className="card border-0 shadow rounded overflow-hidden">
               <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                 <li className="nav-item">
-                  <Link
-                    scroll={false}
+                  <a
                     className={`${
                       activeIndex === 2 ? "active" : ""
                     } nav-link rounded-0`}
                     onClick={() => setActiveIndex(2)}
-                    href="#"
+                  >
+                    <div className="text-center pt-1 pb-1">
+                      <h5 className="fw-medium mb-0">الحجز عبر الواتس أب</h5>
+                    </div>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className={`${
+                      activeIndex === 1 ? "active" : ""
+                    } nav-link rounded-0`}
+                    onClick={() => setActiveIndex(1)}
                   >
                     <div className="text-center pt-1 pb-1">
                       <h5 className="fw-medium mb-0">الحجز عبر الإنترنت</h5>
                     </div>
-                  </Link>
+                  </a>
                 </li>
               </ul>
 
@@ -137,22 +210,37 @@ export default function AppointmentTab() {
                         <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">
-                              اسم المريض <span className="text-danger">*</span>
+                              الاسم الأول <span className="text-danger">*</span>
                             </label>
                             <input
-                              name="name"
-                              id="name"
+                              name="first_name"
                               type="text"
                               className="form-control"
-                              placeholder="اسم المريض :"
-                              value={formData.name}
+                              placeholder="الاسم الأول :"
+                              value={formData.first_name}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-lg-12">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              اسم العائلة <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="last_name"
+                              type="text"
+                              className="form-control"
+                              placeholder="اسم العائلة :"
+                              value={formData.last_name}
                               onChange={handleChange}
                             />
                           </div>
                         </div>
 
                         <div className="col-md-6">
-                          <div className="mb3">
+                          <div className="mb-3">
                             <label className="form-label">الأقسام</label>
                             <select
                               name="category"
@@ -189,87 +277,113 @@ export default function AppointmentTab() {
                           <div className="section-title text-end">
                             <label className="form-label">
                               الأوقات المحجوزة للطبيب{" "}
-                              <b>{selectedDoctor.name}</b>
+                              <span className="text-danger">*</span>
                             </label>
-                            <br />
-
-                            {availableTimes && availableTimes.length > 0 ? (
-                              availableTimes.map((time, index) => (
-                                <span
-                                  key={index}
-                                  className="badge rounded-pill bg-soft-danger mb-3"
-                                >
-                                  {time.day} من {time.start_time} إلى{" "}
-                                  {time.end_time}
-                                </span>
-                              ))
-                            ) : (
-                              <span className="badge rounded-pill bg-soft-danger mb-3">
-                                لا يوجد
-                              </span>
-                            )}
+                            <Calendar
+                              plugins={[
+                                dayGridPlugin,
+                                timeGridPlugin,
+                                interactionPlugin,
+                              ]}
+                              initialView="timeGridWeek"
+                              events={events}
+                              locale={"ar"}
+                              dateClick={handleDateChange}
+                            
+                            />
                           </div>
                         )}
-                        <div className="col-md-6">
+                        <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">
-                              بريدك الاكتروني
+                              تاريخ الميلاد{" "}
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="birth_date"
+                              type="date"
+                              className="form-control"
+                              value={formData.birth_date}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-12">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              البريد الإلكتروني{" "}
                               <span className="text-danger">*</span>
                             </label>
                             <input
                               name="email"
-                              id="email2"
                               type="email"
                               className="form-control"
+                              placeholder="البريد الإلكتروني :"
                               value={formData.email}
                               onChange={handleChange}
                             />
                           </div>
                         </div>
-
-                        <div className="col-md-6">
+                        <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">
-                              رقم هاتفك
-                              <span className="text-danger">*</span>
+                              رقم الهاتف <span className="text-danger">*</span>
                             </label>
                             <input
                               name="phone"
-                              id="phone2"
-                              type="tel"
+                              type="text"
                               className="form-control"
+                              placeholder="رقم الهاتف :"
                               value={formData.phone}
                               onChange={handleChange}
                             />
                           </div>
                         </div>
-
                         <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">
-                              ملاحظاتك
-                              <span className="text-danger">*</span>
+                              العنوان <span className="text-danger">*</span>
                             </label>
+                            <input
+                              name="address"
+                              type="text"
+                              className="form-control"
+                              placeholder="العنوان :"
+                              value={formData.address}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-12">
+                          <div className="mb-3">
+                            <label className="form-label">التعليقات</label>
                             <textarea
                               name="comments"
-                              id="comments2"
-                              rows="4"
                               className="form-control"
-                              placeholder="ملاحظاتك :"
+                              rows="3"
+                              placeholder="التعليقات"
                               value={formData.comments}
                               onChange={handleChange}
                             ></textarea>
                           </div>
                         </div>
-                      </div>
-                      <div className="col-lg-12 text-end mt-2 mb-0">
-                        <button type="submit" className="btn btn-primary">
-                          إرسال الرسالة
-                        </button>
+
+                        <div className="col-lg-12">
+                          <button
+                            type="submit"
+                            className="btn btn-primary w-100"
+                          >
+                            تأكيد الحجز
+                          </button>
+                        </div>
                       </div>
                     </form>
                   </div>
-                ) : null}
+                ) : (
+                  <div className="tab-pane fade show active" dir="rtl">
+                    {/* Content for other tab */}
+                  </div>
+                )}
               </div>
             </div>
           </div>
