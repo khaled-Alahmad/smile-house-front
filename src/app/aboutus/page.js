@@ -254,7 +254,7 @@ export default function AboutUs() {
                         className="img-fluid"
                         alt=""
                       />
-                      <ul className="list-unstyled team-social mb-0">
+                      {/* <ul className="list-unstyled team-social mb-0">
                         <li>
                           <Link
                             href="#"
@@ -287,7 +287,7 @@ export default function AboutUs() {
                             <FiTwitter className="icons" />
                           </Link>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                     <div className="card-body content text-center">
                       <Link

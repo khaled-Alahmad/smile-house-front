@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -31,7 +31,7 @@ export default function BookingAppointment() {
     <>
       <Navbar
         navDark={true}
-        manuClass="navigation-menu nav-left"
+        manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
       />
 
