@@ -146,117 +146,78 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section className="section" dir="rtl">
-        <FeatureOne data={data.info} />
-        <div id="about"></div>
-        <div className="container mt-100 ">
-          <div className="row align-items-center">
-            <AboutImage
-              colClass="col-lg-5 col-md-6"
-              imageSrc={data.attachment["about-image"]}
-              VideoSrc={data.attachment["second-video"]}
-            />
-
-            <div className="col-lg-7 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
-              <div className="ms-lg-4">
-                <div className="section-title">
-                  <h4 className="title mb-4">حول شركتنا</h4>
-                  <p className="text-muted para-desc">
-                    {data.about
-                      ? data.about["introduction"]
-                      : "introduction  Not Available"}
-                  </p>
-                  <p className="text-muted para-desc mb-0">
-                    {data.about
-                      ? data.about["vision_mission"]
-                      : "vision mission  Not Available"}
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <Link href="/aboutus" className="btn btn-primary">
-                    اقرأ المزيد <BiLeftArrowAlt className="align-middle" />
-                  </Link>
-                </div>
-              </div>
+      <div id="departments"></div>
+      <div className="container mt-100 mt-60" dir="rtl">
+        <div className="row justify-content-center">
+          <div className="col-12">
+            <div className="section-title mb-4 pb-2 text-center">
+              <span className="badge rounded-pill bg-soft-primary mb-3">
+                الأقسام
+              </span>
+              <h4 className="title mb-4">خدماتنا الطبية</h4>
+              <p className="text-muted mx-auto para-desc mb-0">
+                دكتور متميز إذا كنت بحاجة إلى تقديم مساعدة فعالة وفورية لأحد
+                أفراد أسرتك، سواء في حالات الطوارئ أو للحصول على استشارة بسيطة.
+              </p>
             </div>
           </div>
         </div>
-        <div id="departments"></div>
-        <div className="container mt-100 mt-60">
-          <div className="row justify-content-center">
-            <div className="col-12">
-              <div className="section-title mb-4 pb-2 text-center">
-                <span className="badge rounded-pill bg-soft-primary mb-3">
-                  الأقسام
-                </span>
-                <h4 className="title mb-4">خدماتنا الطبية</h4>
-                <p className="text-muted mx-auto para-desc mb-0">
-                  دكتور متميز إذا كنت بحاجة إلى تقديم مساعدة فعالة وفورية لأحد
-                  أفراد أسرتك، سواء في حالات الطوارئ أو للحصول على استشارة
-                  بسيطة.
-                </p>
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            {data.categories.map((item, index) => {
-              return (
-                <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
-                  <div className="card features feature-primary border-0">
-                    <div
-                      className="icon text-center rounded-m"
-                      style={{ height: "200px", width: "200px" }}
-                    >
-                      {/* <Icon className="h3 mb-0" /> */}
+        <div className="row">
+          {data.categories.map((item, index) => {
+            return (
+              <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
+                <div className="card features feature-primary border-0">
+                  <div
+                    className="icon text-center rounded-m"
+                    style={{ height: "200px", width: "200px" }}
+                  >
+                    {/* <Icon className="h3 mb-0" /> */}
 
-                      <Image
-                        src={item.image}
-                        width={100}
-                        height={200}
-                        // sizes="100vw"
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "fill",
-                        }}
-                        className="h3 mb-0 rounded"
-                        alt=""
-                      />
-                      {/* <img src={item.image} alt=" " /> */}
-                    </div>
-                    <div className="card-body p-0 mt-3">
-                      <Link href="/departments" legacyBehavior>
-                        <a
-                          onClick={() => handleClick(item.id)}
-                          className="title text-dark h5"
-                        >
-                          {item.name}
-                        </a>
-                      </Link>
-                      <p className="text-muted mt-3">{item.description}</p>
-                      <Link href="/departments" className="link" legacyBehavior>
-                        <a onClick={() => handleClick(item.id)} className="">
-                          {/* {item.name} */}
-                          عرض الخدمات
-                          <BiLeftArrowAlt className="align-middle" />
-                        </a>
-                      </Link>
-                    </div>
+                    <Image
+                      src={item.image}
+                      width={100}
+                      height={200}
+                      // sizes="100vw"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "fill",
+                      }}
+                      className="h3 mb-0 rounded"
+                      alt=""
+                    />
+                    {/* <img src={item.image} alt=" " /> */}
+                  </div>
+                  <div className="card-body p-0 mt-3">
+                    <Link href="/departments" legacyBehavior>
+                      <a
+                        onClick={() => handleClick(item.id)}
+                        className="title text-dark h5"
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
+                    <p className="text-muted mt-3">{item.description}</p>
+                    <Link href="/departments" className="link" legacyBehavior>
+                      <a onClick={() => handleClick(item.id)} className="">
+                        {/* {item.name} */}
+                        عرض الخدمات
+                        <BiLeftArrowAlt className="align-middle" />
+                      </a>
+                    </Link>
                   </div>
                 </div>
-              );
-            })}
-            <div className="col-12 mt-4 pt-2 text-center">
-              <Link href="/departments-all" className="btn btn-primary">
-                عرض المزيد
-              </Link>
-            </div>
+              </div>
+            );
+          })}
+          <div className="col-12 mt-4 pt-2 text-center">
+            <Link href="/departments-all" className="btn btn-primary">
+              عرض المزيد
+            </Link>
           </div>
         </div>
-      </section>
+      </div>
       <section className="section" dir="rtl">
         <div className="container   mb-60">
           <div className="row justify-content-center">
@@ -350,6 +311,44 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section mt-100" dir="rtl">
+        <FeatureOne data={data.info} />
+        <div id="about"></div>
+        <div className="container mt-100 ">
+          <div className="row align-items-center">
+            <AboutImage
+              colClass="col-lg-5 col-md-6"
+              imageSrc={data.attachment["about-image"]}
+              VideoSrc={data.attachment["second-video"]}
+            />
+
+            <div className="col-lg-7 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
+              <div className="ms-lg-4">
+                <div className="section-title">
+                  <h4 className="title mb-4">حول شركتنا</h4>
+                  <p className="text-muted para-desc">
+                    {data.about
+                      ? data.about["introduction"]
+                      : "introduction  Not Available"}
+                  </p>
+                  <p className="text-muted para-desc mb-0">
+                    {data.about
+                      ? data.about["vision_mission"]
+                      : "vision mission  Not Available"}
+                  </p>
+                </div>
+
+                <div className="mt-4">
+                  <Link href="/aboutus" className="btn btn-primary">
+                    اقرأ المزيد <BiLeftArrowAlt className="align-middle" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
