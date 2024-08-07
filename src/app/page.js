@@ -27,7 +27,9 @@ import { useEffect, useState } from "react";
 import Departments from "./departments/page";
 import { useRouter } from "next/navigation";
 import Loader from "./components/loader";
+import { ToastContainer } from "react-toastify";
 // import imageDoctor from "../../public/images/doctors/01.jpg";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -100,6 +102,8 @@ export default function Home() {
   };
   return (
     <>
+      <ToastContainer />
+
       <Navbar
         manuClass="navigation-menu nav-left nav-light"
         containerClass="container"

@@ -15,7 +15,6 @@ export const metadata = {
   description: "كل ما يخص عالم التجميل",
 };
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="ar">
