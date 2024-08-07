@@ -116,15 +116,25 @@ export default function Departments() {
                     className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
                     key={index}
                   >
-                    <div className="card features feature-primary border-0">
-                      <div className="icon text-center rounded-md">
+                    <div className="card features  feature-primary border-5 rounded-3">
+                      <div
+                        className="card-img icon text-center rounded-md "
+                        style={{
+                          height: "200px",
+                          width: "200px",
+                        }}
+                      >
                         {/* <Icon className="h3 mb-0" /> */}
                         <Image
                           src={item.image}
-                          width={0}
-                          height={0}
+                          width={200}
+                          height={200}
                           sizes="100vw"
-                          style={{ width: "100%", height: "auto" }}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "fill",
+                          }}
                           className="h3 mb-0"
                           alt=""
                         />

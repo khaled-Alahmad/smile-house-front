@@ -206,15 +206,22 @@ export default function Home() {
               return (
                 <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
                   <div className="card features feature-primary border-0">
-                    <div className="icon text-center rounded-md">
+                    <div
+                      className="icon text-center rounded-m"
+                      style={{ height: "200px", width: "200px" }}
+                    >
                       {/* <Icon className="h3 mb-0" /> */}
 
                       <Image
                         src={item.image}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        style={{ width: "100%", height: "100%" }}
+                        width={100}
+                        height={200}
+                        // sizes="100vw"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "fill",
+                        }}
                         className="h3 mb-0 rounded"
                         alt=""
                       />
@@ -251,7 +258,7 @@ export default function Home() {
         </div>
       </section>
       <section className="section" dir="rtl">
-        <div className="container mt-100 mt-60 mb-60">
+        <div className="container   mb-60">
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center mb-4 pb-2">
@@ -381,7 +388,7 @@ export default function Home() {
                         className="img-fluid"
                         alt=""
                       />
-                      <ul className="list-unstyled team-social mb-0">
+                      {/* <ul className="list-unstyled team-social mb-0">
                         <li>
                           <Link
                             href="#"
@@ -414,7 +421,7 @@ export default function Home() {
                             <FiTwitter className="icons" />
                           </Link>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                     <div className="card-body content text-center">
                       <Link
