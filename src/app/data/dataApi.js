@@ -2,8 +2,7 @@
 import axios from "axios";
 export const apiUrl = "https://smile-house.promotion22.com/api/";
 export async function fetchData() {
-  
-const key = localStorage.getItem("client_key");
+  const key = localStorage.getItem("client_key");
 
   try {
     const response = await axios.get(`${apiUrl}home?clientKey=${key}`);
@@ -62,9 +61,11 @@ export async function fetchBlogDetails(id) {
   }
 }
 export async function fetchServiceDetails(id) {
+  const key = localStorage.getItem("client_key");
+
   try {
     const response = await axios.get(
-      "https://smile-house.promotion22.com/api/services/" + id
+      `https://smile-house.promotion22.com/api/services/${id}?clientKey=${key}`
     );
     // console.log(response.data.data.doctors);
     return response.data.data;

@@ -13,10 +13,16 @@ import Loader from "../components/loader";
 export default function Departments() {
   const [services, setServices] = useState([]);
   const [categoryId, setCategoryId] = useState(null);
+  const [clientKey, setClientKey] = useState(null);
+
   const [dataTotal, setDataTotal] = useState(null);
 
   useEffect(() => {
     const id = localStorage.getItem("categoryId");
+    const clientKey = localStorage.getItem("clientKey");
+    if (clientKey) {
+      setClientKey(clientKey);
+    }
     if (id) {
       setCategoryId(id);
     }
@@ -27,7 +33,7 @@ export default function Departments() {
       async function getServices() {
         try {
           const response = await axios.get(
-            `${apiUrl}services?category_id=${categoryId}`
+            `${apiUrl}services?category_id=${categoryId}&clientKey=${clientKey}`
           );
           // console.log(response.data.data);
           setServices(response.data.data);
