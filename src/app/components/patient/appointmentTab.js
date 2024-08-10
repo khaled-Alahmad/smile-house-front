@@ -165,11 +165,24 @@ export default function AppointmentTab() {
 
   const handleWhatsAppSubmit = (e) => {
     e.preventDefault();
-    const whatsappMessage = `حجز موعد:\nالاسم: ${formData.first_name} ${formData.last_name}\nالطبيب: ${selectedDoctor.name}\nالتاريخ: ${formData.visit_date}\nالوقت: ${formData.start_time} - ${formData.end_time}\nالتعليقات: ${formData.comments}\nالهاتف: ${formData.phone}`;
-    const whatsappUrl = `https://wa.me/00905394705977?text=${encodeURIComponent(
-      whatsappMessage
-    )}`;
-    window.open(whatsappUrl, "_blank");
+
+    const phone = "+963964677938";
+    const message = `الاسم الأول: ${formData.first_name}\nاسم العائلة: ${
+      formData.last_name
+    }\nرقم هاتفك: ${formData.phone}\nالتخصص: ${formData.category}\nالطبيب: ${
+      selectedDoctor ? selectedDoctor.name : ""
+    }\nالتعليقات: ${formData.comments}\nتاريخ الزيارة: ${
+      formData.visit_date
+    }\nمن: ${formData.start_time} إلى: ${formData.end_time}`;
+    const encodedMessage = encodeURIComponent(message);
+    const toPhoneNumber = phone.trim().replace("+", "");
+
+    const whatsappURL = `https://api.whatsapp.com/send?phone=${toPhoneNumber}&text=${encodedMessage}`;
+
+    console.log("Redirecting to:", whatsappURL);
+
+    // Redirect to WhatsApp
+    window.location.href = whatsappURL;
     toast.success("تم إرسال رسالة الواتساب بنجاح!"); // عرض رسالة النجاح
     router.push("/");
   };
@@ -234,7 +247,7 @@ export default function AppointmentTab() {
                   <div className="tab-pane fade show active" dir="rtl">
                     <form onSubmit={handleWhatsAppSubmit}>
                       <div className="row">
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <div className="mb-3">
                             <label className="form-label">
                               الاسم الأول <span className="text-danger">*</span>
@@ -251,7 +264,7 @@ export default function AppointmentTab() {
                           </div>
                         </div>
 
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <div className="mb-3">
                             <label className="form-label">
                               اسم العائلة <span className="text-danger">*</span>
@@ -262,6 +275,22 @@ export default function AppointmentTab() {
                               className="form-control"
                               placeholder="اسم العائلة :"
                               value={formData.last_name}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              رقم الهاتف<span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="phone"
+                              type="text"
+                              className="form-control"
+                              placeholder="+90xxxxxxxxx"
+                              value={formData.phone}
                               onChange={handleChange}
                               required
                             />
@@ -306,7 +335,6 @@ export default function AppointmentTab() {
                             </select>
                           </div>
                         </div>
-
                         <div className="col-lg-12">
                           <div className="mb-3">
                             <label className="form-label">التعليقات</label>
@@ -318,6 +346,65 @@ export default function AppointmentTab() {
                               value={formData.comments}
                               onChange={handleChange}
                             ></textarea>
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="mb-3">
+                            <label className="form-label"> اختر موعد</label>
+                            <FullCalendar
+                              plugins={[timeGridPlugin, interactionPlugin]}
+                              initialView="timeGridWeek"
+                              selectable={true}
+                              selectMirror={true}
+                              dayMaxEvents={true}
+                              allDaySlot={false}
+                              locale="ar"
+                              contentHeight="auto"
+                              slotMinTime="08:00:00"
+                              slotMaxTime="16:00:00"
+                              direction="rtl"
+                              select={handleDateChange}
+                              eventClick={handleEventClick}
+                              headerToolbar={{
+                                start: "prev,next today",
+                                center: "title",
+                                end: "timeGridWeek,timeGridDay",
+                              }}
+                              events={[
+                                ...doctorTimes.flatMap((time) => {
+                                  return [
+                                    {
+                                      title: "أوقات العمل",
+                                      startTime: time.start_time,
+                                      endTime: time.end_time,
+                                      daysOfWeek: [convertDayToIndex(time.day)],
+                                      color: "green",
+                                      display: "background",
+                                      extendedProps: { type: "work" }, // تأكد من إضافة `extendedProps` هنا
+                                    },
+                                  ];
+                                }),
+                                ...appointments.map((appointment) => ({
+                                  title: "حجز",
+                                  start: `${appointment.visit_date}T${appointment.start_time}`,
+                                  end: `${appointment.visit_date}T${appointment.end_time}`,
+                                  color: "gray",
+                                  extendedProps: { type: "appointment" }, // تأكد من إضافة `extendedProps` هنا
+                                })),
+                              ]}
+                              eventClassNames={(event) => {
+                                console.log(event); // سجل الحدث لمعرفة هيكله
+                                if (
+                                  event.extendedProps &&
+                                  event.extendedProps.type
+                                ) {
+                                  return event.extendedProps.type === "work"
+                                    ? "work-hours"
+                                    : "appointments";
+                                }
+                                return "";
+                              }}
+                            />
                           </div>
                         </div>
                       </div>
