@@ -170,23 +170,23 @@ export default function Home() {
         <div className="row">
           {data.categories.map((item, index) => {
             return (
-              <div className="col-xl-3 col-md-4 col-12 mt-5" key={index}>
-                <div className="card features feature-primary border-0">
+              <div className="col-xl-4 col-md-2 col-6 mt-5" key={index}>
+                <div className="card features  feature-primary border-0">
                   <div
                     className="icon text-center rounded-m"
-                    style={{ height: "200px", width: "200px" }}
+                    style={{ height: "190px", width: "180px" }}
                   >
                     {/* <Icon className="h3 mb-0" /> */}
 
                     <Image
                       src={item.image}
-                      width={100}
-                      height={200}
+                      width={150}
+                      height={150}
                       // sizes="100vw"
                       style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "fill",
+                        objectFit: "cover",
                       }}
                       className="h3 mb-0 rounded"
                       alt=""
