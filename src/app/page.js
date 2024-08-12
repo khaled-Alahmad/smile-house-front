@@ -403,21 +403,27 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="row align-items-center">
+          <div className="row">
             {data.doctors.slice(0, 4).map((item, index) => {
               return (
-                <div
-                  className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
-                  key={index}
-                >
-                  <div className="card team border-0 rounded shadow overflow-hidden">
+                <div className="col-xl-3 col-lg-3 col-md-6 " key={index}>
+                  <div
+                    className="card blog border-0 rounded shadow overflow-hidden"
+                    style={{
+                      height: "100%",
+                    }}
+                  >
                     <div className="team-img position-relative">
                       <Image
                         src={item.image}
                         width={0}
                         height={0}
                         sizes="100vh"
-                        style={{ width: "100%", height: "300px" }}
+                        style={{
+                          width: "100%",
+                          height: "15rem",
+                          objectFit: "cover",
+                        }}
                         className="img-fluid"
                         alt=""
                       />
@@ -456,7 +462,7 @@ export default function Home() {
                         </li>
                       </ul> */}
                     </div>
-                    <div className="card-body content text-center">
+                    <div className="card-body content text-end  ">
                       <Link
                         href="/doctor-team-one"
                         className="title text-dark h5 d-block mb-0"
@@ -557,7 +563,11 @@ export default function Home() {
                       width={0}
                       height={0}
                       sizes="100vw"
-                      style={{ width: "100%", height: "12rem" }}
+                      style={{
+                        width: "100%",
+                        height: "12rem",
+                        objectFit: "cover",
+                      }}
                       className="img-fluid"
                       alt=""
                     />

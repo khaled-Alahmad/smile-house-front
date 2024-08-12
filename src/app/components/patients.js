@@ -6,11 +6,9 @@ import dynamic from "next/dynamic";
 const TinySlider = dynamic(() => import("tiny-slider-react"), { ssr: false });
 import "tiny-slider/dist/tiny-slider.css";
 
-import { patientsData } from "../data/data";
-
 const settings = {
   container: ".client-review-slider",
-  items: 1,
+  items: 3, // عرض 3 عناصر على نفس السطر
   controls: false,
   mouseDrag: true,
   loop: true,
@@ -20,11 +18,12 @@ const settings = {
   autoplayTimeout: 3000,
   navPosition: "bottom",
   speed: 400,
-  gutter: 16,
+  gutter: 16, // المسافة بين العناصر
 };
+
 export default function Patients({ data }) {
   return (
-    <div className="client-review-slider">
+    <div className="client-review-slider" style={{ overflow: "hidden" }}>
       <TinySlider settings={settings}>
         {data.map((item, index) => (
           <div className="tiny-slide text-center" key={index}>
@@ -56,7 +55,6 @@ export default function Patients({ data }) {
               </li>
             </ul>
             <h6 dir="rtl" className="text-primary">
-              {/* <small className="text-muted">{item.title}</small> */}
               {item.customer_name}
             </h6>
           </div>

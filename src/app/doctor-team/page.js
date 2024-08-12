@@ -52,16 +52,21 @@ export default function DoctorTeamOne() {
     <>
       <Navbar
         navDark={true}
-        manuClass="navigation-menu nav-left"
+        manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
       />
-      <section className="bg-half-150 bg-light d-table w-100">
+      <section
+        className="bg-half-150 bg-light d-table w-100 "
+        style={{ backgroundImage: `url('/images/bg/04.jpg')` }}
+      >
+        <div className="bg-overlay bg-overlay-dark"></div>
+
         <div className="container">
           <div className="row mt-5 justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h3 className="sub-title mb-4">فريق الأطباء</h3>
-                <p className="para-desc mx-auto text-muted">
+                <h3 className="sub-title text-white mb-4">فريق الأطباء</h3>
+                <p className="para-desc mx-auto text-white-50">
                   يتم اختيار أعضاء الفريق الطبي بعناية لضمان توفير أفضل مستوى من
                   الرعاية الصحية للمرضى. يعمل الأطباء في الفريق بتنسيق وتعاون
                   وثيق لتشخيص الحالات الطبية، ووضع خطط العلاج المناسبة، وتقديم
@@ -72,7 +77,7 @@ export default function DoctorTeamOne() {
                 </p>
 
                 <nav aria-label="breadcrumb" className="d-inline-block mt-3">
-                  <ul className="breadcrumb bg-transparent mb-0">
+                  <ul className="breadcrumb rounded bg-white mb-0">
                     <li className="breadcrumb-item">
                       <Link href="/">الرئيسية</Link>
                     </li>
@@ -97,18 +102,27 @@ export default function DoctorTeamOne() {
                   className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
                   key={index}
                 >
-                  <div className="card team border-0 rounded shadow overflow-hidden">
+                  <div
+                    className="card team border-0 rounded shadow overflow-hidden"
+                    style={{
+                      height: "100%",
+                    }}
+                  >
                     <div className="team-img position-relative">
                       <Image
                         src={item.image}
                         width={0}
                         height={0}
                         sizes="100vw"
-                        style={{ width: "100%", height: "300px" }}
+                        style={{
+                          width: "100%",
+                          height: "15rem",
+                          objectFit: "cover",
+                        }}
                         className="img-fluid"
                         alt=""
                       />
-                      <ul className="list-unstyled team-social mb-0">
+                      {/* <ul className="list-unstyled team-social mb-0">
                         <li>
                           <Link
                             href="#"
@@ -141,9 +155,9 @@ export default function DoctorTeamOne() {
                             <FiTwitter className="icons" />
                           </Link>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
-                    <div className="card-body content text-center">
+                    <div className="card-body content text-end">
                       <Link
                         href="#"
                         className="title text-dark h5 d-block mb-0"

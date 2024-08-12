@@ -56,21 +56,26 @@ export default function BlogDetail(props) {
     <>
       <Navbar
         navDark={true}
-        manuClass="navigation-menu nav-left"
+        manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
       />
-      <section className="bg-half-150 d-table w-100 bg-light">
+      <section
+        className="bg-half-150 d-table w-100 bg-light"
+        style={{ backgroundImage: `url('${data?.image}')` }}
+      >
+        <div className="bg-overlay bg-overlay-dark"></div>
+
         <div className="container">
           <div className="row mt-5 justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h3 className="sub-title mb-4">{data?.title}</h3>
+                <h3 className="sub-title text-white mb-4">{data?.title}</h3>
                 <p className="para-desc mx-auto text-muted">
                   {data?.["sub_title"]}
                 </p>
 
                 <ul className="list-unstyled mt-4">
-                  <li className="list-inline-item user text-muted me-2">
+                  <li className="list-inline-item user text-white-50 me-2">
                     {data?.["owner"] ?? "غير موجود !"}
                     <i className="mdi mdi-account ms-1"></i>{" "}
                   </li>
