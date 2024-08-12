@@ -245,7 +245,7 @@ export default function Home() {
                           >
                             {item.title}
                           </Link>
-                          <Dotdotdot clamp={7}>
+                          <Dotdotdot clamp={10}>
                             <p className="text-dark description d-block mt-3">
                               {item.description}
                             </p>
@@ -350,7 +350,6 @@ export default function Home() {
       </div>
 
       <section className="section mt-100" dir="rtl">
-        <FeatureOne data={data.info} />
         <div id="about"></div>
         <div className="container mt-100 ">
           <div className="row align-items-center">
@@ -406,7 +405,7 @@ export default function Home() {
           <div className="row">
             {data.doctors.slice(0, 4).map((item, index) => {
               return (
-                <div className="col-xl-3 col-lg-3 col-md-6 " key={index}>
+                <div className="col-lg-3 col-md-4 col-6  mt-4 pt-2" key={index}>
                   <div
                     className="card blog border-0 rounded shadow overflow-hidden"
                     style={{
@@ -553,7 +552,7 @@ export default function Home() {
                 time: formattedTime,
               };
               return (
-                <div className="col-lg-4 col-md-6 col-12 mt-4 pt-2" key={index}>
+                <div className="col-lg-3 col-md-4 col-6 mt-4 pt-2" key={index}>
                   <div
                     className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                     style={{ height: "22rem" }}
@@ -640,6 +639,7 @@ export default function Home() {
           </div>
         </div>
       </section> */}
+      <FeatureOne data={data.info} />
 
       <Footer data={data} />
       <ScrollTop />
