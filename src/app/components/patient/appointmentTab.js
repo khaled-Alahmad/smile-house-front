@@ -14,6 +14,8 @@ export default function AppointmentTab() {
   const [doctorsData, setDoctorsData] = useState(null);
   const [categoryData, setCategoryData] = useState(null);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDep, setSelectedDep] = useState(null);
+
   const [doctorTimes, setDoctorTimes] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const router = useRouter();
@@ -74,7 +76,16 @@ export default function AppointmentTab() {
       console.error("Error fetching doctor data:", error);
     }
   };
+  const handleDepChange = async (event) => {
+    const selectedId = event.target.value;
+    const selectedDep = categoryData.find(
+      (doctor) => doctor.id === parseInt(selectedId)
+    );
+    setSelectedDep(selectedDep);
+    setFormData({ ...formData, category_id: selectedDep.id });
 
+    // استرجاع بيانات أوقات العمل والحجوزات للطبيب المحدد
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -303,8 +314,8 @@ export default function AppointmentTab() {
                             <select
                               className="form-select form-control"
                               name="category"
-                              value={formData.category}
-                              onChange={handleChange}
+                              value={selectedDep ? selectedDep.id : ""}
+                              onChange={handleDepChange}
                               required
                             >
                               {categoryData.map((item, index) => (
@@ -527,8 +538,8 @@ export default function AppointmentTab() {
                             <select
                               className="form-select form-control"
                               name="category"
-                              value={formData.category}
-                              onChange={handleChange}
+                              value={selectedDep ? selectedDep.id : ""}
+                              onChange={handleDepChange}
                               required
                             >
                               {categoryData.map((item, index) => (

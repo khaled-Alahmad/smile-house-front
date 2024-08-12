@@ -526,7 +526,7 @@ export default function Home() {
 
           <div className="row" dir="rtl">
             {/* {blogData.slice(0, 3).map((item, index) => {*/}
-            {data.bolgs.slice(0, 3).map((item, index) => {
+            {data.bolgs.slice(0, 4).map((item, index) => {
               const timestamp = item.created_at;
 
               // Create a Date object
