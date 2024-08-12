@@ -16,7 +16,7 @@ export default function FeatureOne({ data }) {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-xl-10">
-          <div className="features-absolute bg-white shadow rounded overflow-hidden card-group">
+          <div className=" bg-white shadow rounded overflow-hidden card-group">
             <div className="card border-0 bg-light p-4">
               <RiHeartPulseFill className="text-primary h2" />
               <h5 className="mt-1">{data[3]["title"] ?? "حالات الطوارئ"}</h5>

@@ -350,7 +350,10 @@ export default function AppointmentTab() {
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label"> اختر موعد</label>
+                            <label className="form-label">
+                              {" "}
+                              المواعيد المتاحة
+                            </label>
                             <FullCalendar
                               plugins={[timeGridPlugin, interactionPlugin]}
                               initialView="timeGridWeek"
@@ -407,7 +410,58 @@ export default function AppointmentTab() {
                             />
                           </div>
                         </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              تاريخ الحجز<span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="visit_date"
+                              type="date"
+                              className="form-control"
+                              placeholder="yyyy/mm/dd"
+                              value={formData.visit_date}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              وقت بداية الحجز
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="start_time"
+                              type="time"
+                              className="form-control"
+                              placeholder="HH:mm:ss"
+                              value={formData.start_time}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              وقت نهاية الحجز
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="end_time"
+                              type="time"
+                              className="form-control"
+                              placeholder="HH:mm:ss"
+                              value={formData.end_time}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
                       </div>
+
                       <button type="submit" className="btn btn-primary">
                         إرسال عبر واتساب
                       </button>
@@ -520,7 +574,10 @@ export default function AppointmentTab() {
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label"> اختر موعد</label>
+                            <label className="form-label">
+                              {" "}
+                              المواعيد المتاحة
+                            </label>
                             <FullCalendar
                               plugins={[timeGridPlugin, interactionPlugin]}
                               initialView="timeGridWeek"
@@ -574,6 +631,56 @@ export default function AppointmentTab() {
                                 }
                                 return "";
                               }}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              تاريخ الحجز<span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="visit_date"
+                              type="date"
+                              className="form-control"
+                              placeholder="yyyy/mm/dd"
+                              value={formData.visit_date}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              وقت بداية الحجز
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="start_time"
+                              type="time"
+                              className="form-control"
+                              placeholder="HH:mm:ss"
+                              value={formData.start_time}
+                              onChange={handleChange}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-6">
+                          <div className="mb-3">
+                            <label className="form-label">
+                              وقت نهاية الحجز
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              name="end_time"
+                              type="time"
+                              className="form-control"
+                              placeholder="HH:mm:ss"
+                              value={formData.end_time}
+                              onChange={handleChange}
+                              required
                             />
                           </div>
                         </div>

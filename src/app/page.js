@@ -30,6 +30,7 @@ import Loader from "./components/loader";
 import { ToastContainer } from "react-toastify";
 // import imageDoctor from "../../public/images/doctors/01.jpg";
 import "react-toastify/dist/ReactToastify.css";
+import Dotdotdot from "react-dotdotdot";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -150,102 +151,131 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="section" dir="rtl">
-        <div className="container   mb-60">
-          <div className="row justify-content-center">
-            <div className="col-12">
-              <div className="section-title text-center mb-4 pb-2">
-                <span className="badge rounded-pill bg-soft-primary mb-3">
-                  عروضنا
-                </span>
-                <h4 className="title mb-4">العروض المخصصة لك</h4>
-                <p className="text-muted mx-auto para-desc mb-0">
-                  نحن في سمايل هاوس نقدم لك افضل العروض المناسبة لك.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="row" dir="rtl">
-            {/* {blogData.slice(0, 3).map((item, index) => {*/}
-            {data.offers.slice(0, 6).map((item, index) => {
-              const timestamp = item.end_date;
-
-              // Create a Date object
-              const dateObj = new Date(timestamp);
-
-              // Extract date parts
-              const year = dateObj.getUTCFullYear();
-              const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
-              const day = String(dateObj.getUTCDate()).padStart(2, "0");
-
-              // Extract time parts
-              const hours = String(dateObj.getUTCHours()).padStart(2, "0");
-              const minutes = String(dateObj.getUTCMinutes()).padStart(2, "0");
-              const seconds = String(dateObj.getUTCSeconds()).padStart(2, "0");
-
-              // Format the date and time
-              const formattedDate = `${year}-${month}-${day}`;
-              const formattedTime = `${hours}:${minutes}:${seconds}`;
-
-              // Assign the formatted date and time to item
-              const itemR = {
-                date: formattedDate,
-                time: formattedTime,
-              };
-              return (
-                <div className="col-lg-3 col-md-4 col-6 mt-4 pt-2" key={index}>
-                  <div
-                    className="card blog blog-primary border-0 shadow rounded overflow-hidden"
-                    // style={{ height: "22rem" }}
-                  >
-                    <Image
-                      src={item.image}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      style={{ width: "100%", height: "12rem",objectFit:"cover" }}
-                      className="img-fluid m-1"
-                      alt=""
-                    />
-                    <div className="card-body p-4">
-                      <Link
-                        href={`#`}
-                        // href={"#"}
-                        className="text-dark title h5"
-                      >
-                        {item.title}
-                      </Link>
-                      <p
-                        // href={"#"}
-                        className="text-dark description d-block mt-3"
-                      >
-                        {item.description}
-                      </p>
-
-                      <ul className="list-unstyled mt-2 ">
-                        <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                          <p href="#" className="text-muted ms-2">
-                            ينتهي :
-                          </p>
-                        </li>
-                        <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
-                          <FiCalendar className="text-dark h6 ms-1 mb-0" />
-                          {itemR.date}
-                        </li>
-                        <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                          <FiClock className="text-dark h6 ms-1 mb-0 " />
-                          {itemR.time}
-                        </li>
-                      </ul>
-                    </div>
+      {data.offers.length != 0 && (
+        <>
+          <section className="section" dir="rtl">
+            <div className="container   mb-60">
+              <div className="row justify-content-center">
+                <div className="col-12">
+                  <div className="section-title text-center mb-4 pb-2">
+                    <span className="badge rounded-pill bg-soft-primary mb-3">
+                      عروضنا
+                    </span>
+                    <h4 className="title mb-4">العروض المخصصة لك</h4>
+                    <p className="text-muted mx-auto para-desc mb-0">
+                      نحن في سمايل هاوس نقدم لك افضل العروض المناسبة لك.
+                    </p>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+              </div>
+
+              <div className="row" dir="rtl">
+                {/* {blogData.slice(0, 3).map((item, index) => {*/}
+                {data.offers.slice(0, 6).map((item, index) => {
+                  const timestamp = item.end_date;
+
+                  // Create a Date object
+                  const dateObj = new Date(timestamp);
+
+                  // Extract date parts
+                  const year = dateObj.getUTCFullYear();
+                  const month = String(dateObj.getUTCMonth() + 1).padStart(
+                    2,
+                    "0"
+                  );
+                  const day = String(dateObj.getUTCDate()).padStart(2, "0");
+
+                  // Extract time parts
+                  const hours = String(dateObj.getUTCHours()).padStart(2, "0");
+                  const minutes = String(dateObj.getUTCMinutes()).padStart(
+                    2,
+                    "0"
+                  );
+                  const seconds = String(dateObj.getUTCSeconds()).padStart(
+                    2,
+                    "0"
+                  );
+
+                  // Format the date and time
+                  const formattedDate = `${year}-${month}-${day}`;
+                  const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+                  // Assign the formatted date and time to item
+                  const itemR = {
+                    date: formattedDate,
+                    time: formattedTime,
+                  };
+                  return (
+                    <div
+                      className="col-lg-3 col-md-4 col-6 mt-4 pt-2"
+                      key={index}
+                    >
+                      <div
+                        className="card blog blog-primary border-0 shadow rounded overflow-hidden"
+                        style={{
+                          height: "100%",
+                        }}
+                      >
+                        <Image
+                          src={item.image}
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          style={{
+                            width: "100%",
+                            height: "12rem",
+                            objectFit: "cover",
+                          }}
+                          className="img-fluid m-1"
+                          alt=""
+                        />
+                        <div
+                          className="card-body p-4"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            alignItems: "flex-start",
+                          }}
+                        >
+                          <Link
+                            href={`#`}
+                            // href={"#"}
+                            className="text-dark title h5"
+                          >
+                            {item.title}
+                          </Link>
+                          <Dotdotdot clamp={7}>
+                            <p className="text-dark description d-block mt-3">
+                              {item.description}
+                            </p>
+                          </Dotdotdot>
+
+                          <ul className="list-unstyled mt-4  ">
+                            <li className="list-inline-item text-muted small d-inline-flex align-items-center">
+                              <p href="#" className="text-muted ms-2">
+                                ينتهي :
+                              </p>
+                            </li>
+                            <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
+                              <FiCalendar className="text-dark h6 ms-1 mb-0" />
+                              {itemR.date}
+                            </li>
+                            <li className="list-inline-item text-muted small d-inline-flex align-items-center">
+                              <FiClock className="text-dark h6 ms-1 mb-0 " />
+                              {itemR.time}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
       <div id="departments"></div>
       <div className="container mt-100 mt-60" dir="rtl">
         <div className="row justify-content-center">
@@ -267,24 +297,24 @@ export default function Home() {
           {data.categories.map((item, index) => {
             return (
               <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
-                <div className="card features  feature-primary border-0">
+                <div className="card blog blog-primary border-0 ">
                   <div
-                    className="icon text-center rounded-m"
-                    style={{ height: "190px", width: "180px" }}
+                    className="icon text-center  rounded-m"
+                    // style={{ height: "190px", width: "180px" }}
                   >
                     {/* <Icon className="h3 mb-0" /> */}
 
                     <Image
                       src={item.image}
-                      width={150}
-                      height={150}
-                      // sizes="100vw"
+                      width={0}
+                      height={0}
+                      sizes="100vw"
                       style={{
                         width: "100%",
-                        height: "100%",
+                        height: "12rem",
                         objectFit: "cover",
                       }}
-                      className="h3 mb-0 rounded"
+                      className="img-fluid m-1"
                       alt=""
                     />
                     {/* <img src={item.image} alt=" " /> */}
