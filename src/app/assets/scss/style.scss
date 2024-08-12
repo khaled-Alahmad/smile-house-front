@@ -6,7 +6,6 @@
    File Description: Main Css file of the template
 */
 
-
 //Fonts
 @import "custom/fonts/fonts";
 
@@ -15,7 +14,6 @@
 @import "./node_modules/bootstrap/scss/variables";
 @import "variables";
 @import "./node_modules/bootstrap/scss/mixins.scss";
-
 
 // Structure
 @import "custom/structure/general";
@@ -47,3 +45,7 @@
 @import "custom/plugins/testi";
 @import "custom/plugins/datepicker";
 @import "custom/plugins/apexchart";
+.fc-event-title {
+  color: white !important;
+  font-size: 16px !important;
+}

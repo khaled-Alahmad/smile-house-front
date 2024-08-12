@@ -82,6 +82,8 @@ export default function AppointmentTab() {
       (doctor) => doctor.id === parseInt(selectedId)
     );
     setSelectedDep(selectedDep);
+    // console.log(selectedDep);
+    
     setFormData({ ...formData, category_id: selectedDep.id });
 
     // استرجاع بيانات أوقات العمل والحجوزات للطبيب المحدد
@@ -180,7 +182,7 @@ export default function AppointmentTab() {
     const phone = "+963964677938";
     const message = `الاسم الأول: ${formData.first_name}\nاسم العائلة: ${
       formData.last_name
-    }\nرقم هاتفك: ${formData.phone}\nالتخصص: ${formData.category}\nالطبيب: ${
+    }\nرقم هاتفك: ${formData.phone}\nالتخصص: ${selectedDep.name}\nالطبيب: ${
       selectedDoctor ? selectedDoctor.name : ""
     }\nالتعليقات: ${formData.comments}\nتاريخ الزيارة: ${
       formData.visit_date
