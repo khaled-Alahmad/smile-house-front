@@ -189,28 +189,28 @@ export default function AboutUs() {
           <div className="row">
             {categories.slice(0, 8).map((item, index) => {
               return (
-                <div className="col-xl-3 col-md-4 col-12 mt-4 pt-2" key={index}>
-                  <div className="card features feature-primary border-0">
-                    <div className="icon text-center rounded-md">
+                <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
+                  <div className="card blog blog-primary border-0 ">
+                    <div
+                      className="icon text-center  rounded-m"
+                      // style={{ height: "190px", width: "180px" }}
+                    >
+                      {/* <Icon className="h3 mb-0" /> */}
+
                       <Image
                         src={item.image}
                         width={0}
                         height={0}
                         sizes="100vw"
-                        style={{ width: "100%", height: "100%" }}
-                        className="h3 mb-0 rounded" 
+                        style={{
+                          width: "100%",
+                          height: "12rem",
+                          objectFit: "cover",
+                        }}
+                        className="img-fluid m-1"
                         alt=""
                       />
-                    </div>
-                    <div className="card-body p-0 mt-3">
-                      <Link href="#" className="title text-dark h5">
-                        {item.title}
-                      </Link>
-                      <p className="text-muted mt-3">{item.description}</p>
-                      {/* <Link href="#" className="link">
-                        اقرأ المزيد{" "}
-                        <FiArrowLeft className="mb-0 align-middle" />
-                      </Link> */}
+                      {/* <img src={item.image} alt=" " /> */}
                     </div>
                   </div>
                 </div>
@@ -236,68 +236,74 @@ export default function AboutUs() {
             </div>
           </div>
 
-          <div className="row align-items-center">
+          <div className="row align-items-end">
             {data.doctors.slice(0, 4).map((item, index) => {
               return (
-                <div
-                  className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
-                  key={index}
-                >
-                  <div className="card team border-0 rounded shadow overflow-hidden">
+                <div className="col-lg-3 col-md-4 col-6  mt-4 pt-2" key={index}>
+                  <div
+                    className="card blog border-0 rounded shadow overflow-hidden"
+                    style={{
+                      height: "100%",
+                    }}
+                  >
                     <div className="team-img position-relative">
                       <Image
                         src={item.image}
                         width={0}
                         height={0}
                         sizes="100vh"
-                        style={{ width: "100%", height: "300px" }}
+                        style={{
+                          width: "100%",
+                          height: "15rem",
+                          objectFit: "cover",
+                        }}
                         className="img-fluid"
                         alt=""
                       />
                       {/* <ul className="list-unstyled team-social mb-0">
-                        <li>
-                          <Link
-                            href="#"
-                            className="btn btn-icon btn-pills btn-soft-primary"
-                          >
-                            <FiFacebook className="icons" />
-                          </Link>
-                        </li>
-                        <li className="mt-2">
-                          <Link
-                            href="#"
-                            className="btn btn-icon btn-pills btn-soft-primary"
-                          >
-                            <FiLinkedin className="icons" />
-                          </Link>
-                        </li>
-                        <li className="mt-2">
-                          <Link
-                            href="#"
-                            className="btn btn-icon btn-pills btn-soft-primary"
-                          >
-                            <FiGithub className="icons" />
-                          </Link>
-                        </li>
-                        <li className="mt-2">
-                          <Link
-                            href="#"
-                            className="btn btn-icon btn-pills btn-soft-primary"
-                          >
-                            <FiTwitter className="icons" />
-                          </Link>
-                        </li>
-                      </ul> */}
+                      <li>
+                        <Link
+                          href="#"
+                          className="btn btn-icon btn-pills btn-soft-primary"
+                        >
+                          <FiFacebook className="icons" />
+                        </Link>
+                      </li>
+                      <li className="mt-2 ms-0">
+                        <Link
+                          href="#"
+                          className="btn btn-icon btn-pills btn-soft-primary"
+                        >
+                          <FiLinkedin className="icons" />
+                        </Link>
+                      </li>
+                      <li className="mt-2 ms-0">
+                        <Link
+                          href="#"
+                          className="btn btn-icon btn-pills btn-soft-primary"
+                        >
+                          <FiGithub className="icons" />
+                        </Link>
+                      </li>
+                      <li className="mt-2 ms-0">
+                        <Link
+                          href="#"
+                          className="btn btn-icon btn-pills btn-soft-primary"
+                        >
+                          <FiTwitter className="icons" />
+                        </Link>
+                      </li>
+                    </ul> */}
                     </div>
-                    <div className="card-body content text-center">
+                    <div className="card-body content text-end  ">
                       <Link
-                        href="#"
+                        href="/doctor-team-one"
                         className="title text-dark h5 d-block mb-0"
                       >
                         {item.name}
                       </Link>
                       <small className="text-muted speciality">
-                        {item.speciality}
+                        {item.specialty}
                       </small>
                     </div>
                   </div>

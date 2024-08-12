@@ -109,22 +109,28 @@ export default function DepartmentsAll() {
             {services.length > 0 ? (
               services.map((item, index) => {
                 return (
-                  <div
-                    className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
-                    key={index}
-                  >
-                    <div className="card features feature-primary border-0">
-                      <div className="icon text-center rounded-md">
+                  <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
+                    <div className="card blog blog-primary border-0 ">
+                      <div
+                        className="icon text-center  rounded-m"
+                        // style={{ height: "190px", width: "180px" }}
+                      >
                         {/* <Icon className="h3 mb-0" /> */}
+
                         <Image
                           src={item.image}
                           width={0}
                           height={0}
                           sizes="100vw"
-                          style={{ width: "100%", height: "auto" }}
-                          className="h3 mb-0 rounded"
+                          style={{
+                            width: "100%",
+                            height: "12rem",
+                            objectFit: "cover",
+                          }}
+                          className="img-fluid m-1"
                           alt=""
                         />
+                        {/* <img src={item.image} alt=" " /> */}
                       </div>
                       <div className="card-body p-0 mt-3">
                         <Link href="/departments" legacyBehavior>
