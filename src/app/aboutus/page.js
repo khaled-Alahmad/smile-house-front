@@ -191,7 +191,7 @@ export default function AboutUs() {
 
           <div className="row">
             {categories.slice(0, 8).map((item, index) => {
-              const timestamp = item.end_date;
+              const timestamp = item.created_at;
 
               // Create a Date object
               const dateObj = new Date(timestamp);
@@ -359,7 +359,7 @@ export default function AboutUs() {
                     </div>
                     <div className="card-body content text-end  ">
                       <Link
-                        href="/doctor-team-one"
+                        href="#"
                         className="title text-dark h5 d-block mb-0"
                       >
                         {item.name}

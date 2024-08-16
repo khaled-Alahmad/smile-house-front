@@ -104,16 +104,22 @@ export default function BlogDetail(props) {
         <div className="container">
           <div className="row">
             <div className="col-lg-12 col-lg-7">
-              <Image
-                src={data?.image}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: "100%", height: "auto" }}
-                className="img-fluid rounded shadow"
-                alt=""
-              />
-              <p className="text-muted mt-4" dir="rtl">
+              <div className="text-center">
+                <Image
+                  src={data?.image}
+                  width={500}
+                  height={400}
+                  // sizes="100vw"
+                  // style={{ width: "100%", height: "auto" }}
+                  className="img-fluid rounded shadow-dark"
+                  alt=""
+                />
+              </div>
+              <p
+                className="text-body-secondary text-xl-end  mt-4 border-black border-1"
+                style={{ fontSize: "1.2rem" }}
+                dir="rtl"
+              >
                 {data?.content}
               </p>
 
