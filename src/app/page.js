@@ -60,6 +60,9 @@ export default function Home() {
       try {
         const fetchedData = await fetchData();
         setData(fetchedData);
+        // console.log(fetchedData);
+        localStorage.setItem("appointment_phone",fetchedData.bookAppointment['whatsapp-number']
+        )
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -97,7 +100,7 @@ export default function Home() {
       <Loader />
     );
   }
-  console.log(data);
+  // console.log(data);
   const handleClick = (id) => {
     localStorage.setItem("categoryId", id);
   };
