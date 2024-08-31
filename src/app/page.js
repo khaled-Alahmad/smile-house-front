@@ -61,8 +61,10 @@ export default function Home() {
         const fetchedData = await fetchData();
         setData(fetchedData);
         // console.log(fetchedData);
-        localStorage.setItem("appointment_phone",fetchedData.bookAppointment['whatsapp-number']
-        )
+        localStorage.setItem(
+          "appointment_phone",
+          fetchedData.bookAppointment["whatsapp-number"]
+        );
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -210,7 +212,7 @@ export default function Home() {
                   };
                   return (
                     <div
-                      className="col-lg-3 col-md-4 col-6 mt-4 pt-2"
+                      className="col-lg-3 col-md-4 col-6 "
                       key={index}
                     >
                       <div
@@ -249,12 +251,12 @@ export default function Home() {
                             {item.title}
                           </Link>
                           <Dotdotdot clamp={10}>
-                            <p className="text-dark description d-block mt-3">
+                            <p className="text-dark description d-block">
                               {item.description}
                             </p>
                           </Dotdotdot>
 
-                          <ul className="list-unstyled mt-4  ">
+                          <ul className="list-unstyled">
                             <li className="list-inline-item text-muted small d-inline-flex align-items-center">
                               <p href="#" className="text-muted ms-2">
                                 ينتهي :
@@ -280,81 +282,84 @@ export default function Home() {
         </>
       )}
       <div id="departments"></div>
-      <div className="container mt-100 mt-60" dir="rtl">
-        <div className="row justify-content-center">
-          <div className="col-12">
-            <div className="section-title mb-4 pb-2 text-center">
-              <span className="badge rounded-pill bg-soft-primary mb-3">
-                الأقسام
-              </span>
-              <h4 className="title mb-4">خدماتنا الطبية</h4>
-              <p className="text-muted mx-auto para-desc mb-0">
-                دكتور متميز إذا كنت بحاجة إلى تقديم مساعدة فعالة وفورية لأحد
-                أفراد أسرتك، سواء في حالات الطوارئ أو للحصول على استشارة بسيطة.
-              </p>
+      <div className="section " dir="rtl">
+        <div className="container   mb-60">
+          <div className="row justify-content-center">
+            <div className="col-12">
+              <div className="section-title mb-4  text-center">
+                <span className="badge rounded-pill bg-soft-primary mb-3">
+                  الأقسام
+                </span>
+                <h4 className="title mb-4">خدماتنا الطبية</h4>
+                <p className="text-muted mx-auto para-desc mb-0">
+                  دكتور متميز إذا كنت بحاجة إلى تقديم مساعدة فعالة وفورية لأحد
+                  أفراد أسرتك، سواء في حالات الطوارئ أو للحصول على استشارة
+                  بسيطة.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
-          {data.categories.map((item, index) => {
-            return (
-              <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
-                <div className="card blog blog-primary border-0 ">
-                  <div
-                    className="icon text-center  rounded-m"
-                    // style={{ height: "190px", width: "180px" }}
-                  >
-                    {/* <Icon className="h3 mb-0" /> */}
+          <div className="row">
+            {data.categories.map((item, index) => {
+              return (
+                <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
+                  <div className="card blog blog-primary border-0 ">
+                    <div
+                      className="icon text-center  rounded-m"
+                      // style={{ height: "190px", width: "180px" }}
+                    >
+                      {/* <Icon className="h3 mb-0" /> */}
 
-                    <Image
-                      src={item.image}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      style={{
-                        width: "100%",
-                        height: "12rem",
-                        objectFit: "cover",
-                      }}
-                      className="img-fluid m-1"
-                      alt=""
-                    />
-                    {/* <img src={item.image} alt=" " /> */}
-                  </div>
-                  <div className="card-body p-0 mt-3">
-                    <Link href="/departments" legacyBehavior>
-                      <a
-                        onClick={() => handleClick(item.id)}
-                        className="title text-dark h5"
-                      >
-                        {item.name}
-                      </a>
-                    </Link>
-                    <p className="text-muted mt-3">{item.description}</p>
-                    <Link href="/departments" className="link" legacyBehavior>
-                      <a onClick={() => handleClick(item.id)} className="">
-                        {/* {item.name} */}
-                        عرض الخدمات
-                        <BiLeftArrowAlt className="align-middle" />
-                      </a>
-                    </Link>
+                      <Image
+                        src={item.image}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{
+                          width: "100%",
+                          height: "12rem",
+                          objectFit: "cover",
+                        }}
+                        className="img-fluid m-1"
+                        alt=""
+                      />
+                      {/* <img src={item.image} alt=" " /> */}
+                    </div>
+                    <div className="card-body p-0 mt-3">
+                      <Link href="/departments" legacyBehavior>
+                        <a
+                          onClick={() => handleClick(item.id)}
+                          className="title text-dark h5"
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
+                      <p className="text-muted mt-3">{item.description}</p>
+                      <Link href="/departments" className="link" legacyBehavior>
+                        <a onClick={() => handleClick(item.id)} className="">
+                          {/* {item.name} */}
+                          عرض الخدمات
+                          <BiLeftArrowAlt className="align-middle" />
+                        </a>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-          <div className="col-12 mt-4 pt-2 text-center">
-            <Link href="/departments-all" className="btn btn-primary">
-              عرض المزيد
-            </Link>
+              );
+            })}
+            <div className="col-12 mt-4 pt-2 text-center">
+              <Link href="/departments-all" className="btn btn-primary">
+                عرض المزيد
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      <section className="section mt-100" dir="rtl">
+      <section className="section" dir="rtl">
         <div id="about"></div>
-        <div className="container mt-100 ">
+        <div className="container mt-50 ">
           <div className="row align-items-center">
             <AboutImage
               colClass="col-lg-5 col-md-6"
