@@ -211,7 +211,7 @@ export default function Home() {
                     time: formattedTime,
                   };
                   return (
-                    <div className="col-lg-3 col-md-4 col-12 " key={index}>
+                    <div className="col-lg-3 col-md-4 col-6 " key={index}>
                       <div
                         className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                         style={{
@@ -232,7 +232,7 @@ export default function Home() {
                           alt=""
                         />
                         <div
-                          className="card-body p-4"
+                          className="card-body p-2"
                           style={{
                             display: "flex",
                             flexDirection: "column",
@@ -253,20 +253,19 @@ export default function Home() {
                             </p>
                           </Dotdotdot>
 
-                          <ul className="list-unstyled ">
-                            <li className="list-inline-item text-muted  d-inline-flex align-items-center">
-                              <p href="#" className="text-muted ms-2">
+                          <ul className="list-unstyled  lg:d-inline-flex lg:align-items-center">
+                            <li className=" text-muted  d-inline-flex align-items-center">
+                              <span href="#" className="text-muted ">
                                 ينتهي :
-                              </p>
-                            </li>
-                            <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
-                              <FiCalendar className="text-dark  ms-1 mb-0" />
-                              {itemR.date}
+                              </span>
                             </li>
                             <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                              <FiClock className="text-dark  ms-1 mb-0 " />
-                              {itemR.time}
+                              <FiCalendar className="text-dark  ms-1 mb-0" />
+                              {itemR.time} {itemR.date}
                             </li>
+                            {/* <li className="list-inline-item text-muted small d-inline-flex align-items-center">
+                              <FiClock className="text-dark  ms-1 mb-0 " />
+                            </li> */}
                           </ul>
                         </div>
                       </div>
