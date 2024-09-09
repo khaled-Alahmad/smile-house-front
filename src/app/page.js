@@ -211,10 +211,7 @@ export default function Home() {
                     time: formattedTime,
                   };
                   return (
-                    <div
-                      className="col-lg-3 col-md-4 col-6 "
-                      key={index}
-                    >
+                    <div className="col-lg-3 col-md-4 col-12 " key={index}>
                       <div
                         className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                         style={{
@@ -250,24 +247,24 @@ export default function Home() {
                           >
                             {item.title}
                           </Link>
-                          <Dotdotdot clamp={10}>
-                            <p className="text-dark description d-block">
+                          <Dotdotdot clamp={5}>
+                            <p className="text-dark  d-block">
                               {item.description}
                             </p>
                           </Dotdotdot>
 
-                          <ul className="list-unstyled">
-                            <li className="list-inline-item text-muted small d-inline-flex align-items-center">
+                          <ul className="list-unstyled ">
+                            <li className="list-inline-item text-muted  d-inline-flex align-items-center">
                               <p href="#" className="text-muted ms-2">
                                 ينتهي :
                               </p>
                             </li>
                             <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
-                              <FiCalendar className="text-dark h6 ms-1 mb-0" />
+                              <FiCalendar className="text-dark  ms-1 mb-0" />
                               {itemR.date}
                             </li>
                             <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                              <FiClock className="text-dark h6 ms-1 mb-0 " />
+                              <FiClock className="text-dark  ms-1 mb-0 " />
                               {itemR.time}
                             </li>
                           </ul>
