@@ -211,7 +211,7 @@ export default function Home() {
                     time: formattedTime,
                   };
                   return (
-                    <div className="col-lg-3 col-md-4 col-6 " key={index}>
+                    <div className="col-lg-3 col-md-4 col-6 my-2" key={index}>
                       <div
                         className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                         style={{
