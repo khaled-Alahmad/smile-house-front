@@ -176,7 +176,7 @@ export default function Home() {
 
               <div className="row" dir="rtl">
                 {/* {blogData.slice(0, 3).map((item, index) => {*/}
-                {data.offers.slice(0, 6).map((item, index) => {
+                {data.offers.slice(0, 4).map((item, index) => {
                   const timestamp = item.end_date;
 
                   // Create a Date object
@@ -272,6 +272,11 @@ export default function Home() {
                     </div>
                   );
                 })}
+                <div className="col-12 mt-4 pt-2 text-center">
+                  <Link href="/offers-all" className="btn btn-primary">
+                    عرض المزيد
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
@@ -303,7 +308,7 @@ export default function Home() {
                   <div className="card blog blog-primary border-0 ">
                     <div
                       className="icon text-center  rounded-m"
-                      // style={{ height: "190px", width: "180px" }}
+                    // style={{ height: "190px", width: "180px" }}
                     >
                       {/* <Icon className="h3 mb-0" /> */}
 
