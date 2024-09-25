@@ -118,12 +118,12 @@ export default function Home() {
       <section
         id="hero"
         className="bg-half-260 d-table w-100"
-        style={{ backgroundImage: `url('${data.hero["main_image"]}')` }}
+        style={{ backgroundImage: `url('${data.hero["main_image"]}')`,padding:"205px 0px" }}
         dir="rtl"
       >
         <div className="bg-overlay bg-overlay-dark"></div>
         <div className="container">
-          <div className="row mt-5 mt-lg-0">
+          <div className="row  mt-lg-0">
             <div className="col-12">
               <div className="heading-title" dir="rtl">
                 <Image src="/images/logo.png" width={54} height={50} alt="" />
@@ -253,15 +253,16 @@ export default function Home() {
                             </p>
                           </Dotdotdot>
 
-                          <ul className="list-unstyled  lg:d-inline-flex lg:align-items-center">
+                          <ul className="list-unstyled d-flex flex-column  lg:d-inline-flex lg:align-items-center">
                             <li className=" text-muted  d-inline-flex align-items-center">
-                              <span href="#" className="text-muted ">
+                              <span href="#" className="text-muted mb-1 lg:mb-0 ">
                                 ينتهي :
                               </span>
                             </li>
                             <li className="list-inline-item text-muted small d-inline-flex align-items-center">
                               <FiCalendar className="text-dark  ms-1 mb-0" />
-                              {itemR.time} {itemR.date}
+                              {/* {itemR.time} */}
+                               {itemR.date}
                             </li>
                             {/* <li className="list-inline-item text-muted small d-inline-flex align-items-center">
                               <FiClock className="text-dark  ms-1 mb-0 " />
@@ -305,48 +306,41 @@ export default function Home() {
             {data.categories.map((item, index) => {
               return (
                 <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
-                  <div className="card blog blog-primary border-0 ">
-                    <div
-                      className="icon text-center  rounded-m"
-                    // style={{ height: "190px", width: "180px" }}
-                    >
-                      {/* <Icon className="h3 mb-0" /> */}
-
-                      <Image
-                        src={item.image}
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        style={{
-                          width: "100%",
-                          height: "12rem",
-                          objectFit: "cover",
-                        }}
-                        className="img-fluid m-1"
-                        alt=""
-                      />
-                      {/* <img src={item.image} alt=" " /> */}
-                    </div>
-                    <div className="card-body p-0 mt-3">
-                      <Link href="/departments" legacyBehavior>
-                        <a
-                          onClick={() => handleClick(item.id)}
-                          className="title text-dark h5"
-                        >
-                          {item.name}
-                        </a>
-                      </Link>
-                      <p className="text-muted mt-3">{item.description}</p>
-                      <Link href="/departments" className="link" legacyBehavior>
-                        <a onClick={() => handleClick(item.id)} className="">
-                          {/* {item.name} */}
-                          عرض الخدمات
-                          <BiLeftArrowAlt className="align-middle" />
-                        </a>
-                      </Link>
-                    </div>
+                <div className="card blog blog-primary border-0 d-flex flex-column" style={{ height: "100%" }}>
+                  <div className="icon text-center rounded-m" style={{ height: "12rem" }}>
+                    <Image
+                      src={item.image}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                      className="img-fluid m-1"
+                      alt=""
+                    />
+                  </div>
+                  <div className="card-body p-0 mt-3 d-flex flex-column">
+                    <Link href="/departments" legacyBehavior>
+                      <a onClick={() => handleClick(item.id)} className="title text-dark h5">
+                        {item.name}
+                      </a>
+                    </Link>
+                    <p className="text-muted mt-3 flex-grow-1">{item.description}</p>
+                    
+                    {/* زر عرض الخدمات مثبت في الأسفل */}
+                    <Link href="/departments" className="link mt-auto" legacyBehavior>
+                      <a onClick={() => handleClick(item.id)}>
+                        عرض الخدمات
+                        <BiLeftArrowAlt className="align-middle" />
+                      </a>
+                    </Link>
                   </div>
                 </div>
+              </div>
+              
               );
             })}
             <div className="col-12 mt-4 pt-2 text-center">
@@ -562,64 +556,64 @@ export default function Home() {
               };
               return (
                 <div className="col-lg-3 col-md-4 col-6 mt-4 pt-2" key={index}>
-                  <div
-                    className="card blog blog-primary border-0 shadow rounded overflow-hidden"
-                    style={{ height: "22rem" }}
-                  >
-                    <Image
-                      src={item.image}
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      style={{
-                        width: "100%",
-                        height: "12rem",
-                        objectFit: "cover",
-                      }}
-                      className="img-fluid"
-                      alt=""
-                    />
-                    <div className="card-body p-4">
-                      <ul className="list-unstyled mb-2 ">
-                        <li className="list-inline-item text-muted small ms-3 d-inline-flex align-items-center">
-                          <FiCalendar className="text-dark h6 ms-1 mb-0" />
-                          {itemR.date}
+                <div
+                  className="card blog blog-primary border-0 shadow rounded overflow-hidden d-flex flex-column"
+                  style={{ height: "28rem" }}
+                >
+                  <Image
+                    src={item.image}
+                    width={150}
+                    height={100}
+                    sizes="100vw"
+                    style={{
+                      width: "100%",
+                      height: "12rem",
+                      objectFit: "cover",
+                    }}
+                    className="img-fluid"
+                    alt=""
+                  />
+                  <div className="card-body p-4 d-flex flex-column">
+                    <ul className="list-unstyled mb-2">
+                      <li className="list-inline-item text-muted small  d-inline-flex align-items-center">
+                        <FiCalendar className="text-dark h6 ms-1 mb-0" />
+                        {itemR.date}
+                      </li>
+                      <li className="list-inline-item text-muted small d-inline-flex align-items-center" style={{ marginInlineStart: "0px" }}>
+                        <FiClock className="text-dark h6 ms-1 mb-0 " />
+                        {itemR.time}
+                      </li>
+                    </ul>
+                    <Link href={`/blog-detail/${item.id}`} className="text-dark title h5">
+                      {item.title}
+                    </Link>
+                    
+                    {/* post-meta section */}
+                    <div className="post-meta justify-content-between mt-3 d-flex flex-column flex-lg-row mt-auto mb-2">
+                      <ul className="list-unstyled mb-0 d-flex flex-row flex-lg-row">
+                        <li className="list-inline-item ms-2 mb-0">
+                          <Link href="#" className="text-muted like">
+                            <i className="mdi mdi-heart-outline ms-1"></i>
+                            {item.like}
+                          </Link>
                         </li>
-                        <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                          <FiClock className="text-dark h6 ms-1 mb-0 " />
-                          {itemR.time}
+                        <li className="list-inline-item ms-2 mb-0">
+                          <Link href="#" className="text-muted comments">
+                            <i className="mdi mdi-comment-outline ms-1"></i>
+                            {item.comment}
+                          </Link>
                         </li>
                       </ul>
-                      <Link
-                        href={`/blog-detail/${item.id}`}
-                        // href={"#"}
-                        className="text-dark title h5"
-                      >
-                        {item.title}
-                      </Link>
-                      <div className="post-meta d-flex justify-content-between mt-3">
-                        <ul className="list-unstyled mb-0">
-                          <li className="list-inline-item ms-2 mb-0">
-                            <Link href="#" className="text-muted like">
-                              <i className="mdi mdi-heart-outline ms-1"></i>
-                              {item.like}
-                            </Link>
-                          </li>
-                          <li className="list-inline-item">
-                            <Link href="#" className="text-muted comments">
-                              <i className="mdi mdi-comment-outline ms-1"></i>
-                              {item.comment}
-                            </Link>
-                          </li>
-                        </ul>
-                        <Link href={`/blog-detail/${item.id}`} className="link">
-                          قراءة المزيد{" "}
-                          <i className="mdi mdi-chevron-left align-middle"></i>
-                        </Link>
-                      </div>
                     </div>
+              
+                    {/* زر قراءة المزيد مثبت في الأسفل */}
+                    <Link href={`/blog-detail/${item.id}`} className="link ">
+                      قراءة المزيد <i className="mdi mdi-chevron-left align-middle"></i>
+                    </Link>
                   </div>
                 </div>
+              </div>
+              
               );
             })}
           </div>
@@ -649,6 +643,15 @@ export default function Home() {
         </div>
       </section> */}
       <FeatureOne data={data.info} />
+      <div className="whatsapp-btn">
+  <a
+    href="https://wa.me/+905394705977" // استبدل YOUR_PHONE_NUMBER برقم هاتف واتساب الخاص بك بصيغة دولية بدون '+'.
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i className="fab fa-whatsapp"></i>
+  </a>
+</div>
 
       <Footer data={data} />
       <ScrollTop />

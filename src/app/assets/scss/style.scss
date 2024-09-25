@@ -53,5 +53,29 @@
   padding: 30px 0 !important;
 }
 .bg-half-260 {
-  padding: 284px 0 !important;
+  padding: 235px 0 !important;
+}
+.whatsapp-btn {
+  position: fixed;
+  bottom: 20px; /* المسافة من أسفل الصفحة */
+  left: 20px; /* المسافة من يسار الصفحة */
+  background-color: #25d366; /* لون خلفية واتساب */
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.whatsapp-btn i {
+  font-size: 30px; /* حجم أيقونة واتساب */
+  color: white; /* لون الأيقونة */
+}
+
+.whatsapp-btn:hover {
+  background-color: #20c057; /* لون خلفية عند التحويم */
 }
