@@ -3,6 +3,7 @@ import "./globals.css";
 import "./assets/scss/style.scss";
 import "./assets/scss/bootstrap.scss";
 import "./assets/css/materialdesignicons.min.css";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,15 +20,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar">
       <header>
-      <link
+        <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           rel="stylesheet"
         />
-         <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"
+          strategy="afterInteractive"
         />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css"
+          rel="stylesheet"
+        />
       </header>
       <body className={`${inter.variable} font-sans`}>{children}</body>
     </html>

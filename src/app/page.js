@@ -332,6 +332,7 @@ export default function Home() {
             {data.categories.map((item, index) => {
               return (
                 <div
+                key={index}
                   className="col-lg-3 col-md-4 col-6 my-2"
                   data-aos="fade-up" // تأثير الحركات عند الظهور
                   data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
