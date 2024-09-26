@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 
 const TinySlider = dynamic(() => import("tiny-slider-react"), { ssr: false });
 import "tiny-slider/dist/tiny-slider.css";
-
 const settings = {
   container: ".client-review-slider",
   items: 3, // عرض 3 عناصر على نفس السطر
@@ -26,7 +25,13 @@ export default function Patients({ data }) {
     <div className="client-review-slider" style={{ overflow: "hidden" }}>
       <TinySlider settings={settings}>
         {data.map((item, index) => (
-          <div className="tiny-slide text-center" key={index}>
+          <div
+            className="tiny-slide text-center"
+            key={index}
+            data-aos="fade-up"
+          >
+            {" "}
+            {/* إضافة الحركة */}
             <p className="text-muted fw-normal fst-italic">
               {item.customer_comment}
             </p>
@@ -38,21 +43,11 @@ export default function Patients({ data }) {
               alt=""
             />
             <ul className="list-unstyled mb-0">
-              <li className="list-inline-item">
-                <i className="mdi mdi-star text-warning"></i>
-              </li>
-              <li className="list-inline-item">
-                <i className="mdi mdi-star text-warning"></i>
-              </li>
-              <li className="list-inline-item">
-                <i className="mdi mdi-star text-warning"></i>
-              </li>
-              <li className="list-inline-item">
-                <i className="mdi mdi-star text-warning"></i>
-              </li>
-              <li className="list-inline-item">
-                <i className="mdi mdi-star text-warning"></i>
-              </li>
+              {[...Array(5)].map((_, i) => (
+                <li className="list-inline-item" key={i}>
+                  <i className="mdi mdi-star text-warning"></i>
+                </li>
+              ))}
             </ul>
             <h6 dir="rtl" className="text-primary">
               {item.customer_name}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,11 @@ export default function AboutImage({ colClass, imageSrc, VideoSrc }) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div className={colClass}>
+    <div
+      className={colClass}
+      data-aos="fade-left" // تأثير تكبير الصورة
+      data-aos-duration="800"
+    >
       <div className="position-relative">
         <Image
           src={imageSrc ?? "/images/about/about-1.png"}

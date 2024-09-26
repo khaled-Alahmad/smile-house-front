@@ -20,6 +20,7 @@ export default function CtaOne({ data }) {
             <div
               className="video-solution-cta position-relative"
               style={{ zIndex: "1" }}
+              data-aos="fade-up" // إضافة الحركة
             >
               <div className="position-relative">
                 <Image
@@ -55,14 +56,20 @@ export default function CtaOne({ data }) {
                 <div className="row" id="counter">
                   {data.details.map((item, index) => {
                     return (
-                      <div className="col-md-4 mt-4 pt-2" key={index}>
+                      <div
+                        className="col-md-4 mt-4 pt-2"
+                        key={index}
+                        data-aos="zoom-in"
+                      >
+                        {" "}
+                        {/* إضافة الحركة */}
                         <div className="counter-box text-center">
                           <h1 className="mt-3 text-white title-dark">
                             <CountUp
                               className="counter-value"
                               start={0}
                               end={parseFloat(item.amount)}
-                              //   duration={2.5}
+                              // duration={2.5}
                             />
                             +
                           </h1>

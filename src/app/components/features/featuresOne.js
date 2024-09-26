@@ -17,33 +17,33 @@ export default function FeatureOne({ data }) {
       <div className="row justify-content-center">
         <div className="col-xl-10">
           <div className="features-absolute bg-white shadow rounded overflow-hidden card-group">
-            <div className="card border-0 bg-light p-4">
+            <div className="card border-0 bg-light p-4" data-aos="fade-up">
+              {" "}
+              {/* إضافة الحركة */}
               <RiHeartPulseFill className="text-primary h2" />
               <h5 className="mt-1">{data[3]["title"] ?? "حالات الطوارئ"}</h5>
               <p className="text-muted mt-2">
                 {data[3]["content"] ??
-                  "                استجابة سريعة وفعالة لتقديم الرعاية الطبية"}
+                  "استجابة سريعة وفعالة لتقديم الرعاية الطبية"}
               </p>
-              {/* <Link href="/departments" className="text-primary">
-                Read More <FiArrowRight className="align-middle" />
-              </Link> */}
             </div>
 
-            <div className="card border-0 p-4">
+            <div className="card border-0 p-4" data-aos="fade-up">
+              {" "}
+              {/* إضافة الحركة */}
               <RiDossierFill className="text-primary h2" />
               <h5 className="mt-1">{data[2]["title"] ?? "جدول الاطباء"}</h5>
               <p className="text-muted mt-2">
                 {data[2]["content"] ??
-                  " يمكن للمرضى تحديد الأوقات المناسبة لزيارة الطبيب وحجز المواعيد بسهولة"}
+                  "يمكن للمرضى تحديد الأوقات المناسبة لزيارة الطبيب وحجز المواعيد بسهولة"}
               </p>
-              {/* <Link href="/departments" className="text-primary">
-                اقرأ المزيد <FiArrowRight className="align-middle" />
-              </Link> */}
             </div>
 
-            <div className="card border-0 bg-light p-4">
+            <div className="card border-0 bg-light p-4" data-aos="fade-up">
+              {" "}
+              {/* إضافة الحركة */}
               <RiTimeFill className="text-primary h2" />
-              <h5 className="mt-1">{data[1]["title"] ?? "ساعات   العمل"}</h5>
+              <h5 className="mt-1">{data[1]["title"] ?? "ساعات العمل"}</h5>
               <ul className="list-unstyled mt-2">
                 {Object.entries(workHours).map(([day, hours], index) => (
                   <li key={index} className="d-flex justify-content-between">
