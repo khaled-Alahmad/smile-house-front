@@ -337,9 +337,9 @@ export default function Home() {
                   data-aos="fade-up" // تأثير الحركات عند الظهور
                   data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
                 >
-                  <div
-                    className="card blog blog-primary border-0 d-flex flex-column"
-                    style={{ height: "100%" }}
+                   <div
+                    className="card blog blog-primary border-0 shadow rounded overflow-hidden d-flex flex-column"
+                    style={{ height: "28rem" }}
                   >
                     <div
                       className="icon text-center rounded-m"
@@ -619,7 +619,7 @@ export default function Home() {
                     />
                     <div className="card-body p-4 d-flex flex-column">
                       <ul className="list-unstyled mb-2">
-                        <li className="list-inline-item text-muted small d-inline-flex align-items-center">
+                        <li className="list-inline-item text-muted small d-inline-flex align-items-center ms-2">
                           <FiCalendar className="text-dark h6 ms-1 mb-0" />
                           {itemR.date}
                         </li>
@@ -639,7 +639,7 @@ export default function Home() {
                       </Link>
 
                       {/* post-meta section */}
-                      <div className="post-meta justify-content-between mt-3 d-flex flex-column flex-lg-row mt-auto mb-2">
+                      {/* <div className="post-meta justify-content-between mt-3 d-flex flex-column flex-lg-row mt-auto mb-2">
                         <ul className="list-unstyled mb-0 d-flex flex-row flex-lg-row">
                           <li className="list-inline-item ms-2 mb-0">
                             <Link href="#" className="text-muted like">
@@ -654,10 +654,10 @@ export default function Home() {
                             </Link>
                           </li>
                         </ul>
-                      </div>
+                      </div> */}
 
                       {/* زر قراءة المزيد مثبت في الأسفل */}
-                      <Link href={`/blog-detail/${item.id}`} className="link">
+                      <Link href={`/blog-detail/${item.id}`} className="link mt-auto ">
                         قراءة المزيد{" "}
                         <i className="mdi mdi-chevron-left align-middle"></i>
                       </Link>
