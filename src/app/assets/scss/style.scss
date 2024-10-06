@@ -55,6 +55,17 @@
 .bg-half-260 {
   padding: 235px 0 !important;
 }
+.image-offer:hover{
+  transition: 1s linear;
+
+  cursor: pointer;
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);}
+          .swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
 .whatsapp-btn {
   position: fixed;
   bottom: 20px; /* المسافة من أسفل الصفحة */

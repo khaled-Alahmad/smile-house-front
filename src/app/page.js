@@ -10,6 +10,8 @@ import Patients from "./components/patients";
 import Footer from "./components/footer";
 import ScrollTop from "./components/scrollTop";
 import AboutImage from "./components/aboutImage";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
 
 import {
   RiArrowRightLine,
@@ -190,10 +192,10 @@ export default function Home() {
         </div>
       </section>
 
-      {data.offers.length != 0 && (
+      {data.offers.length !== 0 && (
         <>
           <section className="section" dir="rtl">
-            <div className="container   mb-60">
+            <div className="container mb-60">
               <div
                 className="row justify-content-center"
                 data-aos="zoom-in-down"
@@ -211,104 +213,73 @@ export default function Home() {
                 </div>
               </div>
               <div className="row" dir="rtl">
-                {data.offers.slice(0, 4).map((item, index) => {
-                  const timestamp = item.end_date;
-
-                  // Create a Date object
-                  const dateObj = new Date(timestamp);
-
-                  // Extract date parts
-                  const year = dateObj.getUTCFullYear();
-                  const month = String(dateObj.getUTCMonth() + 1).padStart(
-                    2,
-                    "0"
-                  );
-                  const day = String(dateObj.getUTCDate()).padStart(2, "0");
-
-                  // Format the date and time
-                  const formattedDate = `${year}-${month}-${day}`;
-
-                  // Assign the formatted date to item
-                  const itemR = {
-                    date: formattedDate,
-                  };
-
-                  return (
-                    <div
-                      className="col-lg-3 col-md-4 col-6 my-2"
-                      key={index}
-                      data-aos="fade-up" // تحديد نوع الحركة
-                      data-aos-delay={index * 100} // التأخير التدريجي لكل كارد
-                    >
-                      <div
-                        className="card blog blog-primary border-0 shadow rounded overflow-hidden"
-                        style={{
-                          height: "100%",
-                        }}
-                      >
-                        <Image
-                          src={item.image}
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          style={{
-                            width: "100%",
-                            height: "12rem",
-                            objectFit: "cover",
-                          }}
-                          className="img-fluid m-1"
-                          alt=""
-                        />
-                        <div
-                          className="card-body p-2"
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                            alignItems: "flex-start",
-                          }}
-                        >
-                          <Link href={`#`} className="text-dark title h5">
-                            {item.title}
-                          </Link>
-                          <Dotdotdot clamp={5}>
-                            <p className="text-dark d-block">
-                              {item.description}
-                            </p>
-                          </Dotdotdot>
-
-                          <ul className="list-unstyled d-flex flex-column lg:d-inline-flex lg:align-items-center">
-                            <li className="text-muted d-inline-flex align-items-center">
-                              <span
-                                href="#"
-                                className="text-muted mb-1 lg:mb-0 "
-                              >
-                                ينتهي :
-                              </span>
-                            </li>
-                            <li className="list-inline-item text-muted small d-inline-flex align-items-center">
-                              <FiCalendar className="text-dark ms-1 mb-0" />
-                              {itemR.date}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-                <div
-                  className="col-12 mt-4 pt-2 text-center"
-                  data-aos="fade-up"
+                <Swiper
+                  spaceBetween={10} // Space between slides
+                  slidesPerView={1} // Shows one slide at a time
+                  breakpoints={{
+                    // Adjust based on screen width
+                    640: {
+                      slidesPerView: 1,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                  }}
+                  loop={true} // Loop through the slides
+                  navigation // Navigation arrows
+                  pagination={{ clickable: true }} // Dots pagination
                 >
-                  <Link href="/offers-all" className="btn btn-primary">
-                    عرض المزيد
-                  </Link>
-                </div>
+                  {data.offers.slice(0, 4).map((item, index) => {
+                    const timestamp = item.end_date;
+                    const dateObj = new Date(timestamp);
+                    const year = dateObj.getUTCFullYear();
+                    const month = String(dateObj.getUTCMonth() + 1).padStart(
+                      2,
+                      "0"
+                    );
+                    const day = String(dateObj.getUTCDate()).padStart(2, "0");
+                    const formattedDate = `${year}-${month}-${day}`;
+
+                    return (
+                      <SwiperSlide key={index}>
+                        <div
+                          className="card blog blog-primary border-0 shadow rounded overflow-hidden"
+                          style={{ height: "100%" }}
+                        >
+                          <Link href={`/offers-all`}>
+                            <Image
+                              src={item.image}
+                              width={0}
+                              height={0}
+                              sizes="100vw"
+                              style={{
+                                width: "100%",
+                                height: "20rem",
+                                objectFit: "cover",
+                              }}
+                              className="img-fluid image-offer  m-1"
+                              alt=""
+                            />
+                          </Link>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+              <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
+                <Link href="/offers-all" className="btn btn-primary">
+                  عرض المزيد
+                </Link>
               </div>
             </div>
           </section>
         </>
       )}
+
       <div id="departments"></div>
       <div className="section " dir="rtl">
         <div className="container   mb-60">
@@ -332,12 +303,12 @@ export default function Home() {
             {data.categories.map((item, index) => {
               return (
                 <div
-                key={index}
+                  key={index}
                   className="col-lg-3 col-md-4 col-6 my-2"
                   data-aos="fade-up" // تأثير الحركات عند الظهور
                   data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
                 >
-                   <div
+                  <div
                     className="card blog blog-primary border-0 shadow rounded overflow-hidden d-flex flex-column"
                     style={{ height: "28rem" }}
                   >
@@ -657,7 +628,10 @@ export default function Home() {
                       </div> */}
 
                       {/* زر قراءة المزيد مثبت في الأسفل */}
-                      <Link href={`/blog-detail/${item.id}`} className="link mt-auto ">
+                      <Link
+                        href={`/blog-detail/${item.id}`}
+                        className="link mt-auto "
+                      >
                         قراءة المزيد{" "}
                         <i className="mdi mdi-chevron-left align-middle"></i>
                       </Link>
