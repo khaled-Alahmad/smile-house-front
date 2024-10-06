@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import Navbar from "./components/navbar";
 import FeatureOne from "./components/features/featuresOne";
-import DrTimeTable from "./components/drTimeTable";
 import CtaOne from "./components/cta/ctaOne";
 import Patients from "./components/patients";
 import Footer from "./components/footer";
