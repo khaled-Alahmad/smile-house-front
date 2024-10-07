@@ -24,6 +24,8 @@ export default function RootLayout({ children }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           rel="stylesheet"
         />
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
         <Script
           src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"
           strategy="afterInteractive"

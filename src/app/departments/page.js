@@ -12,6 +12,8 @@ import Loader from "../components/loader";
 
 export default function Departments() {
   const [services, setServices] = useState([]);
+  const [offer, setOffer] = useState([]);
+
   const [categoryId, setCategoryId] = useState(null);
   const [clientKey, setClientKey] = useState(null);
 
@@ -41,6 +43,7 @@ export default function Departments() {
           console.error("Error fetching data:", error.message);
         }
       }
+      console.log(categoryId);
 
       getServices();
     }
@@ -55,9 +58,16 @@ export default function Departments() {
     fetchDataTotalAsync();
   }, [categoryId]);
   if (!services || !dataTotal) {
-    // Render loading state or return null if you don't want to render anything
+    // Render loading state or s null if you don't want to render anything
     return <Loader />;
   }
+  // console.log(services);
+  const offerData = dataTotal?.categories?.find(
+    (offer) => offer.id == categoryId
+  );
+  // console.log(dataTotal?.categories);
+
+  console.log(offerData);
   return (
     <>
       <Navbar
@@ -66,7 +76,10 @@ export default function Departments() {
       />
       <section
         className="bg-half-170 d-table w-100"
-        style={{ backgroundImage: `url('/images/bg/department.jpg')` }}
+        style={{
+          backgroundImage: `url(${offerData?.image})`,
+          backgroundSize: "cover",
+        }}
         dir="rtl"
       >
         <div className="bg-overlay bg-overlay-dark"></div>
@@ -75,12 +88,10 @@ export default function Departments() {
             <div className="col-12">
               <div className="section-title text-center">
                 <h3 className="sub-title mb-4 text-white title-dark">
-                  الأقسام
+                  {offerData?.name}
                 </h3>
                 <p className="para-desc mx-auto text-white-50">
-                  دكتور متميز إذا كنت بحاجة إلى تقديم مساعدة فعالة وفورية لأحد
-                  أفراد أسرتك، سواء في حالات الطوارئ أو للحصول على استشارة
-                  بسيطة.
+                  {offerData?.description}
                 </p>
 
                 <nav aria-label="breadcrumb" className="d-inline-block mt-3">
@@ -133,13 +144,13 @@ export default function Departments() {
                         {/* <Icon className="h3 mb-0" /> */}
                         <Image
                           src={item.image}
-                          width={200}
-                          height={200}
+                          width={0}
+                          height={0}
                           sizes="100vw"
                           style={{
                             width: "100%",
                             height: "100%",
-                            objectFit: "fill",
+                            objectFit: "cover",
                           }}
                           className="h3 mb-0"
                           alt=""

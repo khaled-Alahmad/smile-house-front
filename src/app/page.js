@@ -9,8 +9,9 @@ import Patients from "./components/patients";
 import Footer from "./components/footer";
 import ScrollTop from "./components/scrollTop";
 import AboutImage from "./components/aboutImage";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
+import { Swiper, SwiperSlide } from "swiper/react";
+// import 'swiper/swiper.scss';
+// import 'swiper/modules/pagination/pagination.min.css'
 
 import {
   RiArrowRightLine,
@@ -231,7 +232,7 @@ export default function Home() {
                   navigation // Navigation arrows
                   pagination={{ clickable: true }} // Dots pagination
                 >
-                  {data.offers.slice(0, 4).map((item, index) => {
+                  {data.offers.map((item, index) => {
                     const timestamp = item.end_date;
                     const dateObj = new Date(timestamp);
                     const year = dateObj.getUTCFullYear();
@@ -246,9 +247,9 @@ export default function Home() {
                       <SwiperSlide key={index}>
                         <div
                           className="card blog blog-primary border-0 shadow rounded overflow-hidden"
-                          style={{ height: "100%" }}
+                          style={{ height: "18rem" }}
                         >
-                          <Link href={`/offers-all`}>
+                          <Link href={`/offers-all`} style={{height:"100%"}}>
                             <Image
                               src={item.image}
                               width={0}
@@ -256,9 +257,10 @@ export default function Home() {
                               sizes="100vw"
                               style={{
                                 width: "100%",
-                                height: "20rem",
+                                height: "100%",
                                 objectFit: "cover",
                               }}
+                              // className="img-fluid m-1"
                               className="img-fluid image-offer  m-1"
                               alt=""
                             />
