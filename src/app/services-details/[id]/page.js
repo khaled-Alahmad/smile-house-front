@@ -155,7 +155,7 @@ export default function PharmacyProductDetail(props) {
                   <h5 className="mt-4 py-2">الوصف</h5>
                   <p
                     className="text-muted h5 "
-                    style={{ whiteSpace: "wrap", textAlign: "start" }}
+                    style={{ whiteSpace: "pre", textAlign: "start" }}
                   >
                     {data.description}
                   </p>
