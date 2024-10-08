@@ -35,6 +35,7 @@ import { ToastContainer } from "react-toastify";
 // import imageDoctor from "../../public/images/doctors/01.jpg";
 import "react-toastify/dist/ReactToastify.css";
 import Dotdotdot from "react-dotdotdot";
+import RelatedProduct from "./components/pharmacy/relatedProduct";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -212,8 +213,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="row" dir="rtl">
-                <div style={{ position: "relative" }}>
+              {/* <div className="row" dir="rtl"> */}
+              {/* <div style={{ position: "relative" }}>
                   <Swiper
                     spaceBetween={10}
                     slidesPerView={1}
@@ -280,7 +281,6 @@ export default function Home() {
                     })}
                   </Swiper>
 
-                  {/* أسهم التنقل */}
                   <div
                     className="swiper-button-prev"
                     style={{
@@ -307,8 +307,9 @@ export default function Home() {
                       padding: "5px", // Add some padding
                     }}
                   ></div>
-                </div>
-              </div>
+                </div> */}
+              <RelatedProduct offer data={data.offers} />
+              {/* </div> */}
               <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
                 <Link href="/offers-all" className="btn btn-primary">
                   عرض المزيد

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,9 +13,28 @@ import {
   BsFillPhoneLandscapeFill,
   FiPhoneCall,
 } from "../assets/icons/vander";
+import { usePathname } from "next/navigation";
 
 export default function Footer({ data }) {
-  
+  let [manu, setManu] = useState("");
+  let current = usePathname();
+  let [isMenu, setisMenu] = useState(false);
+  let [modal, setModal] = useState(false);
+  useEffect(() => {
+    setManu(current);
+
+    window.addEventListener("scroll", () => {
+      setScroll(window.scrollY > 50);
+    });
+    window.scrollTo(0, 0);
+    const closeModal = () => {
+      setModal(false);
+    };
+    document.addEventListener("mousedown", closeModal);
+    return () => {
+      document.removeEventListener("mousedown", closeModal);
+    };
+  }, [current]);
   if (!data) {
     return <div>lodaing...</div>;
   }
@@ -88,32 +107,53 @@ export default function Footer({ data }) {
                   <h5 className="footer-head">الأقسام</h5>
                   <ul className="list-unstyled footer-list mt-4">
                     <li>
-                      <Link href="#hero" className="text-foot">
+                      <Link href="/" className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> الرئيسية
                       </Link>
                     </li>
                     <li>
-                      <Link href="#about" className="text-foot">
+                      <Link
+                        href={`${"/".includes(manu) ? "#about" : "/aboutus"}`}
+                        className="text-foot"
+                      >
                         <i className="mdi mdi-chevron-left ms-1"></i> عنا
                       </Link>
                     </li>
                     <li>
-                      <Link href="#departments" className="text-foot">
+                      <Link
+                        href={`${
+                          "/".includes(manu)
+                            ? "#departments"
+                            : "/departments-all"
+                        }`}
+                        className="text-foot"
+                      >
                         <i className="mdi mdi-chevron-left ms-1"></i> الخدمات
                       </Link>
                     </li>
                     <li>
-                      <Link href="#doctors" className="text-foot">
+                      <Link
+                        href={`${
+                          "/".includes(manu) ? "#doctors" : "/doctor-team"
+                        }`}
+                        className="text-foot"
+                      >
                         <i className="mdi mdi-chevron-left ms-1"></i> الأطباء
                       </Link>
                     </li>
                     <li>
-                      <Link href="#patients" className="text-foot">
+                      <Link
+                        href={`${"/".includes(manu) ? "#patients" : "/"}`}
+                        className="text-foot"
+                      >
                         <i className="mdi mdi-chevron-left ms-1"></i> المرضى
                       </Link>
                     </li>
                     <li>
-                      <Link href="#blogs" className="text-foot">
+                      <Link
+                        href={`${"/".includes(manu) ? "#blogs" : "/"}`}
+                        className="text-foot"
+                      >
                         <i className="mdi mdi-chevron-left ms-1"></i> الأخبار
                       </Link>
                     </li>

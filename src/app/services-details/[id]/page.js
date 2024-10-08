@@ -133,29 +133,29 @@ export default function PharmacyProductDetail(props) {
             </div> */}
             {/* <div className="col-md-7 mt-5 mt-sm-0 pt-2 pt-sm-0 row"> */}
             <div className="col-md-12 col-12 mt-5 mt-sm-0 pt-2 pt-sm-0 row">
-              <div className="section-title d-flex flex-wrap gap-2 mt-4 col-lg-12">
-                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-sm-12 col-md-6 col-lg-3">
+              <div className="section-title d-flex flex-wrap gap-2 mt-4 ">
+                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">السعر</h5>
                   <h5 className="text-muted h5">${data?.price}</h5>
                 </span>
 
-                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-sm-12 col-md-6 col-lg-3">
+                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">الطبيب</h5>
                   <p className="text-muted h5">
                     {data.doctor?.name ?? "غير معرف"}
                   </p>
                 </span>
-                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-sm-12 col-md-6 col-lg-3">
+                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">القسم</h5>
                   <p className="text-muted h5">
                     {data.category?.name ?? "غير معرف"}
                   </p>
                 </span>
-                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-sm-12 col-md-6 col-lg-3">
+                <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">الوصف</h5>
                   <p
                     className="text-muted h5 "
-                    style={{ whiteSpace: "pre", textAlign: "start" }}
+                    style={{ whiteSpace: "wrap", textAlign: "start" }}
                   >
                     {data.description}
                   </p>

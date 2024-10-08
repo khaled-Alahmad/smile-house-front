@@ -12,7 +12,7 @@ import Counter from "./counter";
 import { FiHeart, FiEye, FiShoppingCart } from "../../assets/icons/vander";
 import { productData } from "../../data/data";
 
-export default function RelatedProduct({ data }) {
+export default function RelatedProduct({ data, offer = false }) {
   let settings = {
     container: ".slider-range-four",
     items: 2,
@@ -40,9 +40,14 @@ export default function RelatedProduct({ data }) {
       },
     },
   };
+  console.log("data related :", data);
+
   return (
     <div className="row" dir="ltr">
-      <div className="col-lg-12 mt-4 pt-2">
+      <div className="col-lg-12 mt-4 pt-2 text-center">
+        <span className="text-center text-muted">
+          {data.length <= 0 ? "لايوجد صور" : ""}
+        </span>
         <div className="slider-range-four">
           <TinySlider settings={settings}>
             {data.map((item, index) => {
@@ -50,14 +55,18 @@ export default function RelatedProduct({ data }) {
                 <div className="tiny-slide" key={index}>
                   <div className="card shop-list border-0">
                     <div className="shop-image position-relative overflow-hidden">
-                      <Link href="#">
+                      <Link href={`${offer ? "offers-all" : "#"}`}>
                         <Image
-                          src={item.url}
+                          src={offer ? item.image : item.url}
                           width={0}
                           height={0}
                           sizes="100vw"
-                          style={{ width: "100%", height: "250px" }}
-                          className="img-fluid"
+                          style={{
+                            width: "100%",
+                            height: "250px",
+                            objectFit: "cover",
+                          }}
+                          className="img-fluid image-offer m-1"
                           alt=""
                         />
                       </Link>
