@@ -55,15 +55,20 @@
 .bg-half-260 {
   padding: 235px 0 !important;
 }
-.image-offer:hover{
+.image-offer:hover {
   transition: 1s linear;
 
   cursor: pointer;
   -webkit-transform: scale(1.15);
-          transform: scale(1.15);}
-          .swiper-button-next,
-.swiper-button-prev {
-  display: none !important;
+  transform: scale(1.15);
+}
+.swiper-button-prev,
+.swiper-button-next {
+  color: #f0c672  !important; /* يمكنك تغيير اللون حسب التصميم */
+}
+
+.swiper-pagination-bullet {
+  background: #000 !important; /* تغيير لون النقاط */
 }
 
 .whatsapp-btn {

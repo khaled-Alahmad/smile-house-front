@@ -9,6 +9,7 @@ import axios from "axios";
 import { apiUrl, fetchData } from "../data/dataApi";
 import Image from "next/image";
 import Loader from "../components/loader";
+import Dotdotdot from "react-dotdotdot";
 
 export default function Departments() {
   const [services, setServices] = useState([]);
@@ -133,43 +134,61 @@ export default function Departments() {
                     className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
                     key={index}
                   >
-                    <div className="card features  feature-primary border-5 rounded-3">
+                    {/* <div
+                  //     className="card features  feature-primary border-5 rounded-3"
+                  //     style={{ height: "18rem" }}
+                  //   > */}
+                    <div
+                      className="card-img icon text-center rounded-md "
+                      style={{
+                        height: "100%",
+                        // width: "200px",
+                      }}
+                    >
+                      {/* <Icon className="h3 mb-0" /> */}
                       <div
-                        className="card-img icon text-center rounded-md "
-                        style={{
-                          height: "200px",
-                          width: "200px",
-                        }}
+                        className="card blog blog-primary border-0 shadow rounded overflow-hidden d-flex flex-column"
+                        style={{ height: "28rem" }}
                       >
-                        {/* <Icon className="h3 mb-0" /> */}
-                        <Image
-                          src={item.image}
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                          className="h3 mb-0"
-                          alt=""
-                        />
-                      </div>
-                      <div className="card-body p-0 mt-3">
-                        <Link href={`/services-details/${item.id}`}>
-                          {item.name}
-                        </Link>
-                        <p className="text-muted mt-3">{item.description}</p>
-                        <Link href="#" className="link">
+                        <div
+                          className="icon text-center rounded-m"
+                          style={{ height: "12rem" }}
+                        >
+                          <Image
+                            src={item.image}
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                            className="img-fluid m-1"
+                            alt={item.name} // إضافة نص بديل للصورة
+                          />
+                        </div>
+
+                        <div className="card-body text-end p-3 d-flex flex-column">
                           <Link
                             href={`/services-details/${item.id}`}
-                            className="link"
+                            className="title text-dark h5"
                           >
-                            عرض التفاصبل
-                            <BiLeftArrowAlt className="align-middle" />
-                          </Link>{" "}
-                        </Link>
+                            {item.name}
+                          </Link>
+                          <p className="text-muted flex-grow-1 mt-3">
+                            <Dotdotdot clamp={5}>{item.description}</Dotdotdot>
+                          </p>
+                          <Link href="#" className="link">
+                            <Link
+                              href={`/services-details/${item.id}`}
+                              className="link mt-auto"
+                            >
+                              عرض التفاصبل
+                              <BiLeftArrowAlt className="align-middle" />
+                            </Link>{" "}
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>

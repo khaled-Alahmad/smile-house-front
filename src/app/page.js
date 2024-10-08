@@ -213,63 +213,101 @@ export default function Home() {
                 </div>
               </div>
               <div className="row" dir="rtl">
-                <Swiper
-                  spaceBetween={10} // Space between slides
-                  slidesPerView={1} // Shows one slide at a time
-                  breakpoints={{
-                    // Adjust based on screen width
-                    640: {
-                      slidesPerView: 1,
-                    },
-                    768: {
-                      slidesPerView: 2,
-                    },
-                    1024: {
-                      slidesPerView: 4,
-                    },
-                  }}
-                  loop={true} // Loop through the slides
-                  navigation // Navigation arrows
-                  pagination={{ clickable: true }} // Dots pagination
-                >
-                  {data.offers.map((item, index) => {
-                    const timestamp = item.end_date;
-                    const dateObj = new Date(timestamp);
-                    const year = dateObj.getUTCFullYear();
-                    const month = String(dateObj.getUTCMonth() + 1).padStart(
-                      2,
-                      "0"
-                    );
-                    const day = String(dateObj.getUTCDate()).padStart(2, "0");
-                    const formattedDate = `${year}-${month}-${day}`;
+                <div style={{ position: "relative" }}>
+                  <Swiper
+                    spaceBetween={10}
+                    slidesPerView={1}
+                    breakpoints={{
+                      640: {
+                        slidesPerView: 1,
+                      },
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                      },
+                    }}
+                    loop={true}
+                    navigation={{
+                      nextEl: ".swiper-button-next",
+                      prevEl: ".swiper-button-prev",
+                    }}
+                    pagination={{ clickable: true }}
+                    autoplay={{
+                      delay: 2000,
+                      disableOnInteraction: false,
+                    }}
+                  >
+                    {data.offers.map((item, index) => {
+                      const timestamp = item.end_date;
+                      const dateObj = new Date(timestamp);
+                      const year = dateObj.getUTCFullYear();
+                      const month = String(dateObj.getUTCMonth() + 1).padStart(
+                        2,
+                        "0"
+                      );
+                      const day = String(dateObj.getUTCDate()).padStart(2, "0");
+                      const formattedDate = `${year}-${month}-${day}`;
 
-                    return (
-                      <SwiperSlide key={index}>
-                        <div
-                          className="card blog blog-primary border-0 shadow rounded overflow-hidden"
-                          style={{ height: "18rem" }}
-                        >
-                          <Link href={`/offers-all`} style={{height:"100%"}}>
-                            <Image
-                              src={item.image}
-                              width={0}
-                              height={0}
-                              sizes="100vw"
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                              }}
-                              // className="img-fluid m-1"
-                              className="img-fluid image-offer  m-1"
-                              alt=""
-                            />
-                          </Link>
-                        </div>
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
+                      return (
+                        <SwiperSlide key={index}>
+                          <div
+                            className="card blog blog-primary border-0 shadow rounded "
+                            style={{ height: "18rem" }}
+                          >
+                            <Link
+                              href={`/offers-all`}
+                              style={{ height: "100%" }}
+                            >
+                              <Image
+                                src={item.image}
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                }}
+                                className="img-fluid image-offer m-1"
+                                alt=""
+                              />
+                            </Link>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+
+                  {/* أسهم التنقل */}
+                  <div
+                    className="swiper-button-prev"
+                    style={{
+                      position: "absolute",
+                      left: "-40px", // Adjust the positioning as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      zIndex: 10,
+                      background: "#fff", // Adjust background color if needed
+                      borderRadius: "50%", // Make it circular
+                      padding: "5px", // Add some padding
+                    }}
+                  ></div>
+                  <div
+                    className="swiper-button-next"
+                    style={{
+                      position: "absolute",
+                      right: "-40px", // Adjust the positioning as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      zIndex: 10,
+                      background: "#fff", // Adjust background color if needed
+                      borderRadius: "50%", // Make it circular
+                      padding: "5px", // Add some padding
+                    }}
+                  ></div>
+                </div>
               </div>
               <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
                 <Link href="/offers-all" className="btn btn-primary">
