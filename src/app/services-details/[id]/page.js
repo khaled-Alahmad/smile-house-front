@@ -145,20 +145,31 @@ export default function PharmacyProductDetail(props) {
                     {data.doctor?.name ?? "غير معرف"}
                   </p>
                 </span>
+
                 <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">القسم</h5>
                   <p className="text-muted h5">
                     {data.category?.name ?? "غير معرف"}
                   </p>
                 </span>
+
                 <span className="badge rounded-3 bg-soft-primary flex-grow-1 col-12 col-md-6 col-lg-3">
                   <h5 className="mt-4 py-2">الوصف</h5>
-                  <p
-                    className="text-muted h5 "
-                    style={{ whiteSpace: "wrap", textAlign: "start" }}
-                  >
-                    {data.description}
-                  </p>
+                  <div className="overflow-visible position-relative">
+                    <p
+                      className="text-muted h5"
+                      style={{
+                        whiteSpace: "pre-wrap",
+                        textAlign: "start",
+                        marginTop: "5px",
+                        zIndex: 1,
+                        padding: "0 10px",
+                        background: "transparent", // إزالة خلفية اللون
+                      }}
+                    >
+                      {data.description}
+                    </p>
+                  </div>
                 </span>
               </div>
             </div>
