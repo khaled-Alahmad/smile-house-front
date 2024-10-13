@@ -59,6 +59,10 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  // console.log(data);
+  const handleClick = (id) => {
+    localStorage.setItem("categoryId", id);
+  };
   function generateUUID() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
       /[xy]/g,
@@ -125,10 +129,7 @@ export default function Home() {
       <Loader />
     );
   }
-  // console.log(data);
-  const handleClick = (id) => {
-    localStorage.setItem("categoryId", id);
-  };
+
   return (
     <>
       <ToastContainer />
@@ -427,7 +428,7 @@ export default function Home() {
                     data-aos="fade-up"
                     data-aos-duration="800"
                   >
-                    حول شركتنا
+                    حول مؤسستنا
                   </h4>
                   <p
                     className="text-muted para-desc"

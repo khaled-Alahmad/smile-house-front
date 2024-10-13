@@ -14,10 +14,29 @@ import {
 } from "../data/dataApi";
 import Image from "next/image";
 import Loader from "../components/loader";
+import AOS from "aos";
 
 export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
   const [dataTotal, setDataTotal] = useState(null);
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // مدة الحركة
+      easing: "ease-out-cubic",
+      once: false, // اجعلها false للسماح بتكرار الحركات
+    });
+
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // تنظيف حدث التمرير عند إلغاء التثبيت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     async function getServices() {
@@ -109,7 +128,12 @@ export default function DepartmentsAll() {
             {services.length > 0 ? (
               services.map((item, index) => {
                 return (
-                  <div className="col-xl-3 col-md-4 col-6 mt-5" key={index}>
+                  <div
+                    className="col-xl-3 col-md-4 col-6 mt-5"
+                    key={index}
+                    data-aos="fade-up" // تأثير الحركات عند الظهور
+                    data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
+                  >
                     <div className="card blog blog-primary border-0 ">
                       <div
                         className="icon text-center  rounded-m"

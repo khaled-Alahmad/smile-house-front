@@ -10,6 +10,7 @@ import { apiUrl, fetchData } from "../data/dataApi";
 import Image from "next/image";
 import Loader from "../components/loader";
 import Dotdotdot from "react-dotdotdot";
+import AOS from "aos";
 
 export default function Departments() {
   const [services, setServices] = useState([]);
@@ -19,6 +20,26 @@ export default function Departments() {
   const [clientKey, setClientKey] = useState(null);
 
   const [dataTotal, setDataTotal] = useState(null);
+  useEffect(() => {
+    // Initialize AOS when the component mounts
+    AOS.init({
+      duration: 1200, // Duration of the animation
+      easing: "ease-out-cubic",
+      once: false, // Set to false to allow repeated animations
+    });
+
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array ensures it runs only once when mounted
 
   useEffect(() => {
     const id = localStorage.getItem("categoryId");
@@ -133,6 +154,8 @@ export default function Departments() {
                   <div
                     className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
                     key={index}
+                    data-aos="fade-up" // تأثير الحركات عند الظهور
+                    data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
                   >
                     {/* <div
                   //     className="card features  feature-primary border-5 rounded-3"

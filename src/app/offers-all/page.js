@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
-import { BiLeftArrowAlt, FiArrowRight, FiCalendar } from "../assets/icons/vander";
+import {
+  BiLeftArrowAlt,
+  FiArrowRight,
+  FiCalendar,
+} from "../assets/icons/vander";
 import Footer from "../components/footer";
 import ScrollTop from "../components/scrollTop";
 import axios from "axios";
@@ -16,10 +20,31 @@ import {
 import Image from "next/image";
 import Loader from "../components/loader";
 import Dotdotdot from "react-dotdotdot";
+import AOS from "aos";
 
 export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
   const [dataTotal, setDataTotal] = useState(null);
+  useEffect(() => {
+    // Initialize AOS when the component mounts
+    AOS.init({
+      duration: 1200, // Duration of the animation
+      easing: "ease-out-cubic",
+      once: false, // Set to false to allow repeated animations
+    });
+
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // Empty dependency array ensures it runs only once when mounted
 
   useEffect(() => {
     async function getServices() {
@@ -48,6 +73,7 @@ export default function DepartmentsAll() {
     // Render loading state or return null if you don't want to render anything
     return <Loader />;
   }
+
   const handleClick = (id) => {
     localStorage.setItem("categoryId", id);
   };
@@ -59,7 +85,7 @@ export default function DepartmentsAll() {
       />
       <section
         className="bg-half-170 d-table w-100"
-        style={{ backgroundImage: `url('/images/bg/department.jpg')` }}
+        style={{ backgroundImage: `url('/images/cta.jpg')` }}
         dir="rtl"
       >
         <div className="bg-overlay bg-overlay-dark"></div>
@@ -67,12 +93,9 @@ export default function DepartmentsAll() {
           <div className="row mt-5 justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h3 className="sub-title mb-4 text-white title-dark">
-                  عروضنا
-                </h3>
+                <h3 className="sub-title mb-4 text-white title-dark">عروضنا</h3>
                 <p className="para-desc mx-auto text-white-50">
                   نحن في سمايل هاوس نقدم لك افضل العروض المناسبة لك.
-
                 </p>
 
                 <nav aria-label="breadcrumb" className="d-inline-block mt-3">
@@ -143,7 +166,12 @@ export default function DepartmentsAll() {
                   time: formattedTime,
                 };
                 return (
-                  <div className="col-lg-3 col-md-4 col-6 my-2" key={index}>
+                  <div
+                    className="col-lg-3 col-md-4 col-6 my-2"
+                    key={index}
+                    data-aos="fade-up" // تأثير الحركات عند الظهور
+                    data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
+                  >
                     <div
                       className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                       style={{
