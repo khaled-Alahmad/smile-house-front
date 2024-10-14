@@ -7,7 +7,7 @@ export async function fetchData() {
   try {
     const response = await axios.get(`${apiUrl}home?clientKey=${key}`);
 
-    // console.log(response.data.data);
+    // //console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -17,7 +17,7 @@ export async function fetchData() {
 export async function fetchBlogs() {
   try {
     const response = await axios.get(`${apiUrl}blogs`);
-    // console.log(response.data.data);
+    // //console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -27,7 +27,7 @@ export async function fetchBlogs() {
 export async function fetchOffersAll() {
   try {
     const response = await axios.get(`${apiUrl}offers`);
-    // console.log(response.data.data);
+    // //console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -39,7 +39,7 @@ export async function FetchCategories() {
     const response = await axios.get(
       "https://smilehouse.serv00.net/api/categories"
     );
-    // console.log(response.data);
+    // //console.log(response.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -51,7 +51,7 @@ export async function doctors() {
     const response = await axios.get(
       "https://smilehouse.serv00.net/api/home"
     );
-    // console.log(response.data.data.doctors);
+    // //console.log(response.data.data.doctors);
     return response.data.data.doctors;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -63,7 +63,7 @@ export async function fetchBlogDetails(id) {
     const response = await axios.get(
       "https://smilehouse.serv00.net/api/blogs/" + id
     );
-    // console.log(response.data.data.doctors);
+    // //console.log(response.data.data.doctors);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -77,7 +77,7 @@ export async function fetchServiceDetails(id) {
     const response = await axios.get(
       `https://smilehouse.serv00.net/api/services/${id}?clientKey=${key}`
     );
-    // console.log(response.data.data.doctors);
+    // //console.log(response.data.data.doctors);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);
@@ -88,7 +88,7 @@ export async function fetchServiceDetails(id) {
 export async function fetchCategories() {
   try {
     const response = await axios.get(`${apiUrl}categories`);
-    // console.log(response.data.data);
+    // //console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.error("Error fetching data:", error.message);

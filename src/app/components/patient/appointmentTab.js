@@ -68,8 +68,8 @@ export default function AppointmentTab() {
       const response = await axios.get(
         `${apiUrl}doctors/${selectedId}/week/${getCurrentWeek()}`
       );
-      console.log("Doctor times:", response.data.data.times); // تحقق من أن البيانات تأتي بشكل صحيح
-      console.log("Appointments:", response.data.data.appointments);
+      //console.log("Doctor times:", response.data.data.times); // تحقق من أن البيانات تأتي بشكل صحيح
+      //console.log("Appointments:", response.data.data.appointments);
       setDoctorTimes(response.data.data.times);
       setAppointments(response.data.data.appointments);
     } catch (error) {
@@ -82,7 +82,7 @@ export default function AppointmentTab() {
       (doctor) => doctor.id === parseInt(selectedId)
     );
     setSelectedDep(selectedDep);
-    // console.log(selectedDep);
+    // //console.log(selectedDep);
 
     setFormData({ ...formData, category_id: selectedDep.id });
 
@@ -98,7 +98,7 @@ export default function AppointmentTab() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    //console.log(formData);
 
     // if (!formData.phone || !formData.start_time || !formData.end_time) {
     //   alert("يرجى ملء جميع الحقول الإلزامية.");
@@ -107,7 +107,7 @@ export default function AppointmentTab() {
     axios
       .post(`${apiUrl}bookAppointment`, formData)
       .then((response) => {
-        console.log("Appointment booked successfully:", response.data);
+        //console.log("Appointment booked successfully:", response.data);
         toast.success("تم الحجز بنجاح!"); // عرض رسالة النجاح
         router.push("/"); // إعادة التوجيه إلى الصفحة الرئيسية
       })
@@ -179,7 +179,7 @@ export default function AppointmentTab() {
   const handleWhatsAppSubmit = (e) => {
     e.preventDefault();
     const phone_company = localStorage.getItem("appointment_phone");
-    console.log(phone_company);
+    //console.log(phone_company);
 
     // const phone = "+963964677938";
     const message = `السلام عليكم ورحمة الله وبركاته،
@@ -192,7 +192,7 @@ export default function AppointmentTab() {
 
     const whatsappURL = `https://api.whatsapp.com/send?phone=${toPhoneNumber}&text=${encodedMessage}`;
 
-    // console.log("Redirecting to:", whatsappURL);
+    // //console.log("Redirecting to:", whatsappURL);
 
     // Redirect to WhatsApp
     window.open(whatsappURL, "_blank");
@@ -408,7 +408,7 @@ export default function AppointmentTab() {
                                 })),
                               ]}
                               eventClassNames={(event) => {
-                                console.log(event); // سجل الحدث لمعرفة هيكله
+                                //console.log(event); // سجل الحدث لمعرفة هيكله
                                 if (
                                   event.extendedProps &&
                                   event.extendedProps.type
@@ -632,7 +632,7 @@ export default function AppointmentTab() {
                   //               })),
                   //             ]}
                   //             eventClassNames={(event) => {
-                  //               console.log(event); // سجل الحدث لمعرفة هيكله
+                  //               //console.log(event); // سجل الحدث لمعرفة هيكله
                   //               if (
                   //                 event.extendedProps &&
                   //                 event.extendedProps.type

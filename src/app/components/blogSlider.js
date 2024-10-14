@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,10 +10,28 @@ import "tiny-slider/dist/tiny-slider.css";
 import { FiCalendar, FiClock } from "../assets/icons/vander";
 import Loader from "./loader";
 import { fetchBlogs } from "../data/dataApi";
+import AOS from "aos";
 
 export default function BlogSlider({ excludeId }) {
   const [data, setData] = useState(null);
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // مدة الحركة
+      easing: "ease-out-cubic",
+      once: false, // اجعلها false للسماح بتكرار الحركات
+    });
 
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // تنظيف حدث التمرير عند إلغاء التثبيت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   useEffect(() => {
     async function fetchBlogsAsync() {
       try {
@@ -88,7 +106,12 @@ export default function BlogSlider({ excludeId }) {
                 const formattedTime = `${hours}:${minutes}:${seconds}`;
 
                 return (
-                  <div className="tiny-slide" key={index}>
+                  <div
+                    className="tiny-slide"
+                    key={index}
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                  >
                     <div
                       className="card blog blog-primary border-0 shadow rounded overflow-hidden m-1"
                       dir="rtl"

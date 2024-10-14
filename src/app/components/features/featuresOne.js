@@ -11,7 +11,7 @@ import {
 export default function FeatureOne({ data }) {
   const workHours = data["1"]["work-hours"];
 
-  console.log("FeatureOne", data);
+  //console.log("FeatureOne", data);
   return (
     <div className="container" dir="rtl">
       <div className="row justify-content-center">

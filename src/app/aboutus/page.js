@@ -50,7 +50,7 @@ export default function AboutUs() {
     async function fetchDataAsync() {
       try {
         const fetchedData = await fetchData();
-        console.log("Fetched data:", fetchedData);
+        //console.log("Fetched data:", fetchedData);
         setData(fetchedData);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -59,7 +59,7 @@ export default function AboutUs() {
     async function fetchCategoriesAsync() {
       try {
         const fetchedCategories = await FetchCategories();
-        console.log("Fetched categories:", fetchedCategories);
+        //console.log("Fetched categories:", fetchedCategories);
         setCategories(fetchedCategories);
       } catch (error) {
         console.error("Error fetching categories:", error.message);
@@ -78,7 +78,7 @@ export default function AboutUs() {
     );
   }
 
-  console.log("about :", data);
+  //console.log("about :", data);
   return (
     <>
       <Navbar

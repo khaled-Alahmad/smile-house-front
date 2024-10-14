@@ -12,8 +12,8 @@ export default function Loader() {
           height: "100vh",
         }}
       >
-        <div class="spinner-grow text-warning" s role="status">
-          <span class="sr-only"></span>
+        <div className="spinner-grow text-warning" s role="status">
+          <span className="sr-only"></span>
         </div>
       </div>
     </>

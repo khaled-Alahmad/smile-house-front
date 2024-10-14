@@ -19,6 +19,8 @@ export default function Footer({ data }) {
   let [manu, setManu] = useState("");
   let current = usePathname();
   let [isMenu, setisMenu] = useState(false);
+  let [scroll, setScroll] = useState(false);
+
   let [modal, setModal] = useState(false);
   useEffect(() => {
     setManu(current);

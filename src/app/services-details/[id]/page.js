@@ -71,7 +71,7 @@ export default function PharmacyProductDetail(props) {
       </>
     );
   }
-  console.log(data);
+  //console.log(data);
   return (
     <>
       <Navbar
@@ -94,7 +94,7 @@ export default function PharmacyProductDetail(props) {
                   {data?.name}
                 </h3>
                 {/* <p className="para-desc mx-auto text-muted">تفاصيل الخدمة</p> */}
-                <span class="badge rounded-pill bg-soft-primary mb-3">
+                <span className="badge rounded-pill bg-soft-primary mb-3">
                   تفاصيل الخدمة
                 </span>
               </div>

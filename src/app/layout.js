@@ -4,6 +4,7 @@ import "./assets/scss/style.scss";
 import "./assets/scss/bootstrap.scss";
 import "./assets/css/materialdesignicons.min.css";
 import Script from "next/script";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ar">
-      <header>
+      <head>
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           rel="stylesheet"
@@ -28,16 +29,15 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
         />
-
-        <Script
-          src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"
-          strategy="afterInteractive"
-        />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css"
           rel="stylesheet"
         />
-      </header>
+        <Script
+          src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${inter.variable} font-sans`}>{children}</body>
     </html>
   );

@@ -40,7 +40,7 @@ export default function RelatedProduct({ data, offer = false }) {
       },
     },
   };
-  console.log("data related :", data);
+  //console.log("data related :", data);
 
   return (
     <div className="row" dir="ltr">

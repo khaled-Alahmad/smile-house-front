@@ -51,7 +51,7 @@ export default function DepartmentsAll() {
       try {
         const fetchedData = await fetchOffersAll();
 
-        // console.log(response.data.data);
+        // //console.log(response.data.data);
         setServices(fetchedData);
       } catch (error) {
         console.error("Error fetching data:", error.message);

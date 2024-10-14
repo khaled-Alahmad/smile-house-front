@@ -59,7 +59,7 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  // console.log(data);
+  // //console.log(data);
   const handleClick = (id) => {
     localStorage.setItem("categoryId", id);
   };
@@ -74,7 +74,7 @@ export default function Home() {
     );
   }
 
-  // console.log(key);
+  // //console.log(key);
   useEffect(() => {
     const existKey = localStorage.getItem("client_key");
     if (!existKey) {
@@ -87,7 +87,7 @@ export default function Home() {
       try {
         const fetchedData = await fetchData();
         setData(fetchedData);
-        // console.log(fetchedData);
+        // //console.log(fetchedData);
         localStorage.setItem(
           "appointment_phone",
           fetchedData.bookAppointment["whatsapp-number"]
