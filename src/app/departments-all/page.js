@@ -76,7 +76,7 @@ export default function DepartmentsAll() {
       />
       <section
         className="bg-half-170 d-table w-100"
-        style={{ backgroundImage: `url('/images/bg/department.jpg')` }}
+        style={{ backgroundImage: `url('/images/17.webp')` }}
         dir="rtl"
       >
         <div className="bg-overlay bg-overlay-dark"></div>

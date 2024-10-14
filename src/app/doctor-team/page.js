@@ -6,6 +6,7 @@ import Image from "next/image";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import ScrollTop from "../components/scrollTop";
+import AOS from "aos";
 
 import {
   FiFacebook,
@@ -22,7 +23,24 @@ import Loader from "../components/loader";
 export default function DoctorTeamOne() {
   const [data, setData] = useState(null);
   const [dataTotal, setDataTotal] = useState(null);
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // مدة الحركة
+      easing: "ease-out-cubic",
+      once: false, // اجعلها false للسماح بتكرار الحركات
+    });
 
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // تنظيف حدث التمرير عند إلغاء التثبيت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   useEffect(() => {
     async function fetchDataAsync() {
       try {
@@ -57,7 +75,7 @@ export default function DoctorTeamOne() {
       />
       <section
         className="bg-half-150 bg-light d-table w-100 "
-        style={{ backgroundImage: `url('/images/bg/04.jpg')` }}
+        style={{ backgroundImage: `url('/images/15.webp')` }}
       >
         <div className="bg-overlay bg-overlay-dark"></div>
 
@@ -101,6 +119,8 @@ export default function DoctorTeamOne() {
                 <div
                   className="col-xl-3 col-lg-3 col-md-6 mt-4 pt-2"
                   key={index}
+                  data-aos="fade-up" // تأثير الحركات عند الظهور
+                  data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
                 >
                   <div
                     className="card team border-0 rounded shadow overflow-hidden"

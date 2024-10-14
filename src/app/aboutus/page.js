@@ -7,6 +7,7 @@ import Navbar from "../components/navbar";
 import AboutImage from "../components/aboutImage";
 import ScrollTop from "../components/scrollTop";
 import Footer from "../components/footer";
+import AOS from "aos";
 
 import {
   FiArrowRight,
@@ -27,7 +28,24 @@ import Dotdotdot from "react-dotdotdot";
 export default function AboutUs() {
   const [data, setData] = useState(null);
   const [categories, setCategories] = useState(null);
+  useEffect(() => {
+    AOS.init({
+      duration: 1200, // مدة الحركة
+      easing: "ease-out-cubic",
+      once: false, // اجعلها false للسماح بتكرار الحركات
+    });
 
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // تنظيف حدث التمرير عند إلغاء التثبيت
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   useEffect(() => {
     async function fetchDataAsync() {
       try {
@@ -70,7 +88,7 @@ export default function AboutUs() {
       <section
         className="bg-half-170 d-table w-100"
         style={{
-          backgroundImage: `url('/images/bg/about.jpg')`,
+          backgroundImage: `url('/images/16.webp')`,
           backgroundPosition: "center",
         }}
         dir="rtl"
@@ -216,7 +234,12 @@ export default function AboutUs() {
                 time: formattedTime,
               };
               return (
-                <div className="col-lg-3 col-md-4 col-6 mt-4 pt-2" key={index}>
+                <div
+                  className="col-lg-3 col-md-4 col-6 mt-4 pt-2"
+                  key={index}
+                  data-aos="fade-up" // تأثير الحركات عند الظهور
+                  data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
+                >
                   <div
                     className="card blog blog-primary border-0 shadow rounded overflow-hidden"
                     style={{
@@ -278,6 +301,11 @@ export default function AboutUs() {
                 </div>
               );
             })}
+            <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
+              <Link href="/departments-all" className="btn btn-primary">
+                عرض المزيد
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -301,7 +329,12 @@ export default function AboutUs() {
           <div className="row align-items-end">
             {data.doctors.slice(0, 4).map((item, index) => {
               return (
-                <div className="col-lg-3 col-md-4 col-6  mt-4 pt-2" key={index}>
+                <div
+                  className="col-lg-3 col-md-4 col-6  mt-4 pt-2"
+                  key={index}
+                  data-aos="fade-up" // تأثير الحركات عند الظهور
+                  data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
+                >
                   <div
                     className="card blog border-0 rounded shadow overflow-hidden"
                     style={{

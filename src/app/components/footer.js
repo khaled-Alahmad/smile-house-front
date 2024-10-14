@@ -112,48 +112,27 @@ export default function Footer({ data }) {
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href={`${"/".includes(manu) ? "#about" : "/aboutus"}`}
-                        className="text-foot"
-                      >
+                      <Link href={`/aboutus`} className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> عنا
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href={`${
-                          "/".includes(manu)
-                            ? "#departments"
-                            : "/departments-all"
-                        }`}
-                        className="text-foot"
-                      >
+                      <Link href={`/departments-all`} className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> الخدمات
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href={`${
-                          "/".includes(manu) ? "#doctors" : "/doctor-team"
-                        }`}
-                        className="text-foot"
-                      >
+                      <Link href={`/doctor-team`} className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> الأطباء
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href={`${"/".includes(manu) ? "#patients" : "/"}`}
-                        className="text-foot"
-                      >
+                      <Link href={`/`} className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> المرضى
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href={`${"/".includes(manu) ? "#blogs" : "/"}`}
-                        className="text-foot"
-                      >
+                      <Link href={`/`} className="text-foot">
                         <i className="mdi mdi-chevron-left ms-1"></i> الأخبار
                       </Link>
                     </li>

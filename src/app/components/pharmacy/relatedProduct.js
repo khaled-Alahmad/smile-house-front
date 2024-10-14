@@ -55,11 +55,17 @@ export default function RelatedProduct({ data, offer = false }) {
                 <div className="tiny-slide" key={index}>
                   <div className="card shop-list border-0">
                     <div className="shop-image position-relative overflow-hidden">
-                      <Link href={`${offer ? "offers-all" : "#"}`}>
+                      <Link
+                        href={`${
+                          offer ? "offers-all" : offer ? item.image : item.url
+                        }`}
+                        target={offer ? "_parent" : "_blank"}
+                      >
                         <Image
                           src={offer ? item.image : item.url}
                           width={0}
                           height={0}
+                          // popoverTarget={}
                           sizes="100vw"
                           style={{
                             width: "100%",
