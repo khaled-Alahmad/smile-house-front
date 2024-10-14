@@ -57,6 +57,7 @@ export default function Patients({ data }) {
                 src={item.customer_image}
                 width={65}
                 height={65}
+                style={{ objectFit: "cover" }}
                 className="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3"
                 alt=""
               />

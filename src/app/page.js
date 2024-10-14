@@ -409,8 +409,8 @@ export default function Home() {
         </div>
       </div>
 
+      <div id="about"></div>
       <section className="section" dir="rtl">
-        <div id="about"></div>
         <div className="container mt-50 ">
           <div className="row align-items-center">
             <AboutImage

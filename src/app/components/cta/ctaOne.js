@@ -11,6 +11,8 @@ import CountUp from "react-countup";
 import { counterData } from "../../data/data";
 
 export default function CtaOne({ data }) {
+  console.log(data);
+  
   let [isOpen, setOpen] = useState(false);
   return (
     <section className="section pt-0">
