@@ -686,28 +686,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* <section className="py-4 bg-light">
-        <div className="container">
-          <div className="row justify-content-center">
-            {partners.map((item, index) => {
-              return (
-                <div
-                  className="col-lg-2 col-md-2 col-6 text-center py-4"
-                  key={index}
-                >
-                  <Image
-                    src={item}
-                    width={125}
-                    height={25}
-                    className="avatar avatar-client"
-                    alt=""
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
       <FeatureOne data={data.info} />
       <div className="whatsapp-btn">
         <a
