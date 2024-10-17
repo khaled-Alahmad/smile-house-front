@@ -9,6 +9,8 @@ import Loader from "../loader";
 import "./style.css";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import arLocale from "@fullcalendar/core/locales/ar"; // إضافة ترجمة العربية
+
 export default function AppointmentTab() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [doctorsData, setDoctorsData] = useState(null);
@@ -19,6 +21,25 @@ export default function AppointmentTab() {
   const [doctorTimes, setDoctorTimes] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const router = useRouter();
+  const [calendarView, setCalendarView] = useState("timeGridWeek");
+
+  useEffect(() => {
+    const updateCalendarView = () => {
+      if (window.innerWidth <= 768) {
+        setCalendarView("timeGridDay");
+      } else {
+        setCalendarView("timeGridWeek");
+      }
+    };
+
+    // Set initial view on load
+    updateCalendarView();
+
+    // Update view on window resize
+    window.addEventListener("resize", updateCalendarView);
+
+    return () => window.removeEventListener("resize", updateCalendarView);
+  }, []);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -54,7 +75,6 @@ export default function AppointmentTab() {
     const diff = now - start + ((start.getDay() + 6) % 7) * 86400000;
     return Math.ceil(diff / 604800000);
   };
-
   const handleDoctorChange = async (event) => {
     const selectedId = event.target.value;
     const selectedDoctor = doctorsData.find(
@@ -62,14 +82,11 @@ export default function AppointmentTab() {
     );
     setSelectedDoctor(selectedDoctor);
     setFormData({ ...formData, doctor_id: selectedDoctor.id });
-
-    // استرجاع بيانات أوقات العمل والحجوزات للطبيب المحدد
     try {
       const response = await axios.get(
         `${apiUrl}doctors/${selectedId}/week/${getCurrentWeek()}`
       );
-      //console.log("Doctor times:", response.data.data.times); // تحقق من أن البيانات تأتي بشكل صحيح
-      //console.log("Appointments:", response.data.data.appointments);
+
       setDoctorTimes(response.data.data.times);
       setAppointments(response.data.data.appointments);
     } catch (error) {
@@ -98,12 +115,7 @@ export default function AppointmentTab() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(formData);
 
-    // if (!formData.phone || !formData.start_time || !formData.end_time) {
-    //   alert("يرجى ملء جميع الحقول الإلزامية.");
-    //   return;
-    // }
     axios
       .post(`${apiUrl}bookAppointment`, formData)
       .then((response) => {
@@ -149,6 +161,12 @@ export default function AppointmentTab() {
   };
 
   const handleDateChange = (info) => {
+    console.log(selectedDoctor);
+
+    if (!selectedDoctor) {
+      alert("يجب تحديد طبيب أولاً"); // إظهار رسالة تحذير
+      return;
+    }
     const selectedStart = info.startStr;
     const selectedEnd = info.endStr;
 
@@ -241,18 +259,6 @@ export default function AppointmentTab() {
                     </div>
                   </a>
                 </li>
-                {/* <li className="nav-item">
-                  <a
-                    className={`${
-                      activeIndex === 1 ? "active" : ""
-                    } nav-link rounded-0`}
-                    onClick={() => setActiveIndex(1)}
-                  >
-                    <div className="text-center pt-1 pb-1">
-                      <h5 className="fw-medium mb-0">الحجز عبر الإنترنت</h5>
-                    </div>
-                  </a>
-                </li> */}
               </ul>
 
               <div className="tab-content p-4">
@@ -260,75 +266,6 @@ export default function AppointmentTab() {
                   <div className="tab-pane fade show active" dir="rtl">
                     <form onSubmit={handleWhatsAppSubmit}>
                       <div className="row">
-                        {/* <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              الاسم الأول <span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="first_name"
-                              type="text"
-                              className="form-control"
-                              placeholder="الاسم الأول :"
-                              value={formData.first_name}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div> */}
-
-                        {/* <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              اسم العائلة <span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="last_name"
-                              type="text"
-                              className="form-control"
-                              placeholder="اسم العائلة :"
-                              value={formData.last_name}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              رقم الهاتف<span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="phone"
-                              type="text"
-                              className="form-control"
-                              placeholder="+90xxxxxxxxx"
-                              value={formData.phone}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div> */}
-
-                        {/* <div className="col-md-6">
-                          <div className="mb-3">
-                            <label className="form-label">التخصص</label>
-                            <select
-                              className="form-select form-control"
-                              name="category"
-                              value={selectedDep ? selectedDep.id : ""}
-                              onChange={handleDepChange}
-                              required
-                            >
-                              {categoryData.map((item, index) => (
-                                <option key={index} value={item.id}>
-                                  {item.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div> */}
-
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">الطبيب</label>
@@ -348,19 +285,7 @@ export default function AppointmentTab() {
                             </select>
                           </div>
                         </div>
-                        {/* <div className="col-lg-12">
-                          <div className="mb-3">
-                            <label className="form-label">التعليقات</label>
-                            <textarea
-                              name="comments"
-                              rows="4"
-                              className="form-control"
-                              placeholder="تعليقاتك :"
-                              value={formData.comments}
-                              onChange={handleChange}
-                            ></textarea>
-                          </div>
-                        </div> */}
+
                         <div className="col-md-12">
                           <div className="mb-3">
                             <label className="form-label">
@@ -368,22 +293,25 @@ export default function AppointmentTab() {
                             </label>
                             <FullCalendar
                               plugins={[timeGridPlugin, interactionPlugin]}
-                              initialView="timeGridWeek"
+                              initialView={calendarView} // Use responsive state
                               selectable={true}
                               selectMirror={true}
                               dayMaxEvents={true}
                               allDaySlot={false}
-                              locale="ar"
                               contentHeight="auto"
                               slotMinTime="08:00:00"
                               slotMaxTime="16:00:00"
                               direction="rtl"
                               select={handleDateChange}
                               eventClick={handleEventClick}
+                              locale={arLocale} // تعيين اللغة العربية
                               headerToolbar={{
                                 start: "prev,next today",
                                 center: "title",
-                                end: "timeGridWeek,timeGridDay",
+                                end:
+                                  calendarView === "timeGridDay"
+                                    ? "timeGridDay"
+                                    : "timeGridWeek,timeGridDay",
                               }}
                               events={[
                                 ...doctorTimes.flatMap((time) => {
@@ -395,7 +323,7 @@ export default function AppointmentTab() {
                                       daysOfWeek: [convertDayToIndex(time.day)],
                                       color: "green",
                                       display: "background",
-                                      extendedProps: { type: "work" }, // تأكد من إضافة `extendedProps` هنا
+                                      extendedProps: { type: "work" },
                                     },
                                   ];
                                 }),
@@ -404,11 +332,10 @@ export default function AppointmentTab() {
                                   start: `${appointment.visit_date}T${appointment.start_time}`,
                                   end: `${appointment.visit_date}T${appointment.end_time}`,
                                   color: "gray",
-                                  extendedProps: { type: "appointment" }, // تأكد من إضافة `extendedProps` هنا
+                                  extendedProps: { type: "appointment" },
                                 })),
                               ]}
                               eventClassNames={(event) => {
-                                //console.log(event); // سجل الحدث لمعرفة هيكله
                                 if (
                                   event.extendedProps &&
                                   event.extendedProps.type
@@ -422,56 +349,6 @@ export default function AppointmentTab() {
                             />
                           </div>
                         </div>
-                        {/* <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              تاريخ الحجز<span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="visit_date"
-                              type="date"
-                              className="form-control"
-                              placeholder="yyyy/mm/dd"
-                              value={formData.visit_date}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              وقت بداية الحجز
-                              <span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="start_time"
-                              type="time"
-                              className="form-control"
-                              placeholder="HH:mm:ss"
-                              value={formData.start_time}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="mb-3">
-                            <label className="form-label">
-                              وقت نهاية الحجز
-                              <span className="text-danger">*</span>
-                            </label>
-                            <input
-                              name="end_time"
-                              type="time"
-                              className="form-control"
-                              placeholder="HH:mm:ss"
-                              value={formData.end_time}
-                              onChange={handleChange}
-                              required
-                            />
-                          </div>
-                        </div> */}
                       </div>
 
                       <button type="submit" className="btn btn-primary">
@@ -480,228 +357,6 @@ export default function AppointmentTab() {
                     </form>
                   </div>
                 ) : (
-                  // <div className="tab-pane fade show active" dir="rtl">
-                  //   <form onSubmit={handleSubmit}>
-                  //     <div className="row">
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             الاسم الأول <span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="first_name"
-                  //             type="text"
-                  //             className="form-control"
-                  //             placeholder="الاسم الأول :"
-                  //             value={formData.first_name}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             اسم العائلة <span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="last_name"
-                  //             type="text"
-                  //             className="form-control"
-                  //             placeholder="اسم العائلة :"
-                  //             value={formData.last_name}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             رقم الهاتف<span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="phone"
-                  //             type="text"
-                  //             className="form-control"
-                  //             placeholder="+90xxxxxxxxx"
-                  //             value={formData.phone}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-
-                  //       <div className="col-md-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">التخصص</label>
-                  //           <select
-                  //             className="form-select form-control"
-                  //             name="category"
-                  //             value={selectedDep ? selectedDep.id : ""}
-                  //             onChange={handleDepChange}
-                  //             required
-                  //           >
-                  //             {categoryData.map((item, index) => (
-                  //               <option key={index} value={item.id}>
-                  //                 {item.name}
-                  //               </option>
-                  //             ))}
-                  //           </select>
-                  //         </div>
-                  //       </div>
-
-                  //       <div className="col-md-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">الطبيب</label>
-                  //           <select
-                  //             className="form-select form-control"
-                  //             name="doctor"
-                  //             value={selectedDoctor ? selectedDoctor.id : ""}
-                  //             onChange={handleDoctorChange}
-                  //             required
-                  //           >
-                  //             <option value="">اختر الطبيب</option>
-                  //             {doctorsData.map((item, index) => (
-                  //               <option key={index} value={item.id}>
-                  //                 {item.name}
-                  //               </option>
-                  //             ))}
-                  //           </select>
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-lg-12">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">التعليقات</label>
-                  //           <textarea
-                  //             name="comments"
-                  //             rows="4"
-                  //             className="form-control"
-                  //             placeholder="تعليقاتك :"
-                  //             value={formData.comments}
-                  //             onChange={handleChange}
-                  //           ></textarea>
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-md-12">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             {" "}
-                  //             المواعيد المتاحة
-                  //           </label>
-                  //           <FullCalendar
-                  //             plugins={[timeGridPlugin, interactionPlugin]}
-                  //             initialView="timeGridWeek"
-                  //             selectable={true}
-                  //             selectMirror={true}
-                  //             dayMaxEvents={true}
-                  //             allDaySlot={false}
-                  //             locale="ar"
-                  //             contentHeight="auto"
-                  //             slotMinTime="08:00:00"
-                  //             slotMaxTime="16:00:00"
-                  //             direction="rtl"
-                  //             select={handleDateChange}
-                  //             eventClick={handleEventClick}
-                  //             headerToolbar={{
-                  //               start: "prev,next today",
-                  //               center: "title",
-                  //               end: "timeGridWeek,timeGridDay",
-                  //             }}
-                  //             events={[
-                  //               ...doctorTimes.flatMap((time) => {
-                  //                 return [
-                  //                   {
-                  //                     title: "أوقات العمل",
-                  //                     startTime: time.start_time,
-                  //                     endTime: time.end_time,
-                  //                     daysOfWeek: [convertDayToIndex(time.day)],
-                  //                     color: "green",
-                  //                     display: "background",
-                  //                     extendedProps: { type: "work" }, // تأكد من إضافة `extendedProps` هنا
-                  //                   },
-                  //                 ];
-                  //               }),
-                  //               ...appointments.map((appointment) => ({
-                  //                 title: "حجز",
-                  //                 start: `${appointment.visit_date}T${appointment.start_time}`,
-                  //                 end: `${appointment.visit_date}T${appointment.end_time}`,
-                  //                 color: "gray",
-                  //                 extendedProps: { type: "appointment" }, // تأكد من إضافة `extendedProps` هنا
-                  //               })),
-                  //             ]}
-                  //             eventClassNames={(event) => {
-                  //               //console.log(event); // سجل الحدث لمعرفة هيكله
-                  //               if (
-                  //                 event.extendedProps &&
-                  //                 event.extendedProps.type
-                  //               ) {
-                  //                 return event.extendedProps.type === "work"
-                  //                   ? "work-hours"
-                  //                   : "appointments";
-                  //               }
-                  //               return "";
-                  //             }}
-                  //           />
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             تاريخ الحجز<span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="visit_date"
-                  //             type="date"
-                  //             className="form-control"
-                  //             placeholder="yyyy/mm/dd"
-                  //             value={formData.visit_date}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             وقت بداية الحجز
-                  //             <span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="start_time"
-                  //             type="time"
-                  //             className="form-control"
-                  //             placeholder="HH:mm:ss"
-                  //             value={formData.start_time}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-                  //       <div className="col-lg-6">
-                  //         <div className="mb-3">
-                  //           <label className="form-label">
-                  //             وقت نهاية الحجز
-                  //             <span className="text-danger">*</span>
-                  //           </label>
-                  //           <input
-                  //             name="end_time"
-                  //             type="time"
-                  //             className="form-control"
-                  //             placeholder="HH:mm:ss"
-                  //             value={formData.end_time}
-                  //             onChange={handleChange}
-                  //             required
-                  //           />
-                  //         </div>
-                  //       </div>
-                  //     </div>
-                  //     <button type="submit" className="btn btn-primary">
-                  //       احجز الآن
-                  //     </button>
-                  //   </form>
-                  // </div>
                   <></>
                 )}
               </div>

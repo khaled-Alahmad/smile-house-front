@@ -12,7 +12,7 @@ import { counterData } from "../../data/data";
 
 export default function CtaOne({ data }) {
   console.log(data);
-  
+
   let [isOpen, setOpen] = useState(false);
   return (
     <section className="section pt-0">
@@ -26,7 +26,9 @@ export default function CtaOne({ data }) {
             >
               <div className="position-relative">
                 <Image
-                  src={`${data.hero["main_image"] ?? "/images/bg/01.jpg"}`}
+                  src={`${
+                    data.attachment["video-image"] ?? "/images/bg/01.jpg"
+                  }`}
                   width={0}
                   height={0}
                   sizes="100vw"

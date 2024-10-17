@@ -145,6 +145,7 @@ export default function Home() {
         style={{
           backgroundImage: `url('${data.hero["main_image"]}')`,
           padding: "205px 0px",
+          height:"100vh"
         }}
         dir="rtl"
       >
@@ -200,7 +201,7 @@ export default function Home() {
             <div className="container mb-60">
               <div
                 className="row justify-content-center"
-                data-aos="zoom-in-down"
+                // data-aos="zoom-in-down"
               >
                 <div className="col-12">
                   <div className="section-title text-center mb-4 pb-2">
@@ -614,7 +615,7 @@ export default function Home() {
                 >
                   <div
                     className="card blog blog-primary border-0 shadow rounded overflow-hidden d-flex flex-column"
-                    style={{ height: "28rem" }}
+                    style={{ height: "24rem" }}
                   >
                     <Image
                       src={item.image}
@@ -645,7 +646,7 @@ export default function Home() {
                       </ul>
                       <Link
                         href={`/blog-detail/${item.id}`}
-                        className="text-dark title h5"
+                        className="text-dark title h6"
                       >
                         {item.title}
                       </Link>

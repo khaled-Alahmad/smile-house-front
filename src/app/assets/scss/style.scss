@@ -64,7 +64,7 @@
 }
 .swiper-button-prev,
 .swiper-button-next {
-  color: #f0c672  !important; /* يمكنك تغيير اللون حسب التصميم */
+  color: #f0c672 !important; /* يمكنك تغيير اللون حسب التصميم */
 }
 
 .swiper-pagination-bullet {
@@ -94,4 +94,65 @@
 
 .whatsapp-btn:hover {
   background-color: #20c057; /* لون خلفية عند التحويم */
+}
+/* FullCalendar responsiveness */
+@media (max-width: 768px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fc-toolbar-title {
+    font-size: 16px;
+  }
+
+  .fc-toolbar-chunk {
+    margin-bottom: 10px;
+  }
+
+  .fc-timegrid-slot-label,
+  .fc-timegrid-slot-lane {
+    font-size: 12px;
+  }
+
+  .fc-daygrid-event {
+    font-size: 12px;
+  }
+
+  .fc .fc-button {
+    padding: 0.2rem 0.4rem;
+    font-size: 12px;
+  }
+
+  .fc-scroller {
+    overflow-y: scroll;
+  }
+
+  /* Adjust calendar content height */
+  .fc .fc-view-harness {
+    min-height: 300px; /* Adjust as needed */
+  }
+}
+
+/* For very small screens */
+@media (max-width: 576px) {
+  .fc-header-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fc-timegrid-slot-label,
+  .fc-timegrid-slot-lane {
+    font-size: 10px;
+  }
+
+  .fc .fc-button {
+    padding: 0.1rem 0.3rem;
+    font-size: 10px;
+  }
+
+  /* Reduce the calendar height on mobile */
+  .fc .fc-view-harness {
+    min-height: 200px; /* Adjust as needed */
+  }
 }
