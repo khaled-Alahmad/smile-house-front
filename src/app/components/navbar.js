@@ -72,6 +72,30 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
       });
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if the click is outside the menu and the toggle button
+      const menuElement = document.getElementById("navigation");
+      const toggleButton = document.getElementById("isToggle");
+
+      if (
+        isMenu &&
+        menuElement &&
+        !menuElement.contains(event.target) &&
+        !toggleButton.contains(event.target)
+      ) {
+        setisMenu(false); // Close the menu
+      }
+    };
+
+    // Attach the event listener to detect clicks outside
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      // Cleanup the event listener when the component is unmounted or updated
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isMenu]);
   return (
     <header
       id="topnav"
@@ -132,8 +156,8 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
 
         <div className="menu-extras">
           <div className="menu-item">
-            <Link
-              href="#"
+            <span
+              // href="#"
               className={`navbar-toggle ${isMenu ? "open" : ""}`}
               id="isToggle"
               onClick={() => toggleMenu()}
@@ -143,7 +167,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 <span></span>
                 <span></span>
               </div>
-            </Link>
+            </span>
           </div>
         </div>
 

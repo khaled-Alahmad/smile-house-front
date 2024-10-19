@@ -145,7 +145,7 @@ export default function Home() {
         style={{
           backgroundImage: `url('${data.hero["main_image"]}')`,
           padding: "205px 0px",
-          height:"100vh"
+          height: "100vh",
         }}
         dir="rtl"
       >
@@ -517,12 +517,12 @@ export default function Home() {
                       />
                     </div>
                     <div className="card-body content text-end">
-                      <Link
-                        href="/doctor-team-one"
+                      <span
+                        // href="/#"
                         className="title text-dark h5 d-block mb-0"
                       >
                         {item.name}
-                      </Link>
+                      </span>
                       <small className="text-muted speciality">
                         {item.specialty}
                       </small>
