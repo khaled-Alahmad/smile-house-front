@@ -16,27 +16,27 @@ export const metadata = {
   title: "سمايل هاوس",
   description: "كل ما يخص عالم التجميل",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="ar">
       <head>
-        <Head>
-          <title>سمايل هاوس - مركز تجميل في إدلب</title>
-          <meta
-            name="description"
-            content="مركز سمايل هاوس في إدلب يقدم أفضل خدمات تجميل الأسنان والعناية بالبشرة وغيرها من الخدمات التجميلية."
-          />
-          <meta property="og:title" content="سمايل هاوس - مركز تجميل في إدلب" />
-          <meta
-            property="og:description"
-            content="احصل على أجود خدمات التجميل في سمايل هاوس بإدلب، من تجميل الأسنان إلى العناية بالبشرة."
-          />
-          <meta name="google-site-verification" content="Miu_QGaGP4B9u6IllJxprdJbtujQfQUFvpyxxnJZy0Q" />
-          <meta property="og:image" content="./images/logo.png" />
-          <meta property="og:url" content="https://smile-house.vercel.app" />
-          <meta name="robots" content="index, follow" />
-        </Head>
+        <title>سمايل هاوس - مركز تجميل في إدلب</title>
+        <meta
+          name="description"
+          content="مركز سمايل هاوس في إدلب يقدم أفضل خدمات تجميل الأسنان والعناية بالبشرة وغيرها من الخدمات التجميلية."
+        />
+        <meta property="og:title" content="سمايل هاوس - مركز تجميل في إدلب" />
+        <meta
+          property="og:description"
+          content="احصل على أجود خدمات التجميل في سمايل هاوس بإدلب، من تجميل الأسنان إلى العناية بالبشرة."
+        />
+        <meta
+          name="google-site-verification"
+          content="Miu_QGaGP4B9u6IllJxprdJbtujQfQUFvpyxxnJZy0Q"
+        />
+        <meta property="og:image" content="./images/logo.png" />
+        <meta property="og:url" content="https://smile-house.vercel.app" />
+        <meta name="robots" content="index, follow" />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           rel="stylesheet"
@@ -54,7 +54,6 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
       </head>
-
       <body className={`${inter.variable} font-sans`}>{children}</body>
     </html>
   );
