@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://smile-house.vercel.app
+
+# Sitemaps
+Sitemap: https://smile-house.vercel.app/sitemap.xml
