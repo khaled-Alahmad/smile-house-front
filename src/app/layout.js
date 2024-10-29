@@ -34,7 +34,16 @@ export default function RootLayout({ children }) {
           name="google-site-verification"
           content="Miu_QGaGP4B9u6IllJxprdJbtujQfQUFvpyxxnJZy0Q"
         />
-        <meta property="og:image" content="./images/logo.png" />
+        <link
+          rel="icon"
+          href="https://smile-house.vercel.app/favicon.ico"
+          type="image/x-icon"
+        />
+
+        <meta
+          property="og:image"
+          content="https://smile-house.vercel.app/images/logo.png"
+        />
         <meta property="og:url" content="https://smile-house.vercel.app" />
         <meta name="robots" content="index, follow" />
         <link
