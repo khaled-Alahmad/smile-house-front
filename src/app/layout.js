@@ -26,6 +26,8 @@ export default function RootLayout({ children }) {
           content="مركز سمايل هاوس في إدلب يقدم أفضل خدمات تجميل الأسنان والعناية بالبشرة وغيرها من الخدمات التجميلية."
         />
         <meta property="og:title" content="سمايل هاوس - مركز تجميل في إدلب" />
+        <meta property="title" content="سمايل هاوس - مركز تجميل في إدلب" />
+
         <meta
           property="og:description"
           content="احصل على أجود خدمات التجميل في سمايل هاوس بإدلب، من تجميل الأسنان إلى العناية بالبشرة."
@@ -44,7 +46,13 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://smile-house.vercel.app/images/logo.png"
         />
+        <meta
+          property="image"
+          content="https://smile-house.vercel.app/images/logo.png"
+        />
+        <meta property="url" content="https://smile-house.vercel.app" />
         <meta property="og:url" content="https://smile-house.vercel.app" />
+
         <meta name="robots" content="index, follow" />
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
