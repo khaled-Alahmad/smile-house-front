@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import Loader from "../components/loader";
 import AOS from "aos";
+import Cookies from "js-cookie";
 
 export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
@@ -67,6 +68,7 @@ export default function DepartmentsAll() {
   }
   const handleClick = (id) => {
     localStorage.setItem("categoryId", id);
+    Cookies.set("categoryId", id, { expires: 7 }); //
   };
   return (
     <>

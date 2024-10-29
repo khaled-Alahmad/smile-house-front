@@ -36,6 +36,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dotdotdot from "react-dotdotdot";
 import RelatedProduct from "./components/pharmacy/relatedProduct";
+import Cookies from "js-cookie";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -61,6 +62,12 @@ export default function Home() {
   }, []);
   // //console.log(data);
   const handleClick = (id) => {
+    Cookies.set("categoryId", id, {
+      expires: 7,
+      path: "/",
+      sameSite: "Lax",
+      secure: true,
+    }); //
     localStorage.setItem("categoryId", id);
   };
   function generateUUID() {
@@ -77,10 +84,18 @@ export default function Home() {
   // //console.log(key);
   useEffect(() => {
     const existKey = localStorage.getItem("client_key");
-    if (!existKey) {
+    const existKey2 = Cookies.get("client_key"); //
+    if (!existKey || !existKey2) {
       const key = generateUUID();
       localStorage.setItem("client_key", key);
+      Cookies.set("client_key", key, {
+        expires: 7,
+        path: "/",
+        sameSite: "Lax",
+        secure: true,
+      }); //
     }
+    console.log(existKey2);
   }, []);
   useEffect(() => {
     async function fetchDataAsync() {
