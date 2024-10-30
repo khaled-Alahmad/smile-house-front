@@ -121,14 +121,14 @@ export default function Home() {
                   alt=""
                   data-aos="fade-in" // حركة الشعار
                 />
-                <h4
+                <h1
                   className="display-4 fw-bold text-white title-dark mt-3 mb-4"
                   data-aos="fade-up" // حركة النص
                 >
                   {data.hero
                     ? data.hero["brand-name"]
                     : "Brand Name Not Available"}
-                </h4>
+                </h1>
                 <p
                   className="para-desc text-white-50 mb-0"
                   data-aos="fade-up"
