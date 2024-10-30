@@ -6,4 +6,4 @@ Allow: /
 Host: https://smile-house.vercel.app
 
 # Sitemaps
-Sitemap: https://smile-house.vercel.app/sitemap.xml
+Sitemap: https://smile-house.vercel.app/sitemap_index.xml

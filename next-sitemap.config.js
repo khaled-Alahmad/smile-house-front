@@ -7,12 +7,15 @@ const fetchSSRRoutes = async () => {
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://smile-house.vercel.app",
+  sitemapBaseFileName: "sitemap_index",
+
   generateRobotsTxt: true,
 };
 
 module.exports = {
   siteUrl: "https://smile-house.vercel.app",
   generateRobotsTxt: true,
+  sitemapBaseFileName: "sitemap_index",
   additionalPaths: async (config) => {
     const ssrRoutes = await fetchSSRRoutes();
     return ssrRoutes.map((route) => ({
