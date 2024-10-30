@@ -54,11 +54,11 @@ export default function BlogDetail(props) {
   }
   return (
     <>
-      <Navbar
+      {/* <Navbar
         navDark={true}
         manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
-      />
+      /> */}
       <section
         className="bg-half-150 d-table w-100 bg-light"
         style={{ backgroundImage: `url('${data?.image}')` }}
@@ -382,7 +382,7 @@ export default function BlogDetail(props) {
         </div>
       </section>
       <ScrollTop />
-      <Footer data={dataTotal} />
+      {/* <Footer data={dataTotal} /> */}
     </>
   );
 }

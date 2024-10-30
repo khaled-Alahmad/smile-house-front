@@ -79,10 +79,10 @@ export default function DepartmentsAll() {
   };
   return (
     <>
-      <Navbar
+      {/* <Navbar
         manuClass="navigation-menu nav-light nav-left"
-        containerClass="container"
-      />
+        containerClass="container" */}
+      {/* /> */}
       <section
         className="bg-half-170 d-table w-100"
         style={{ backgroundImage: `url('/images/cta.jpg')` }}
@@ -238,7 +238,7 @@ export default function DepartmentsAll() {
           </div>
         </div>
       </section>
-      <Footer data={dataTotal} />
+      {/* <Footer data={dataTotal} /> */}
 
       <ScrollTop />
     </>

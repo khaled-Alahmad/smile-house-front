@@ -29,11 +29,11 @@ export default function BookingAppointment() {
   }
   return (
     <>
-      <Navbar
+      {/* <Navbar
         navDark={true}
         manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
-      />
+      /> */}
 
       <section
         className="bg-half-170 d-table w-100 bg-light"
@@ -93,7 +93,7 @@ export default function BookingAppointment() {
         </div>
       </div>
       <AppointmentTab />
-      <Footer data={dataTotal} />
+      {/* <Footer data={dataTotal} /> */}
       <ScrollTop />
     </>
   );

@@ -1,47 +1,29 @@
-"use client";
+"use client"; // يجب أن يكون هذا في أعلى الملف
 import Image from "next/image";
 import Link from "next/link";
 
-import Navbar from "./components/navbar";
 import FeatureOne from "./components/features/featuresOne";
 import CtaOne from "./components/cta/ctaOne";
 import Patients from "./components/patients";
-import Footer from "./components/footer";
 import ScrollTop from "./components/scrollTop";
 import AboutImage from "./components/aboutImage";
-import { Swiper, SwiperSlide } from "swiper/react";
-// import 'swiper/swiper.scss';
-// import 'swiper/modules/pagination/pagination.min.css'
 
-import {
-  RiArrowRightLine,
-  FiFacebook,
-  FiLinkedin,
-  FiGithub,
-  FiTwitter,
-  FiCalendar,
-  FiClock,
-  BiLeftArrowAlt,
-} from "./assets/icons/vander";
+import { FiCalendar, FiClock, BiLeftArrowAlt } from "./assets/icons/vander";
 import AOS from "aos";
 
-// import "aos/dist/aos.css";
-import { FetchCategories, apiUrl, fetchData } from "./data/dataApi";
+import { fetchData } from "./data/dataApi";
 import { useEffect, useState } from "react";
-import Departments from "./departments/page";
 import { useRouter } from "next/navigation";
 import Loader from "./components/loader";
 import { ToastContainer } from "react-toastify";
-// import imageDoctor from "../../public/images/doctors/01.jpg";
 import "react-toastify/dist/ReactToastify.css";
-import Dotdotdot from "react-dotdotdot";
 import RelatedProduct from "./components/pharmacy/relatedProduct";
-import Cookies from "js-cookie";
+import { getCookie, getCookies, setCookie } from "cookies-next";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  // const [categories, setCategories] = useState(null);
   const router = useRouter();
+
   useEffect(() => {
     AOS.init({
       duration: 1200, // مدة الحركة
@@ -60,16 +42,12 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  // //console.log(data);
+
   const handleClick = (id) => {
-    Cookies.set("categoryId", id, {
-      expires: 7,
-      path: "/",
-      sameSite: "Lax",
-      secure: true,
-    }); //
+    setCookie("categoryId", id);
     localStorage.setItem("categoryId", id);
   };
+
   function generateUUID() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
       /[xy]/g,
@@ -81,28 +59,22 @@ export default function Home() {
     );
   }
 
-  // //console.log(key);
   useEffect(() => {
     const existKey = localStorage.getItem("client_key");
-    const existKey2 = Cookies.get("client_key"); //
-    if (!existKey || !existKey2) {
+    const existKey1 = getCookie("client_key");
+
+    if (!existKey || !existKey1) {
       const key = generateUUID();
+      setCookie("client_key", key);
       localStorage.setItem("client_key", key);
-      Cookies.set("client_key", key, {
-        expires: 7,
-        path: "/",
-        sameSite: "Lax",
-        secure: true,
-      }); //
     }
-    console.log(existKey2);
   }, []);
+
   useEffect(() => {
     async function fetchDataAsync() {
       try {
         const fetchedData = await fetchData();
         setData(fetchedData);
-        // //console.log(fetchedData);
         localStorage.setItem(
           "appointment_phone",
           fetchedData.bookAppointment["whatsapp-number"]
@@ -112,47 +84,20 @@ export default function Home() {
       }
     }
 
-    // async function fetchCategoriesAsync() {
-    //   try {
-    //     const fetchedCategories = await FetchCategories();
-    //     setCategories(fetchedCategories);
-    //   } catch (error) {
-    //     console.error("Error fetching categories:", error.message);
-    //   }
-    // }
-
     fetchDataAsync();
-    // fetchCategoriesAsync();
   }, []);
 
   if (!data) {
-    // Render loading state or return null if you don't want to render anything
-    return (
-      // <div
-      //   className="bg-overlay"
-      //   style={{
-      //     display: "flex",
-      //     alignItems: "center",
-      //     justifyContent: "center",
-      //     height: "100vh",
-      //   }}
-      // >
-      //   <div class="spinner-grow text-warning" s role="status">
-      //     <span class="sr-only"></span>
-      //   </div>
-      // </div>
-      <Loader />
-    );
+    return <Loader />;
   }
-
   return (
     <>
       <ToastContainer />
 
-      <Navbar
+      {/* <Navbar
         manuClass="navigation-menu nav-left nav-light"
         containerClass="container"
-      />
+      /> */}
 
       <section
         id="hero"
@@ -712,7 +657,7 @@ export default function Home() {
         </a>
       </div>
 
-      <Footer data={data} />
+      {/* <Footer data={data} /> */}
       <ScrollTop />
     </>
   );

@@ -68,11 +68,11 @@ export default function DoctorTeamOne() {
   }
   return (
     <>
-      <Navbar
+      {/* <Navbar
         navDark={true}
         manuClass="navigation-menu nav-light nav-left"
-        containerClass="container"
-      />
+        // containerClass="container" */}
+      {/* /> */}
       <section
         className="bg-half-150 bg-light d-table w-100 "
         style={{ backgroundImage: `url('/images/15.webp')` }}
@@ -195,7 +195,7 @@ export default function DoctorTeamOne() {
           </div>
         </div>
       </section>
-      <Footer data={dataTotal} />
+      {/* <Footer data={dataTotal} /> */}
       <ScrollTop />
     </>
   );

@@ -81,10 +81,10 @@ export default function AboutUs() {
   //console.log("about :", data);
   return (
     <>
-      <Navbar
+      {/* <Navbar
         manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
-      />
+      /> */}
       <section
         className="bg-half-170 d-table w-100"
         style={{
@@ -414,7 +414,7 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
-      <Footer data={data} />
+      {/* <Footer data={data} /> */}
       <ScrollTop />
     </>
   );

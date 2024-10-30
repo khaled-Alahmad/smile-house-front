@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "../../components/navbar";
@@ -7,54 +6,28 @@ import ScrollTop from "../../components/scrollTop";
 import { fetchData, fetchServiceDetails } from "@/app/data/dataApi";
 import Loader from "@/app/components/loader";
 import RelatedProduct from "@/app/components/pharmacy/relatedProduct";
+import { cookies } from "next/headers"; // استخدم next/headers هنا
 
-export default function PharmacyProductDetail(props) {
-  const [data, setData] = useState(null);
-  const [dataTotal, setDataTotal] = useState(null);
-  const [loading, setLoading] = useState(true);
+const ServiceDetails = async (props) => {
+  let data = [];
+  const cookieStore = cookies();
+
   let id = props.params.id;
+  const clientKey = cookieStore.get("client_key")?.value;
 
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        setLoading(true);
-        const fetchedData = await fetchData();
-        setDataTotal(fetchedData);
-      } catch (error) {
-        console.error("Error fetching total data:", error.message);
-      }
-    };
-
-    const fetchServiceDetailsAsync = async () => {
-      try {
-        setLoading(true);
-        const fetchedData = await fetchServiceDetails(id);
-        setData(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    // if (id) {
-    fetchDataAsync();
-    fetchServiceDetailsAsync();
-    // }
-  }, [id]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  const fetchedDataResponse = await fetch(
+    `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
+  );
+  console.log(
+    `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
+  );
+  const fetchedData = await fetchedDataResponse.json();
+  data = fetchedData.data;
+  console.log("fetched data:", fetchedData.data);
 
   if (!data) {
     return (
       <>
-        <Navbar
-          navDark={true}
-          manuClass="navigation-menu nav-left"
-          containerClass="container"
-        />
         <section className="bg-half-170 d-table w-100 bg-light" dir="rtl">
           <div className="container">
             <div className="row mt-5 justify-content-center">
@@ -66,19 +39,19 @@ export default function PharmacyProductDetail(props) {
             </div>
           </div>
         </section>
-        <Footer data={dataTotal} />
-        <ScrollTop />
+        {/* <Footer data={dataTotal} /> */}
+        {/* <ScrollTop /> */}
       </>
     );
   }
   //console.log(data);
   return (
     <>
-      <Navbar
+      {/* <Navbar
         navDark={true}
         manuClass="navigation-menu nav-light nav-left"
         containerClass="container"
-      />
+      /> */}
       <section
         className="bg-half-150 d-table w-100 bg-light"
         dir="rtl"
@@ -187,8 +160,9 @@ export default function PharmacyProductDetail(props) {
           <RelatedProduct data={data.images} />
         </div>
       </section>
-      <Footer data={dataTotal} />
-      <ScrollTop />
+      {/* <Footer data={dataTotal} /> */}
+      {/* <ScrollTop /> */}
     </>
   );
-}
+};
+export default ServiceDetails;

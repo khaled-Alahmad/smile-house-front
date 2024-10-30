@@ -5,6 +5,8 @@ import "./assets/scss/bootstrap.scss";
 import "./assets/css/materialdesignicons.min.css";
 import Script from "next/script";
 import Head from "next/head";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -71,7 +73,15 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
       </head>
-      <body className={`${inter.variable} font-sans`}>{children}</body>
+      <body className={`${inter.variable} font-sans`}>
+        <Navbar
+          manuClass="navigation-menu nav-light nav-left"
+          containerClass="container"
+        />
+
+        {children}
+        <Footer/>
+      </body>
     </html>
   );
 }

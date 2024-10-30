@@ -11,36 +11,56 @@ import {
   FiMail,
   FiPhone,
   FiMapPin,
-  BsFillPhoneLandscapeFill,
   FiPhoneCall,
 } from "../assets/icons/vander";
 import { usePathname } from "next/navigation";
+import axios from "axios";
 
-export default function Footer({ data }) {
-  let [manu, setManu] = useState("");
-  let current = usePathname();
-  let [isMenu, setisMenu] = useState(false);
-  let [scroll, setScroll] = useState(false);
+export default function Footer() {
+  const [data, setData] = useState(null); // state to store fetched data
 
-  let [modal, setModal] = useState(false);
+  useEffect(() => {
+    const clientKey = localStorage.getItem("client_key"); // Use localStorage.getItem
+    console.log(clientKey);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://smilehouse.serv00.net/api/home?clientKey=${clientKey}`
+        );
+        setData(response.data.data); // Set the fetched data
+        console.log(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (clientKey) {
+      fetchData();
+    }
+  }, []); // fetch data when clientKey changes
+
+  const current = usePathname();
+  const [manu, setManu] = useState("");
+  const [isMenu, setIsMenu] = useState(false);
+  const [scroll, setScroll] = useState(false);
+  const [modal, setModal] = useState(false);
+
   useEffect(() => {
     setManu(current);
-
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       setScroll(window.scrollY > 50);
-    });
-    window.scrollTo(0, 0);
-    const closeModal = () => {
-      setModal(false);
     };
-    document.addEventListener("mousedown", closeModal);
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
-      document.removeEventListener("mousedown", closeModal);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [current]);
+
   if (!data) {
-    return <div>lodaing...</div>;
+    return <div>Loading...</div>; // Show loading state while data is being fetched
   }
+
   return (
     <>
       <footer className="" dir="rtl">
@@ -48,64 +68,19 @@ export default function Footer({ data }) {
           <div className="row">
             <div className="col-xl-5 col-lg-4 mb-0 mb-md-4 pb-0 pb-md-2">
               <Link href="#" className="logo-footer">
-                {/* <Image
-                  src="/images/logo-light.png"
-                  width={115}
-                  height={22}
-                  alt=""
-                /> */}
                 <Image src="/images/logo.png" width={60} height={60} alt="" />
                 <h5 className="d-inline me-lg-2">
                   {data.hero["brand-name"] ?? "سمايل هاوس"}
                 </h5>
               </Link>
               <p className="mt-4 ms-xl-5">
-                {/* Great doctor if you need your family member to get effective
-                immediate assistance, emergency treatment or a simple
-                consultation. */}
                 {data.footer["terms_conditions"] ??
-                  "Great doctor if you need your family member to get effective            immediate assistance, emergency treatment or a simple                consultation."}
+                  "Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation."}
               </p>
             </div>
 
             <div className="col-xl-7 col-lg-8 col-md-12">
               <div className="row">
-                {/* <div className="col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
-                  <h5 className="footer-head">Company</h5>
-                  <ul className="list-unstyled footer-list mt-4">
-                    <li>
-                      <Link href="/aboutus" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> About us
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/departments" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Services
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/doctor-team-two" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Team
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/blog-detail" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Project
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/blogs" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Blog
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/login" className="text-foot">
-                        <i className="mdi mdi-chevron-left ms-1"></i> Login
-                      </Link>
-                    </li>
-                  </ul>
-                </div> */}
-
                 <div className="col-md-6 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
                   <h5 className="footer-head">الأقسام</h5>
                   <ul className="list-unstyled footer-list mt-4">
