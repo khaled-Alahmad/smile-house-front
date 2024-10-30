@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
