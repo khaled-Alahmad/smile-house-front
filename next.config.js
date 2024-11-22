@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    scrollRestoration: true,
-  },
+  // experimental: {
+  //   scrollRestoration: true,
+  // },
   images: {
     domains: [
       "smile-house.promotion22.com",
