@@ -46,7 +46,7 @@ export default function BlogSlider({ excludeId }) {
   }, []);
 
   if (!data) {
-    return <Loader />;
+    return null;
   }
 
   // Filter out the item with the specified excludeId
@@ -163,3 +163,4 @@ export default function BlogSlider({ excludeId }) {
     </div>
   );
 }
+  

@@ -10,34 +10,11 @@ import Loader from "../components/loader";
 import { fetchData } from "../data/dataApi";
 
 export default function BookingAppointment() {
-  const [dataTotal, setDataTotal] = useState(null);
-
-  useEffect(() => {
-    async function fetchDataTotalAsync() {
-      try {
-        const fetchedData = await fetchData();
-        setDataTotal(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    }
-    fetchDataTotalAsync();
-  }, []);
-  if (!dataTotal) {
-    // Render loading state or return null if you don't want to render anything
-    return <Loader />;
-  }
   return (
     <>
-      {/* <Navbar
-        navDark={true}
-        manuClass="navigation-menu nav-light nav-left"
-        containerClass="container"
-      /> */}
 
       <section
         className="bg-half-170 d-table w-100 bg-light"
-        // className="bg-half-260 d-table w-100"
 
         style={{ backgroundImage: `url(./images/bg/03.jpg)` }}
       >
@@ -93,8 +70,7 @@ export default function BookingAppointment() {
         </div>
       </div>
       <AppointmentTab />
-      {/* <Footer data={dataTotal} /> */}
-      <ScrollTop />
+      {/* <ScrollTop /> */}
     </>
   );
 }

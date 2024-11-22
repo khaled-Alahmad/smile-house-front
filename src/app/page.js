@@ -1,4 +1,4 @@
-"use client"; // يجب أن يكون هذا في أعلى الملف
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,36 +13,76 @@ import AOS from "aos";
 
 import { fetchData } from "./data/dataApi";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Loader from "./components/loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RelatedProduct from "./components/pharmacy/relatedProduct";
-import { getCookie, getCookies, setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
+import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  const router = useRouter();
+  const pathname = usePathname();
+
+  const isRestoringScroll = useRef(false); // لمنع تسجيل التمرير أثناء الاستعادة
+  const scrollTimeout = useRef(null); // لإدارة التأخير بعد الاستعادة
+
+  // حفظ موضع التمرير في localStorage
+  const saveScrollPosition = () => {
+    if (isRestoringScroll.current) return; // إذا كان يتم استعادة التمرير، لا تحفظ الموضع
+    const scrollY = window.scrollY;
+    if (scrollY > 0) {
+      const scrollPositions =
+        JSON.parse(localStorage.getItem("scrollPositions")) || {};
+      scrollPositions[pathname] = scrollY;
+      localStorage.setItem("scrollPositions", JSON.stringify(scrollPositions));
+      //console.log("Saved scroll position:", pathname, scrollY);
+    }
+  };
+
+  // استعادة موضع التمرير من localStorage
+  const restoreScrollPosition = () => {
+    const scrollPositions =
+      JSON.parse(localStorage.getItem("scrollPositions")) || {};
+    const previousScroll = scrollPositions[pathname] || 0;
+    //console.log("Restoring scroll position:", pathname, previousScroll);
+
+    isRestoringScroll.current = true; // تفعيل وضع الاستعادة
+    setTimeout(() => {
+      window.scrollTo(0, previousScroll); // استعادة الموضع
+      isRestoringScroll.current = false; // تعطيل وضع الاستعادة بعد التمرير
+
+      // منع حفظ التمرير مباشرة بعد الاستعادة
+      scrollTimeout.current = setTimeout(() => {
+        isRestoringScroll.current = false;
+      }, 300); // تأخير إضافي للتأكد من استقرار الصفحة
+    }, 200); // تأخير بسيط
+  };
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200, // مدة الحركة
-      easing: "ease-out-cubic",
-      once: false, // اجعلها false للسماح بتكرار الحركات
-    });
+    //console.log("Current pathname:", pathname);
+    restoreScrollPosition(); // استعادة الموضع عند تحميل الصفحة
 
-    const handleScroll = () => {
-      AOS.refresh();
-    };
-
+    // حفظ الموضع عند التمرير
+    const handleScroll = () => saveScrollPosition();
     window.addEventListener("scroll", handleScroll);
 
-    // تنظيف حدث التمرير عند إلغاء التثبيت
+    // تنظيف المستمعات عند تفريغ المكون
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout.current); // تنظيف المؤقت
     };
-  }, []);
+  }, [pathname]);
 
+  useEffect(() => {
+    // إعداد AOS
+    AOS.init({
+      duration: 1200,
+      easing: "ease-out-cubic",
+    });
+    return () => AOS.refreshHard();
+  }, []);
   const handleClick = (id) => {
     setCookie("categoryId", id);
     localStorage.setItem("categoryId", id);
@@ -93,11 +133,6 @@ export default function Home() {
   return (
     <>
       <ToastContainer />
-
-      {/* <Navbar
-        manuClass="navigation-menu nav-left nav-light"
-        containerClass="container"
-      /> */}
 
       <section
         id="hero"
@@ -175,101 +210,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {/* <div className="row" dir="rtl"> */}
-              {/* <div style={{ position: "relative" }}>
-                  <Swiper
-                    spaceBetween={10}
-                    slidesPerView={1}
-                    breakpoints={{
-                      640: {
-                        slidesPerView: 1,
-                      },
-                      768: {
-                        slidesPerView: 2,
-                      },
-                      1024: {
-                        slidesPerView: 4,
-                      },
-                    }}
-                    loop={true}
-                    navigation={{
-                      nextEl: ".swiper-button-next",
-                      prevEl: ".swiper-button-prev",
-                    }}
-                    pagination={{ clickable: true }}
-                    autoplay={{
-                      delay: 2000,
-                      disableOnInteraction: false,
-                    }}
-                  >
-                    {data.offers.map((item, index) => {
-                      const timestamp = item.end_date;
-                      const dateObj = new Date(timestamp);
-                      const year = dateObj.getUTCFullYear();
-                      const month = String(dateObj.getUTCMonth() + 1).padStart(
-                        2,
-                        "0"
-                      );
-                      const day = String(dateObj.getUTCDate()).padStart(2, "0");
-                      const formattedDate = `${year}-${month}-${day}`;
 
-                      return (
-                        <SwiperSlide key={index}>
-                          <div
-                            className="card blog blog-primary border-0 shadow rounded "
-                            style={{ height: "18rem" }}
-                          >
-                            <Link
-                              href={`/offers-all`}
-                              style={{ height: "100%" }}
-                            >
-                              <Image
-                                src={item.image}
-                                width={0}
-                                height={0}
-                                sizes="100vw"
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  objectFit: "cover",
-                                }}
-                                className="img-fluid image-offer m-1"
-                                alt=""
-                              />
-                            </Link>
-                          </div>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-
-                  <div
-                    className="swiper-button-prev"
-                    style={{
-                      position: "absolute",
-                      left: "-40px", // Adjust the positioning as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      zIndex: 10,
-                      background: "#fff", // Adjust background color if needed
-                      borderRadius: "50%", // Make it circular
-                      padding: "5px", // Add some padding
-                    }}
-                  ></div>
-                  <div
-                    className="swiper-button-next"
-                    style={{
-                      position: "absolute",
-                      right: "-40px", // Adjust the positioning as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      zIndex: 10,
-                      background: "#fff", // Adjust background color if needed
-                      borderRadius: "50%", // Make it circular
-                      padding: "5px", // Add some padding
-                    }}
-                  ></div>
-                </div> */}
               <RelatedProduct offer data={data.offers} />
               {/* </div> */}
               <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
@@ -657,8 +598,7 @@ export default function Home() {
         </a>
       </div>
 
-      {/* <Footer data={data} /> */}
-      <ScrollTop />
+      {/* <ScrollTop /> */}
     </>
   );
 }

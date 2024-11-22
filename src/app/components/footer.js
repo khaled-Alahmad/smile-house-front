@@ -5,62 +5,41 @@ import Image from "next/image";
 
 import {
   FiFacebook,
-  FiLinkedin,
   FiInstagram,
-  FiTwitter,
   FiMail,
   FiPhone,
   FiMapPin,
   FiPhoneCall,
 } from "../assets/icons/vander";
-import { usePathname } from "next/navigation";
 import axios from "axios";
 
 export default function Footer() {
-  const [data, setData] = useState(null); // state to store fetched data
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    const clientKey = localStorage.getItem("client_key"); // Use localStorage.getItem
-    console.log(clientKey);
+    const clientKey = localStorage.getItem("client_key");
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `https://smilehouse.serv00.net/api/home?clientKey=${clientKey}`
         );
-        setData(response.data.data); // Set the fetched data
-        console.log(response.data.data);
+        setData(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     if (clientKey) {
-      fetchData();
+      setTimeout(() => {
+        // تأخير تحميل البيانات لضمان استقرار الصفحة
+        fetchData();
+      }, 500); // تأخير بسيط
     }
-  }, []); // fetch data when clientKey changes
-
-  const current = usePathname();
-  const [manu, setManu] = useState("");
-  const [isMenu, setIsMenu] = useState(false);
-  const [scroll, setScroll] = useState(false);
-  const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    setManu(current);
-    const handleScroll = () => {
-      setScroll(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [current]);
+  }, []);
 
   if (!data) {
-    return <div>Loading...</div>; // Show loading state while data is being fetched
+    return null; // لا تعرض شيء أثناء تحميل البيانات
   }
-
   return (
     <>
       <footer className="" dir="rtl">

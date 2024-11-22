@@ -43,7 +43,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
     window.addEventListener("scroll", () => {
       setScroll(window.scrollY > 50);
     });
-    window.scrollTo(0, 0);
+
     const closeModal = () => {
       setModal(false);
     };
@@ -52,7 +52,22 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
       document.removeEventListener("mousedown", closeModal);
     };
   }, [current]);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setScroll(window.scrollY > 50);
+    });
 
+    return () => {
+      window.removeEventListener("scroll", () => setScroll(false));
+    };
+  }, []);
+
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   let toggleMenu = () => {
     setisMenu(!isMenu);
     if (document.getElementById("navigation")) {
@@ -178,7 +193,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
         >
           <ul className={manuClass}>
             <li
-              className={` has-submenu parent-menu-item  ${
+              className={`has-submenu parent-menu-item ${
                 manu === "/" ? "active" : ""
               }`}
             >
@@ -186,55 +201,105 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
             </li>
 
             <li
-              className={`has-submenu parent-menu-item  ${
+              className={`has-submenu parent-menu-item ${
                 manu === "/aboutus" ? "active" : ""
               }`}
             >
-              <Link href={`${"/".includes(manu) ? "#about" : "/aboutus"}`}>
+              <a
+                href="#about"
+                onClick={(e) => {
+                  e.preventDefault(); // تعطيل السلوك الافتراضي للرابط
+                  const section = document.getElementById("about");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    }); // التمرير بسلاسة
+                  }
+                }}
+              >
                 عنا
-              </Link>
+              </a>
             </li>
 
             <li
-              className={` has-submenu parent-menu-item  ${
+              className={`has-submenu parent-menu-item ${
                 manu === "/departments-all" ? "active" : ""
               }`}
             >
-              <Link
-                href={`${
-                  "/".includes(manu) ? "#departments" : "/departments-all"
-                }`}
+              <a
+                href="#departments"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("departments");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
               >
                 الخدمات
-              </Link>
+              </a>
             </li>
 
             <li
-              className={` has-submenu parent-parent-menu-item  ${
+              className={`has-submenu parent-parent-menu-item ${
                 manu === "/doctor-team" ? "active" : ""
               }`}
             >
-              <Link
-                href={`${"/".includes(manu) ? "#doctors" : "/doctor-team"}`}
+              <a
+                href="#doctors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("doctors");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
               >
                 الأطباء
-              </Link>
+              </a>
             </li>
+
             <li>
-              <Link
-                href={`${"/".includes(manu) ? "#patients" : "/"}`}
-                className="sub-menu-item"
+              <a
+                href="#patients"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("patients");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
               >
                 المرضى
-              </Link>
+              </a>
             </li>
+
             <li className={manu === "/contact" ? "active" : ""}>
-              <Link
-                href={`${"/".includes(manu) ? "#blogs" : "/"}`}
-                className="sub-menu-item"
+              <a
+                href="#blogs"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("blogs");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
               >
                 الأخبار
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

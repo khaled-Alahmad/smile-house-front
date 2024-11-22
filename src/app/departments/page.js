@@ -4,7 +4,7 @@ import { cookies } from "next/headers"; // استخدم next/headers هنا
 import DepartmentsClient from "../components/DepartmentsClient";
 
 const Departments = async () => {
-  console.log("Fetching data...");
+  //console.log("Fetching data...");
 
   let services = [];
   let offerData = null;
@@ -15,8 +15,8 @@ const Departments = async () => {
   const categoryId = cookieStore.get("categoryId")?.value;
   const clientKey = cookieStore.get("client_key")?.value;
   try {
-    console.log("clientKey:", clientKey);
-    console.log("categoryId:", categoryId);
+    //console.log("clientKey:", clientKey);
+    //console.log("categoryId:", categoryId);
 
     // التحقق من أن القيم تم تعيينها
     if (!categoryId || !clientKey) {
@@ -34,7 +34,7 @@ const Departments = async () => {
 
     const servicesData = await servicesResponse.json();
     services = servicesData.data; // تخزين البيانات مباشرة من الاستجابة
-    // console.log("services:", services);
+    // //console.log("services:", services);
 
     // جلب البيانات الإضافية
     const fetchedDataResponse = await fetch(
@@ -52,7 +52,7 @@ const Departments = async () => {
     offerData = data?.categories.find(
       (offer) => offer.id === parseInt(categoryId)
     );
-    // console.log("Offer:", offerData);
+    // //console.log("Offer:", offerData);
   } catch (error) {
     console.error("Error fetching data:", error.message);
   }

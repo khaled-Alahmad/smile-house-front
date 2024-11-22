@@ -161,7 +161,7 @@ export default function AppointmentTab() {
   };
 
   const handleDateChange = (info) => {
-    console.log(selectedDoctor);
+    //console.log(selectedDoctor);
 
     if (!selectedDoctor) {
       alert("يجب تحديد طبيب أولاً"); // إظهار رسالة تحذير

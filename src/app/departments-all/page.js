@@ -19,24 +19,12 @@ import Cookies from "js-cookie";
 
 export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
-  const [dataTotal, setDataTotal] = useState(null);
   useEffect(() => {
     AOS.init({
       duration: 1200, // مدة الحركة
       easing: "ease-out-cubic",
       once: false, // اجعلها false للسماح بتكرار الحركات
     });
-
-    const handleScroll = () => {
-      AOS.refresh();
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // تنظيف حدث التمرير عند إلغاء التثبيت
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   useEffect(() => {
@@ -51,19 +39,9 @@ export default function DepartmentsAll() {
       }
     }
 
-    async function fetchDataTotalAsync() {
-      try {
-        const fetchedData = await fetchData();
-        setDataTotal(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    }
     getServices();
-    fetchDataTotalAsync();
   }, []);
-  if (!services || !dataTotal) {
-    // Render loading state or return null if you don't want to render anything
+  if (!services) {
     return <Loader />;
   }
   const handleClick = (id) => {
@@ -72,10 +50,6 @@ export default function DepartmentsAll() {
   };
   return (
     <>
-      {/* <Navbar
-        manuClass="navigation-menu nav-light nav-left"
-        containerClass="container"
-      /> */}
       <section
         className="bg-half-170 d-table w-100"
         style={{ backgroundImage: `url('/images/17.webp')` }}
@@ -192,7 +166,7 @@ export default function DepartmentsAll() {
       </section>
       {/* <Footer data={dataTotal} /> */}
 
-      <ScrollTop />
+      {/* <ScrollTop /> */}
     </>
   );
 }

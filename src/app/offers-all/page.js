@@ -24,9 +24,7 @@ import AOS from "aos";
 
 export default function DepartmentsAll() {
   const [services, setServices] = useState([]);
-  const [dataTotal, setDataTotal] = useState(null);
   useEffect(() => {
-    // Initialize AOS when the component mounts
     AOS.init({
       duration: 1200, // Duration of the animation
       easing: "ease-out-cubic",
@@ -58,25 +56,12 @@ export default function DepartmentsAll() {
       }
     }
 
-    async function fetchDataTotalAsync() {
-      try {
-        const fetchedData = await fetchData();
-        setDataTotal(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      }
-    }
     getServices();
-    fetchDataTotalAsync();
   }, []);
-  if (!services || !dataTotal) {
-    // Render loading state or return null if you don't want to render anything
+  if (!services) {
     return <Loader />;
   }
 
-  const handleClick = (id) => {
-    localStorage.setItem("categoryId", id);
-  };
   return (
     <>
       {/* <Navbar
@@ -238,9 +223,8 @@ export default function DepartmentsAll() {
           </div>
         </div>
       </section>
-      {/* <Footer data={dataTotal} /> */}
 
-      <ScrollTop />
+      {/* <ScrollTop /> */}
     </>
   );
 }

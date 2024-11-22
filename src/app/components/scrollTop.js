@@ -36,7 +36,7 @@ export default function ScrollTop() {
       href="#"
       onClick={(e) => {
         e.preventDefault(); // Prevent default anchor behavior
-        scrollToTop(); // Trigger smooth scroll to top
+        scrollToTop(); 
       }}
       id="back-to-top"
       className="back-to-top fs-5 rounded-pill text-center bg-primary justify-content-center align-items-center"

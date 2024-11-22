@@ -18,12 +18,12 @@ const ServiceDetails = async (props) => {
   const fetchedDataResponse = await fetch(
     `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
   );
-  console.log(
-    `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
-  );
+  //console.log(
+  //   `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
+  // );
   const fetchedData = await fetchedDataResponse.json();
   data = fetchedData.data;
-  console.log("fetched data:", fetchedData.data);
+  //console.log("fetched data:", fetchedData.data);
 
   if (!data) {
     return (

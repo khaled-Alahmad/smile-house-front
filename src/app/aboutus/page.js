@@ -70,12 +70,7 @@ export default function AboutUs() {
   }, []);
 
   if (!data || !categories) {
-    return (
-      <>
-        {" "}
-        <Loader />
-      </>
-    );
+    return <Loader />;
   }
 
   //console.log("about :", data);
@@ -415,7 +410,7 @@ export default function AboutUs() {
         </div>
       </section>
       {/* <Footer data={data} /> */}
-      <ScrollTop />
+      {/* <ScrollTop /> */}
     </>
   );
 }
