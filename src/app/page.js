@@ -23,12 +23,14 @@ export default function Home() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    // إعداد AOS
     AOS.init({
-      duration: 1200,
-      easing: "ease-out-cubic",
+      duration: 500,
+      easing: "ease-out-sine",
+      once: false, // السماح بتكرار التأثير عند العودة
     });
-    return () => AOS.refreshHard();
+    return () => {
+      AOS.refreshHard();
+    };
   }, []);
 
   const handleClick = (id) => {

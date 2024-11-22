@@ -30,10 +30,8 @@ export default function Footer() {
     };
 
     if (clientKey) {
-      setTimeout(() => {
-        // تأخير تحميل البيانات لضمان استقرار الصفحة
-        fetchData();
-      }, 500); // تأخير بسيط
+      // تأخير تحميل البيانات لضمان استقرار الصفحة
+      fetchData();
     }
   }, []);
 

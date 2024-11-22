@@ -48,9 +48,7 @@ export async function FetchCategories() {
 }
 export async function doctors() {
   try {
-    const response = await axios.get(
-      "https://smilehouse.serv00.net/api/home"
-    );
+    const response = await axios.get("https://smilehouse.serv00.net/api/home");
     // //console.log(response.data.data.doctors);
     return response.data.data.doctors;
   } catch (error) {

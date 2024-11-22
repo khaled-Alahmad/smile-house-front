@@ -1,5 +1,4 @@
 "use client";
-
 import { Inter } from "next/font/google";
 import Navbar from "./components/navbar";
 import dynamic from "next/dynamic"; // استيراد dynamic لتحميل المكونات بشكل كسول
@@ -7,7 +6,10 @@ import "./globals.css";
 import "./assets/scss/style.scss";
 import "./assets/scss/bootstrap.scss";
 import "./assets/css/materialdesignicons.min.css";
+
 import Script from "next/script";
+
+import ScrollManager from "./components/ScrollManager";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +23,14 @@ const LazyFooter = dynamic(() => import("./components/footer"), {
 });
 
 export default function RootLayout({ children }) {
+  // useEffect(() => {
+  //   AOS.init({
+  //     duration: 2000,
+  //     easing: "ease-out-sine",
+  //     once: true,
+  //   });
+  // }, []);
+
   return (
     <html lang="ar">
       <head>
@@ -74,11 +84,9 @@ export default function RootLayout({ children }) {
           manuClass="navigation-menu nav-light nav-left"
           containerClass="container"
         />
-        {/* <ScrollRestoration> */}
+        {/* <ScrollManager /> */}
         {children}
-        {/* </ScrollRestoration> */}
 
-        {/* تحميل Footer بشكل كسول */}
         <LazyFooter />
       </body>
     </html>
