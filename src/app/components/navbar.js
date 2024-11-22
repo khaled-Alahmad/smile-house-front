@@ -37,21 +37,21 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
   let [manu, setManu] = useState("");
   let current = usePathname();
 
-  useEffect(() => {
-    setManu(current);
+  // useEffect(() => {
+  //   setManu(current);
 
-    window.addEventListener("scroll", () => {
-      setScroll(window.scrollY > 50);
-    });
+  //   window.addEventListener("scroll", () => {
+  //     setScroll(window.scrollY > 50);
+  //   });
 
-    const closeModal = () => {
-      setModal(false);
-    };
-    document.addEventListener("mousedown", closeModal);
-    return () => {
-      document.removeEventListener("mousedown", closeModal);
-    };
-  }, [current]);
+  //   const closeModal = () => {
+  //     setModal(false);
+  //   };
+  //   document.addEventListener("mousedown", closeModal);
+  //   return () => {
+  //     document.removeEventListener("mousedown", closeModal);
+  //   };
+  // }, [current]);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.scrollY > 50);

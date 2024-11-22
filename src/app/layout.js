@@ -74,7 +74,10 @@ export default function RootLayout({ children }) {
           manuClass="navigation-menu nav-light nav-left"
           containerClass="container"
         />
+        {/* <ScrollRestoration> */}
         {children}
+        {/* </ScrollRestoration> */}
+
         {/* تحميل Footer بشكل كسول */}
         <LazyFooter />
       </body>

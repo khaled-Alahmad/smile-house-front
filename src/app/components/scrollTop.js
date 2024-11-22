@@ -1,23 +1,25 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { FiArrowUp } from "../assets/icons/vander";
 
 export default function ScrollTop() {
-  let [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  // Toggle visibility of the scroll-to-top button based on scroll position
-  let toggleVisible = () => {
-    let scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
+  const getScrollTop = () => {
+    return (
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0
+    );
   };
 
-  // Scroll smoothly to the top
-  let scrollToTop = () => {
+  const toggleVisible = () => {
+    const scrolled = getScrollTop();
+    setVisible(scrolled > 300);
+  };
+
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -25,24 +27,24 @@ export default function ScrollTop() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", toggleVisible);
-    }
+    window.addEventListener("scroll", toggleVisible);
     return () => window.removeEventListener("scroll", toggleVisible);
   }, []);
 
   return (
-    <Link
-      href="#"
-      onClick={(e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        scrollToTop(); 
-      }}
+    <button
+      onClick={scrollToTop}
       id="back-to-top"
       className="back-to-top fs-5 rounded-pill text-center bg-primary justify-content-center align-items-center"
-      style={visible ? { display: "block" } : { display: "none" }}
+      style={{
+        display: visible ? "block" : "none",
+        position: "fixed",
+        bottom: "20px",
+        right: "20px",
+        zIndex: "1000",
+      }}
     >
       <FiArrowUp className="fea icon-sm" />
-    </Link>
+    </button>
   );
 }

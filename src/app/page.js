@@ -18,62 +18,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RelatedProduct from "./components/pharmacy/relatedProduct";
 import { getCookie, setCookie } from "cookies-next";
-import { usePathname } from "next/navigation";
-import { useRef } from "react";
 
 export default function Home() {
   const [data, setData] = useState(null);
-  const pathname = usePathname();
-
-  const isRestoringScroll = useRef(false); // لمنع تسجيل التمرير أثناء الاستعادة
-  const scrollTimeout = useRef(null); // لإدارة التأخير بعد الاستعادة
-
-  // حفظ موضع التمرير في localStorage
-  const saveScrollPosition = () => {
-    if (isRestoringScroll.current) return; // إذا كان يتم استعادة التمرير، لا تحفظ الموضع
-    const scrollY = window.scrollY;
-    if (scrollY > 0) {
-      const scrollPositions =
-        JSON.parse(localStorage.getItem("scrollPositions")) || {};
-      scrollPositions[pathname] = scrollY;
-      localStorage.setItem("scrollPositions", JSON.stringify(scrollPositions));
-      //console.log("Saved scroll position:", pathname, scrollY);
-    }
-  };
-
-  // استعادة موضع التمرير من localStorage
-  const restoreScrollPosition = () => {
-    const scrollPositions =
-      JSON.parse(localStorage.getItem("scrollPositions")) || {};
-    const previousScroll = scrollPositions[pathname] || 0;
-    //console.log("Restoring scroll position:", pathname, previousScroll);
-
-    isRestoringScroll.current = true; // تفعيل وضع الاستعادة
-    setTimeout(() => {
-      window.scrollTo(0, previousScroll); // استعادة الموضع
-      isRestoringScroll.current = false; // تعطيل وضع الاستعادة بعد التمرير
-
-      // منع حفظ التمرير مباشرة بعد الاستعادة
-      scrollTimeout.current = setTimeout(() => {
-        isRestoringScroll.current = false;
-      }, 300); // تأخير إضافي للتأكد من استقرار الصفحة
-    }, 200); // تأخير بسيط
-  };
-
-  useEffect(() => {
-    //console.log("Current pathname:", pathname);
-    restoreScrollPosition(); // استعادة الموضع عند تحميل الصفحة
-
-    // حفظ الموضع عند التمرير
-    const handleScroll = () => saveScrollPosition();
-    window.addEventListener("scroll", handleScroll);
-
-    // تنظيف المستمعات عند تفريغ المكون
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(scrollTimeout.current); // تنظيف المؤقت
-    };
-  }, [pathname]);
 
   useEffect(() => {
     // إعداد AOS
@@ -83,6 +30,7 @@ export default function Home() {
     });
     return () => AOS.refreshHard();
   }, []);
+
   const handleClick = (id) => {
     setCookie("categoryId", id);
     localStorage.setItem("categoryId", id);
