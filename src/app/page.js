@@ -8,7 +8,16 @@ import Patients from "./components/patients";
 import ScrollTop from "./components/scrollTop";
 import AboutImage from "./components/aboutImage";
 
-import { FiCalendar, FiClock, BiLeftArrowAlt } from "./assets/icons/vander";
+import {
+  FiCalendar,
+  FiClock,
+  BiLeftArrowAlt,
+  FiTwitter,
+  FiHeart,
+  RiMapPinLine,
+  RiTimeLine,
+  RiMoneyDollarCircleLine,
+} from "./assets/icons/vander";
 import AOS from "aos";
 
 import { fetchData } from "./data/dataApi";
@@ -21,6 +30,7 @@ import { getCookie, setCookie } from "cookies-next";
 
 export default function Home() {
   const [data, setData] = useState(null);
+  const [device, setDevice] = useState(null);
 
   useEffect(() => {
     AOS.init({
@@ -65,6 +75,7 @@ export default function Home() {
       try {
         const fetchedData = await fetchData();
         setData(fetchedData);
+        setDevice(fetchedData.medical_device);
         localStorage.setItem(
           "appointment_phone",
           fetchedData.bookAppointment["whatsapp-number"]
@@ -254,6 +265,175 @@ export default function Home() {
             })}
             <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
               <Link href="/departments-all" className="btn btn-primary">
+                عرض المزيد
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="medical"></div>
+      <div className="section " dir="rtl">
+        <div className="container   mb-60">
+          <div className="row justify-content-center" data-aos="zoom-in-down">
+            <div className="col-12">
+              <div className="section-title mb-4  text-center">
+                <span className="badge rounded-pill bg-soft-primary mb-3">
+                  الأجهزة
+                </span>
+                <h4 className="title mb-4">الأجهزة الطبية</h4>
+                <p className="text-muted mx-auto para-desc mb-0">
+                  تقدم الأجهزة الطبية حلولاً مبتكرة للتشخيص والعلاج، مما يساهم
+                  في تحسين جودة الرعاية الصحية ودعم الأطباء في تقديم خدمات فعالة
+                  وسريعة للمرضى.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            {device.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="col-lg-6 col-md-12 col-12 my-2"
+                  data-aos="fade-up" // تأثير الحركات عند الظهور
+                  data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
+                >
+                  <div className="col-lg-12 col-md-12 mt-4 pt-2" key={index}>
+                    <div className="card team border-0 rounded shadow overflow-hidden">
+                      <div className="row align-items-center">
+                        <div className="col-md-6">
+                          <div className="team-person position-relative overflow-hidden">
+                            <Image
+                              src={item.images[0].path}
+                              width={0}
+                              height={0}
+                              sizes="100vw"
+                              style={{ width: "100%", height: "auto" }}
+                              className="img-fluid"
+                              alt=""
+                            />
+                            {/* <ul className="list-unstyled team-like">
+                              <li>
+                                <Link
+                                  href="#"
+                                  className="btn btn-icon btn-pills btn-soft-danger"
+                                >
+                                  <FiHeart className="icons" />
+                                </Link>
+                              </li>
+                            </ul> */}
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="card-body" dir="rtl">
+                            <Link
+                              href="#"
+                              className=" text-dark h6 d-block mb-0 "
+                            >
+                              {item.name}
+                            </Link>
+                            {/* <small className="text-muted speciality">
+                              {item.speciality}
+                            </small> */}
+                            {/* <div className="d-flex justify-content-between align-items-center mt-2">
+                              <ul className="list-unstyled mb-0">
+                                <li className="list-inline-item">
+                                  <i className="mdi mdi-star text-warning"></i>
+                                </li>
+                                <li className="list-inline-item">
+                                  <i className="mdi mdi-star text-warning"></i>
+                                </li>
+                                <li className="list-inline-item">
+                                  <i className="mdi mdi-star text-warning"></i>
+                                </li>
+                                <li className="list-inline-item">
+                                  <i className="mdi mdi-star text-warning"></i>
+                                </li>
+                                <li className="list-inline-item">
+                                  <i className="mdi mdi-star text-warning"></i>
+                                </li>
+                              </ul>
+                              <p className="text-muted mb-0">5 Star</p>
+                            </div> */}
+                            <ul className="list-unstyled mt-4 mb-0" dir="rtl">
+                              <li className="d-flex ms-0 mt-2">
+                                <small className="text-bold me-2">
+                                  بلد المنشأ:
+                                </small>
+                                <small className="text-muted me-2">
+                                  {item.place_origin}
+                                </small>
+                              </li>
+                              <li className="d-flex ms-0 mt-2">
+                                <small className="text-bold me-2">
+                                  اسم الماركة:
+                                </small>
+                                <small className="text-muted me-2">
+                                  {item.brand_name}
+                                </small>
+                              </li>
+                              <li className="d-flex ms-0 mt-2">
+                                <small className="text-bold me-2">السعر:</small>
+                                <small className="text-muted me-2">
+                                  {item.price}
+                                </small>
+                              </li>
+                            </ul>
+                            {/* <ul className="list-unstyled mt-2 mb-0">
+                              <li className="list-inline-item">
+                                <Link
+                                  href="#"
+                                  className="btn btn-icon btn-pills btn-soft-primary"
+                                >
+                                  <FiFacebook className="icons" />
+                                </Link>
+                              </li>
+                              <li className="mt-2 list-inline-item">
+                                <Link
+                                  href="#"
+                                  className="btn btn-icon btn-pills btn-soft-primary"
+                                >
+                                  <FiLinkedin className="icons" />
+                                </Link>
+                              </li>
+                              <li className="mt-2 list-inline-item">
+                                <Link
+                                  href="#"
+                                  className="btn btn-icon btn-pills btn-soft-primary"
+                                >
+                                  <FiGithub className="icons" />
+                                </Link>
+                              </li>
+                              <li className="mt-2 list-inline-item">
+                                <Link
+                                  href="#"
+                                  className="btn btn-icon btn-pills btn-soft-primary"
+                                >
+                                  <FiTwitter className="icons" />
+                                </Link>
+                              </li>
+                            </ul> */}
+                            <Link
+                              href={`/medical-devices/${item.id}`}
+                              className="link btn btn-primary btn-sm mt-4"
+                              // legacyBehavior
+                            >
+                              {/* <a onClick={() => handleClick(item.id)}> */}
+                              عرض التفاصيل
+                              <BiLeftArrowAlt className="align-middle" />
+                              {/* </a> */}
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <div className="col-12 mt-4 pt-2 text-center" data-aos="fade-up">
+              <Link href="/medical-devices" className="btn btn-primary">
                 عرض المزيد
               </Link>
             </div>

@@ -46,7 +46,7 @@ export default function RelatedProduct({ data, offer = false }) {
     <div
       className="row"
       dir="ltr"
-      data-aos="fade-up" // تأثير الحركات عند الظهور
+      // data-aos="fade-up" // تأثير الحركات عند الظهور
       // data-aos-delay={index * 100} // تأخير الحركة بناءً على الفهرس
     >
       <div className="col-lg-12 mt-4 pt-2 text-center">

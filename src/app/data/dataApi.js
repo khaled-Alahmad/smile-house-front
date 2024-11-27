@@ -93,3 +93,23 @@ export async function fetchCategories() {
     throw error;
   }
 }
+export async function fetchMedicalDevices() {
+  try {
+    const response = await axios.get(`${apiUrl}medical-devices`);
+    // //console.log(response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    throw error;
+  }
+}
+export async function fetchMedicalDevice(id) {
+  try {
+    const response = await axios.get(`${apiUrl}medical-devices/${id}`);
+    // //console.log(response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    throw error;
+  }
+}
