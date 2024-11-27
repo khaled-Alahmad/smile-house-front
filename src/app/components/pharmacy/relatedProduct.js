@@ -15,7 +15,7 @@ import { productData } from "../../data/data";
 export default function RelatedProduct({ data, offer = false }) {
   let settings = {
     container: ".slider-range-four",
-    items: 2,
+    items: 4,
     controls: false,
     mouseDrag: true,
     loop: true,
@@ -25,7 +25,7 @@ export default function RelatedProduct({ data, offer = false }) {
     autoplayTimeout: 3000,
     navPosition: "bottom",
     speed: 400,
-    gutter: 24,
+    gutter: 16,
     responsive: {
       992: {
         items: 4,
@@ -58,7 +58,7 @@ export default function RelatedProduct({ data, offer = false }) {
             {data.map((item, index) => {
               return (
                 <div className="tiny-slide" key={index}>
-                  <div className="card shop-list border-0">
+                  <div className="card shop-list border-0 shadow-md rounded">
                     <div className="shop-image position-relative overflow-hidden">
                       <Link
                         href={`${

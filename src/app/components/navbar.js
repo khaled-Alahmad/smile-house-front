@@ -218,7 +218,49 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                   }
                 }}
               >
-                عنا
+                من نحن
+              </a>
+            </li>
+            <li
+              className={`has-submenu parent-menu-item ${
+                manu === "/offers-all" ? "active" : ""
+              }`}
+            >
+              <a
+                href="#offers"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("offers");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
+              >
+                العروض
+              </a>
+            </li>
+            <li
+              className={`has-submenu parent-menu-item ${
+                manu === "/medical-devices" ? "active" : ""
+              }`}
+            >
+              <a
+                href="#medicals"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("medicals");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
+              >
+                الأجهزة الطبية
               </a>
             </li>
 

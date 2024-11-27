@@ -150,6 +150,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <div id="offers"></div>
 
       {data.offers.length !== 0 && (
         <>
@@ -250,13 +251,11 @@ export default function Home() {
                       {/* زر عرض الخدمات مثبت في الأسفل */}
                       <Link
                         href="/departments"
-                        className="link mt-auto"
-                        legacyBehavior
+                        className="btn btn-primary btn-sm"
+                        onClick={() => handleClick(item.id)}
                       >
-                        <a onClick={() => handleClick(item.id)}>
-                          عرض الخدمات
-                          <BiLeftArrowAlt className="align-middle" />
-                        </a>
+                        عرض الخدمات
+                        <BiLeftArrowAlt className="align-middle" />
                       </Link>
                     </div>
                   </div>
@@ -271,7 +270,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div id="medical"></div>
+      <div id="medicals"></div>
       <div className="section " dir="rtl">
         <div className="container   mb-60">
           <div className="row justify-content-center" data-aos="zoom-in-down">
