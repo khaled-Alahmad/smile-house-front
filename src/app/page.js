@@ -236,13 +236,17 @@ export default function Home() {
                       />
                     </div>
                     <div className="card-body p-3 d-flex flex-column">
-                      <Link href="/departments" legacyBehavior>
-                        <a
+                      <Link
+                        href={`/departments/${item.id}`}
+
+                        // legacyBehavior
+                      >
+                        {/* <a
                           onClick={() => handleClick(item.id)}
                           className="title text-dark h5"
-                        >
-                          {item.name}
-                        </a>
+                        > */}
+                        {item.name}
+                        {/* </a> */}
                       </Link>
                       <p className="text-muted mt-3 flex-grow-1">
                         {item.description}
@@ -250,9 +254,9 @@ export default function Home() {
 
                       {/* زر عرض الخدمات مثبت في الأسفل */}
                       <Link
-                        href="/departments"
-                        className="btn btn-primary btn-sm"
-                        onClick={() => handleClick(item.id)}
+                        href={`/departments/${item.id}`}
+                        className="btn btn-primary  text-black "
+                        // onClick={() => handleClick(item.id)}
                       >
                         عرض الخدمات
                         <BiLeftArrowAlt className="align-middle" />
@@ -308,7 +312,7 @@ export default function Home() {
                               width={0}
                               height={0}
                               sizes="100vw"
-                              style={{ width: "100%", height: "auto" }}
+                              style={{ width: "100%", height: "300px" }}
                               className="img-fluid"
                               alt=""
                             />

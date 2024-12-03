@@ -108,7 +108,7 @@ const DepartmentsClient = ({ services, offerData }) => {
 
                         <Link
                           href={`/services-details/${item.id}`}
-                          className="btn btn-primary btn-sm"
+                          className="btn btn-primary "
                         >
                           عرض التفاصبل
                           <BiLeftArrowAlt className="align-middle" />

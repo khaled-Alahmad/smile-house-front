@@ -2,11 +2,14 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import ImageP from "@/app/assets/placeholder.svg";
 
 const TinySlider = dynamic(() => import("tiny-slider-react"), { ssr: false });
 import "tiny-slider/dist/tiny-slider.css";
 
 export default function ProductSlider({ images = [] }) {
+  console.log(images);
+
   // إعدادات TinySlider
   let settings2 = {
     container: ".client-review-slider",
@@ -22,7 +25,6 @@ export default function ProductSlider({ images = [] }) {
     speed: 400,
     gutter: 16,
   };
-  console.log(images);
 
   // تحقق من وجود الصور
   if (!images || images.length === 0) {
@@ -40,16 +42,18 @@ export default function ProductSlider({ images = [] }) {
           <div className="tiny-slide" key={index}>
             <Image
               src={item.path}
-              width={0}
-              height={0}
-              sizes="100vw"
+              width={800} // تحديد عرض الصورة
+              height={600} // تحديد ارتفاع الصورة
+              quality={75} // تقليل جودة الصورة لتحسين الأداء
+              placeholder="blur" // توفير صورة ضبابية أثناء التحميل
+              blurDataURL={ImageP.src} // يمكنك وضع رابط لصورة placeholder صغيرة
+              className="img-fluid rounded"
+              alt={`Image ${index + 1}`}
               style={{
                 width: "100%",
                 height: "300px",
                 objectFit: "cover",
               }}
-              className="img-fluid rounded"
-              alt={`Image ${index + 1}`}
             />
           </div>
         ))}

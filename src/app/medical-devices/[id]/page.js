@@ -9,8 +9,12 @@ import RelatedProductFa from "@/app/components/pharmacy/relatedProductFa";
 
 export default function PharmacyProductDetail({ params }) {
   const [data, setData] = useState(null);
+  const [phone, setPhone] = useState(null);
 
   useEffect(() => {
+    const phone_company = localStorage.getItem("appointment_phone");
+    setPhone(phone_company);
+
     async function fetchData() {
       const fetchedData = await fetchMedicalDevice(params.id);
       setData(fetchedData);
@@ -37,14 +41,7 @@ export default function PharmacyProductDetail({ params }) {
                 <h3 className="sub-title text-primary shadow-white mb-4">
                   {data.name}
                 </h3>
-                <p className="para-desc mx-auto text-white">
-                  {data.description.split("\n").map((line, index) => (
-                    <span key={index}>
-                      {line}
-                      <br />
-                    </span>
-                  ))}
-                </p>
+
                 <nav aria-label="breadcrumb" className="d-inline-block mt-3">
                   <ul className="breadcrumb bg-light rounded mb-0 bg-transparent">
                     <li className="breadcrumb-item">
@@ -113,37 +110,61 @@ export default function PharmacyProductDetail({ params }) {
                 </ul>
               </div>
               <div className="mt-4">
-                <Link href="#" className="btn btn-primary me-2">
+                <Link
+                  href={`https://wa.me/${phone}?text=${encodeURIComponent(
+                    `مرحبًا، أود شراء المنتج التالي:\n\nاسم المنتج: ${data.name}\nالسعر: ${data.price}\n`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary me-2"
+                >
                   اشتري الآن
                 </Link>
-                {/* <Link
-                  href="/pharmacy-shop-cart"
-                  className="btn btn-soft-primary"
-                >
-                  أضف إلى السلة
-                </Link> */}
               </div>
             </div>
           </div>
-
+          <div className="row mt-5">
+            <div className="col-12">
+              <h5 className="mb-3">وصف المنتج:</h5>
+              <p className=" mx-auto text-black">
+                {data.description.split("\n").map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
+              </p>
+            </div>
+          </div>
           {/* المواصفات */}
           <div className="row mt-5">
             <div className="col-12">
-              <h5 className="mb-3">المواصفات:</h5>
-              <ul className="list-unstyled">
-                {data.specifications.map((spec) => (
-                  <li key={spec.id}>
-                    <strong>{spec.key}:</strong> {spec.value}
-                  </li>
-                ))}
-              </ul>
+              <h5 className="mb-3">مواصفات المنتج:</h5>
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    {/* <th scope="col"></th>
+                    <th scope="col"></th> */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.specifications.map((spec) => (
+                    <tr key={spec.id}>
+                      <td>
+                        <strong>{spec.key}</strong>
+                      </td>
+                      <td>{spec.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
 
           {/* الميزات */}
           <div className="row mt-5">
             <div className="col-12">
-              <h5 className="mb-3">الميزات:</h5>
+              <h5 className="mb-3">الخصائص المشتركة :</h5>
               <ul className="list-unstyled">
                 {data.features.map((feature) => (
                   <li key={feature.id}>

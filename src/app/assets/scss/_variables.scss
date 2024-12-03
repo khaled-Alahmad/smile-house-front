@@ -13,6 +13,10 @@
 .bg-overlay-o {
   background-color: rgb(26, 22, 14) !important;
 }
+#tns1 > .tns-item {
+  width: calc(25%);
+  padding-right: 40px !important;
+}
 .video-modal {
   position: fixed;
   top: 50%;

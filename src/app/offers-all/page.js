@@ -1,29 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Navbar from "../components/navbar";
-import {
-  BiLeftArrowAlt,
-  FiArrowRight,
-  FiCalendar,
-} from "../assets/icons/vander";
-import Footer from "../components/footer";
-import ScrollTop from "../components/scrollTop";
-import axios from "axios";
-import {
-  FetchCategories,
-  apiUrl,
-  fetchCategories,
-  fetchData,
-  fetchOffersAll,
-} from "../data/dataApi";
+import { FiCalendar } from "../assets/icons/vander";
+import { fetchOffersAll } from "../data/dataApi";
 import Image from "next/image";
 import Loader from "../components/loader";
 import Dotdotdot from "react-dotdotdot";
 import AOS from "aos";
 
 export default function DepartmentsAll() {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState(null);
   useEffect(() => {
     AOS.init({
       duration: 1200, // Duration of the animation

@@ -53,13 +53,13 @@ export default function RelatedProduct({ data, offer = false }) {
         <span className="text-center text-muted">
           {data.length <= 0 ? "لايوجد صور" : ""}
         </span>
-        <div className="slider-range-four">
+        <div className="slider-range-four rounded">
           <TinySlider settings={settings}>
             {data.map((item, index) => {
               return (
                 <div className="tiny-slide" key={index}>
-                  <div className="card shop-list border-0 shadow-md rounded">
-                    <div className="shop-image position-relative overflow-hidden">
+                  <div className="card shop-list border-0  rounded">
+                    <div className="shop-image position-relative overflow-hidden rounded">
                       <Link
                         href={`${
                           offer ? "offers-all" : offer ? item.image : item.url
@@ -77,7 +77,7 @@ export default function RelatedProduct({ data, offer = false }) {
                             height: "250px",
                             objectFit: "cover",
                           }}
-                          className="img-fluid image-offer m-1"
+                          className="img-fluid image-offer rounded shadow-lg"
                           alt=""
                         />
                       </Link>

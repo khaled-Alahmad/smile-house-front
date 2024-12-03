@@ -1,9 +1,9 @@
 // src/app/departments/page.js
 import React from "react";
 import { cookies } from "next/headers"; // استخدم next/headers هنا
-import DepartmentsClient from "../components/DepartmentsClient";
+import DepartmentsClient from "@/app/components/DepartmentsClient";
 
-const Departments = async () => {
+const Departments = async ({ params  }) => {
   //console.log("Fetching data...");
 
   let services = [];
@@ -12,7 +12,9 @@ const Departments = async () => {
 
   // الحصول على categoryId و clientKey من الكوكيز
   const cookieStore = cookies();
-  const categoryId = cookieStore.get("categoryId")?.value;
+  // const categoryId = cookieStore.get("categoryId")?.value;
+  const categoryId = params.id;
+
   const clientKey = cookieStore.get("client_key")?.value;
   try {
     //console.log("clientKey:", clientKey);
