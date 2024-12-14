@@ -200,27 +200,7 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
               <Link href="/">الرئيسية</Link>
             </li>
 
-            <li
-              className={`has-submenu parent-menu-item ${
-                manu === "/aboutus" ? "active" : ""
-              }`}
-            >
-              <a
-                href="#about"
-                onClick={(e) => {
-                  e.preventDefault(); // تعطيل السلوك الافتراضي للرابط
-                  const section = document.getElementById("about");
-                  if (section) {
-                    section.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start",
-                    }); // التمرير بسلاسة
-                  }
-                }}
-              >
-                من نحن
-              </a>
-            </li>
+          
             <li
               className={`has-submenu parent-menu-item ${
                 manu === "/offers-all" ? "active" : ""
@@ -240,6 +220,29 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 }}
               >
                 العروض
+              </a>
+            </li>
+           
+
+            <li
+              className={`has-submenu parent-menu-item ${
+                manu === "/departments-all" ? "active" : ""
+              }`}
+            >
+              <a
+                href="#departments"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById("departments");
+                  if (section) {
+                    section.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
+              >
+                الخدمات
               </a>
             </li>
             <li
@@ -263,29 +266,27 @@ export default function Navbar({ navDark, manuClass, containerClass }) {
                 الأجهزة الطبية
               </a>
             </li>
-
             <li
               className={`has-submenu parent-menu-item ${
-                manu === "/departments-all" ? "active" : ""
+                manu === "/aboutus" ? "active" : ""
               }`}
             >
               <a
-                href="#departments"
+                href="#about"
                 onClick={(e) => {
-                  e.preventDefault();
-                  const section = document.getElementById("departments");
+                  e.preventDefault(); // تعطيل السلوك الافتراضي للرابط
+                  const section = document.getElementById("about");
                   if (section) {
                     section.scrollIntoView({
                       behavior: "smooth",
                       block: "start",
-                    });
+                    }); // التمرير بسلاسة
                   }
                 }}
               >
-                الخدمات
+                من نحن
               </a>
             </li>
-
             <li
               className={`has-submenu parent-parent-menu-item ${
                 manu === "/doctor-team" ? "active" : ""

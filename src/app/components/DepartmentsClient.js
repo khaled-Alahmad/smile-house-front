@@ -65,8 +65,8 @@ const DepartmentsClient = ({ services, offerData }) => {
                 <div
                   className="col-xl-3 col-lg-4 col-md-6 col-12 mt-4 pt-2"
                   key={index}
-                  // data-aos="fade-up"
-                  // data-aos-delay={index * 100}
+                // data-aos="fade-up"
+                // data-aos-delay={index * 100}
                 >
                   <div
                     className="card-img icon text-center rounded-md"
@@ -105,7 +105,15 @@ const DepartmentsClient = ({ services, offerData }) => {
                           {item.description.split(" ").slice(0, 40).join(" ")}
                           ...
                         </p>
-
+                        <p className="text-muted  mb-2 text-end">
+                          <small className="text-bold me-2 text-dark ">
+                            السعر:
+                          </small>
+                          <small className="text-muted me-2 text-dark ">
+                            {item.price}$
+                          </small>
+                          {/* {item.price}$ */}
+                        </p>
                         <Link
                           href={`/services-details/${item.id}`}
                           className="btn btn-primary "

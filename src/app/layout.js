@@ -46,10 +46,10 @@ export default function RootLayout({ children }) {
         />
         <meta
           property="og:image"
-          content="https://smile-house.vercel.app/images/logo.png"
+          content="https://www.smilehouse11.com/images/logo.png"
         />
-        <meta property="og:url" content="https://smile-house.vercel.app" />
-
+        <meta property="og:url" content="https://www.smilehouse11.com/" />
+        <meta name="google-site-verification" content="zRfCCyPZVuyc60mG3SawTbGedY6-NT0tEtWFOonLlAU" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="سمايل هاوس - مركز تجميل في إدلب" />
         <meta
@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="twitter:image"
-          content="https://smile-house.vercel.app/images/logo.png"
+          content="https://www.smilehouse11.com/images/logo.png"
         />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link
