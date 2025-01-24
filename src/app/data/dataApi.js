@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-export const apiUrl = "https://smilehouse.serv00.net/api/";
+export const apiUrl = "https://backend.smilehouse11.com/api/";
 export async function fetchData() {
   const key = localStorage.getItem("client_key");
 
@@ -37,7 +37,7 @@ export async function fetchOffersAll() {
 export async function FetchCategories() {
   try {
     const response = await axios.get(
-      "https://smilehouse.serv00.net/api/categories"
+      "https://backend.smilehouse11.com/api/categories"
     );
     // //console.log(response.data);
     return response.data.data;
@@ -48,7 +48,7 @@ export async function FetchCategories() {
 }
 export async function doctors() {
   try {
-    const response = await axios.get("https://smilehouse.serv00.net/api/home");
+    const response = await axios.get("https://backend.smilehouse11.com/api/home");
     // //console.log(response.data.data.doctors);
     return response.data.data.doctors;
   } catch (error) {
@@ -59,7 +59,7 @@ export async function doctors() {
 export async function fetchBlogDetails(id) {
   try {
     const response = await axios.get(
-      "https://smilehouse.serv00.net/api/blogs/" + id
+      "https://backend.smilehouse11.com/api/blogs/" + id
     );
     // //console.log(response.data.data.doctors);
     return response.data.data;
@@ -73,7 +73,7 @@ export async function fetchServiceDetails(id) {
 
   try {
     const response = await axios.get(
-      `https://smilehouse.serv00.net/api/services/${id}?clientKey=${key}`
+      `https://backend.smilehouse11.com/api/services/${id}?clientKey=${key}`
     );
     // //console.log(response.data.data.doctors);
     return response.data.data;

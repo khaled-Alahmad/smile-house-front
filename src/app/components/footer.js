@@ -21,7 +21,7 @@ export default function Footer() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://smilehouse.serv00.net/api/home?clientKey=${clientKey}`
+          `https://backend.smilehouse11.com/api/home?clientKey=${clientKey}`
         );
         setData(response.data.data);
       } catch (error) {

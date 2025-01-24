@@ -16,10 +16,10 @@ const ServiceDetails = async (props) => {
   const clientKey = cookieStore.get("client_key")?.value;
 
   const fetchedDataResponse = await fetch(
-    `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
+    `https://backend.smilehouse11.com/api/services/${id}?clientKey=${clientKey}`
   );
   //console.log(
-  //   `https://smilehouse.serv00.net/api/services/${id}?clientKey=${clientKey}`
+  //   `https://backend.smilehouse11.com/api/services/${id}?clientKey=${clientKey}`
   // );
   const fetchedData = await fetchedDataResponse.json();
   data = fetchedData.data;

@@ -27,7 +27,7 @@ const Departments = async ({ params  }) => {
 
     // جلب الخدمات
     const servicesResponse = await fetch(
-      `https://smilehouse.serv00.net/api/services?category_id=${categoryId}&clientKey=${clientKey}`
+      `https://backend.smilehouse11.com/api/services?category_id=${categoryId}&clientKey=${clientKey}`
     );
 
     if (!servicesResponse.ok) {
@@ -40,7 +40,7 @@ const Departments = async ({ params  }) => {
 
     // جلب البيانات الإضافية
     const fetchedDataResponse = await fetch(
-      `https://smilehouse.serv00.net/api/home?clientKey=${clientKey}`
+      `https://backend.smilehouse11.com/api/home?clientKey=${clientKey}`
     );
 
     if (!fetchedDataResponse.ok) {
