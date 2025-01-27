@@ -9,6 +9,7 @@ const nextConfig = {
       "smile-house.promotion22.com",
       "doctris-landing.vercel.app",
       "smilehouse.serv00.net",
+      "backend.smilehouse11.com"
     ],
   },
 };
